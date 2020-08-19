@@ -2,24 +2,63 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7fa7e52c-2703-4912-a5b8-6c3dc54d1e87" name="Default Changelist" comment="initial commit">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_for_Android.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/KotlinJavaRuntime.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/main_dart.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/bubbles.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/MYRIADPRO-BOLD.OTF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fonts/ProfessorIcons.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/loader.flr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/loader.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/loader_2.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/noAuth.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/noConnection.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/ori_bubbles.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/serverDown.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/resources/CustomScrollBar.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/resources/censeo_provider.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/resources/globalAlerts.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/resources/loader.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/resources/professorIcons.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Login/bloc/bloc.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Login/provider.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Login/ui/Login.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/bloc/professor.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/bloc/turma.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/models/Aula.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/models/AulasAbertas.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/models/Turma.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/provider.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/Professor.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/managerTurmas/Calendar.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/managerTurmas/DayDialog.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/managerTurmas/ManagerTurma.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/managerTurmas/dropDown.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/managerTurmas/teste.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Professor/BottomNavigationProfessor/BottomNavigationBar.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Professor/BottomNavigationProfessor/TabNavigatorProfessor.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Data/Data.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/Suggestions.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/User/models/alunos.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/User/models/user.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/widget_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/widget_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
+  <component name="FlutterView" splitter-proportion="0.5603645" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
@@ -39,9 +78,28 @@
   <component name="PropertiesComponent">
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets/fonts" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/managerTurmas" />
+      <recent name="$PROJECT_DIR$/lib/src/Professor/BottomNavigationProfessor" />
+      <recent name="$PROJECT_DIR$/lib/src/Professor" />
+      <recent name="$PROJECT_DIR$/lib/src/Professor/Suggestions" />
+      <recent name="$PROJECT_DIR$/lib/src/Professor/Aulas" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/fonts" />
+      <recent name="$PROJECT_DIR$/assets" />
+      <recent name="$PROJECT_DIR$/lib/resources" />
+      <recent name="$PROJECT_DIR$/lib/src" />
+      <recent name="$PROJECT_DIR$/lib/src/Professor" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="4" Folder0="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master" Folder1="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master" Folder2="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master" Folder3="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master" CustomDictionaries="4" CustomDictionary0="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master/portuguese-brazil.dic" CustomDictionary1="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master/portuguese-brazil_technical-terms.dic" CustomDictionary2="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master/portuguese-brazil_technical-terms_without-accents.dic" CustomDictionary3="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master/portuguese-brazil_without-accents.dic" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="project-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -60,7 +118,14 @@
       <option name="project" value="LOCAL" />
       <updated>1594050282605</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="initial commit">
+      <created>1594050599438</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1594050599438</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -68,25 +133,127 @@
     <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2272" y="240" width="739" height="595" key="CommitChangelistDialog2" timestamp="1594050282415">
+    <state x="2241" y="201" width="802" height="762" key="#Intentions" timestamp="1596775190456">
       <screen x="1366" y="0" width="2560" height="1080" />
     </state>
-    <state x="2272" y="240" width="739" height="595" key="CommitChangelistDialog2/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1594050282415" />
-    <state x="2429" y="284" width="426" height="506" key="FileChooserDialogImpl" timestamp="1594049178631">
+    <state x="2241" y="201" width="802" height="762" key="#Intentions/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1596775190456" />
+    <state x="2241" y="201" width="802" height="672" key="#Notifications" timestamp="1597205707437">
       <screen x="1366" y="0" width="2560" height="1080" />
     </state>
-    <state x="2429" y="284" width="426" height="506" key="FileChooserDialogImpl/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1594049178631" />
+    <state x="2241" y="201" width="802" height="672" key="#Notifications/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1597205707437" />
+    <state x="2453" y="468" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1596773218611">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="2453" y="468" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1596773218611" />
+    <state x="2394" y="380" width="496" height="319" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1596780937155">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="2394" y="380" width="496" height="319" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1596780937155" />
+    <state x="2272" y="240" width="739" height="595" key="CommitChangelistDialog2" timestamp="1594352595562">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="2272" y="240" width="739" height="595" key="CommitChangelistDialog2/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1594352595562" />
+    <state x="1466" y="99" width="2360" height="882" key="DiffContextDialog" timestamp="1595129671322">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="1466" y="99" width="2360" height="882" key="DiffContextDialog/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1595129671322" />
+    <state x="2429" y="284" width="316" height="360" key="FileChooserDialogImpl" timestamp="1596768278738">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="567" y="202" width="316" height="360" key="FileChooserDialogImpl/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1594128999189" />
+    <state x="2429" y="284" width="426" height="506" key="FileChooserDialogImpl/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1596768278738" />
     <state x="2408" y="410" width="467" height="255" key="Github.CreatePullRequestDialog" timestamp="1594049589837">
       <screen x="1366" y="0" width="2560" height="1080" />
     </state>
     <state x="2408" y="410" width="467" height="255" key="Github.CreatePullRequestDialog/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1594049589837" />
-    <state x="2241" y="276" width="802" height="523" key="Vcs.Push.Dialog.v2" timestamp="1594050289966">
+    <state width="1236" height="284" key="GridCell.Tab.0.bottom" timestamp="1597799308403">
       <screen x="1366" y="0" width="2560" height="1080" />
     </state>
-    <state x="2241" y="276" width="802" height="523" key="Vcs.Push.Dialog.v2/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1594050289966" />
-    <state x="2442" y="460" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1594049538113">
+    <state width="1322" height="201" key="GridCell.Tab.0.bottom/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1596680047270" />
+    <state width="1236" height="284" key="GridCell.Tab.0.bottom/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1597799308403" />
+    <state width="596" height="533" key="GridCell.Tab.0.bottom/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1597720295855" />
+    <state width="1322" height="288" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1594519844279" />
+    <state width="1236" height="284" key="GridCell.Tab.0.center" timestamp="1597799308403">
       <screen x="1366" y="0" width="2560" height="1080" />
     </state>
-    <state x="2442" y="460" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1594049538113" />
+    <state width="1322" height="201" key="GridCell.Tab.0.center/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1596680047270" />
+    <state width="1236" height="284" key="GridCell.Tab.0.center/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1597799308403" />
+    <state width="596" height="533" key="GridCell.Tab.0.center/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1597720295855" />
+    <state width="1322" height="288" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1594519844278" />
+    <state width="1236" height="284" key="GridCell.Tab.0.left" timestamp="1597799308402">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state width="1322" height="201" key="GridCell.Tab.0.left/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1596680047269" />
+    <state width="1236" height="284" key="GridCell.Tab.0.left/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1597799308402" />
+    <state width="596" height="533" key="GridCell.Tab.0.left/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1597720295855" />
+    <state width="1322" height="288" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1594519844277" />
+    <state width="1236" height="284" key="GridCell.Tab.0.right" timestamp="1597799308403">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state width="1322" height="201" key="GridCell.Tab.0.right/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1596680047270" />
+    <state width="1236" height="284" key="GridCell.Tab.0.right/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1597799308403" />
+    <state width="596" height="533" key="GridCell.Tab.0.right/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1597720295855" />
+    <state width="1322" height="288" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1594519844279" />
+    <state x="2150" y="175" key="SettingsEditor" timestamp="1594786658507">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="2150" y="175" key="SettingsEditor/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1594786658507" />
+    <state x="2241" y="276" width="802" height="523" key="Vcs.Push.Dialog.v2" timestamp="1594050607195">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="2241" y="276" width="802" height="523" key="Vcs.Push.Dialog.v2/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1594050607195" />
+    <state x="1466" y="99" width="2360" height="882" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1597799217695">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="53" y="70" width="1260" height="628" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1596679878121" />
+    <state x="1466" y="99" width="2360" height="882" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1597799217695" />
+    <state x="3976" y="93" width="1181" height="838" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1596750588468" />
+    <state x="53" y="70" width="1260" height="628" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1366.768@0.0.1366.768" timestamp="1594476834719" />
+    <state x="1466" y="100" width="2361" height="881" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1595129678111">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="1466" y="100" width="2361" height="881" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1595129678111" />
+    <state x="1466" y="99" width="2360" height="882" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1594691197250">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="1466" y="99" width="2360" height="882" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1594691197250" />
+    <state x="1466" y="99" width="2360" height="882" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog" timestamp="1595131767649">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="1466" y="99" width="2360" height="882" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1595131767649" />
+    <state x="2210" y="374" key="com.intellij.ide.util.TipDialog" timestamp="1597791613298">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="515" y="261" key="com.intellij.ide.util.TipDialog/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1596679831345" />
+    <state x="2210" y="374" key="com.intellij.ide.util.TipDialog/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1597791613298" />
+    <state x="4409" y="348" key="com.intellij.ide.util.TipDialog/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1595474873684" />
+    <state x="4409" y="348" key="com.intellij.ide.util.TipDialog/0.0.1366.768/3926.0.1280.1024/1366.0.2560.1080@3926.0.1280.1024" timestamp="1597436711533" />
+    <state x="515" y="261" key="com.intellij.ide.util.TipDialog/0.0.1366.768@0.0.1366.768" timestamp="1594519783662" />
+    <state x="2254" y="104" width="401" height="540" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1597211013554">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="474" y="74" width="401" height="610" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1594129048431" />
+    <state x="2254" y="104" width="685" height="759" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1597211013554" />
+    <state x="474" y="74" width="401" height="540" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.768@0.0.1366.768" timestamp="1594477046328" />
+    <state x="2442" y="460" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1597208084818">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="2442" y="460" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1597208084818" />
+    <state x="574" y="327" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.768@0.0.1366.768" timestamp="1594484736860" />
+    <state x="2348" y="254" width="777" height="542" key="find.popup" timestamp="1597724564949">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="2348" y="254" width="777" height="542" key="find.popup/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1597724564949" />
+    <state x="475" y="191" width="777" height="542" key="find.popup/0.0.1366.768@0.0.1366.768" timestamp="1594484226300" />
+    <state x="2309" y="248" width="672" height="677" key="run.anything.popup" timestamp="1597193930504">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="503" y="176" key="run.anything.popup/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1594574923826" />
+    <state x="2309" y="248" width="672" height="677" key="run.anything.popup/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1597193930504" />
+    <state x="503" y="176" key="run.anything.popup/0.0.1366.768@0.0.1366.768" timestamp="1594485912154" />
+    <state x="2309" y="238" width="672" height="678" key="search.everywhere.popup" timestamp="1595183551785">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="2309" y="238" width="672" height="678" key="search.everywhere.popup/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1595183551785" />
   </component>
 </project>

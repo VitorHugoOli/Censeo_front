@@ -1,0 +1,212 @@
+import 'package:censeo/resources/professorIcons.dart';
+import 'package:censeo/src/Professor/Aulas/models/Aula.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+
+import 'dropDown.dart';
+
+class Calendar extends StatefulWidget {
+  Calendar({Key key, this.aulas}) : super(key: key);
+  Map<DateTime, Aula> aulas;
+
+  @override
+  _CalendarState createState() => new _CalendarState();
+}
+
+class _CalendarState extends State<Calendar> {
+  static DateTime today = DateTime.now();
+  DateTime _currentDate = DateTime.now();
+  DateTime _targetDateTime = DateTime.now();
+  String dropdownValue = "Janeiro";
+
+  CalendarCarousel _calendarCarousel;
+
+  static const List<String> monthList = [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro'
+  ];
+
+  @override
+  void initState() {
+    var month = DateFormat.MMMM('pt-BR').format(today);
+    dropdownValue = month.substring(0, 1).toUpperCase() + month.substring(1);
+
+    super.initState();
+  }
+
+  calendarChange(DateTime date) {
+    this.setState(() {
+      var month = DateFormat.MMMM('pt-BR').format(date);
+      dropdownValue = month.substring(0, 1).toUpperCase() + month.substring(1);
+      _targetDateTime = date;
+      _currentDate = date;
+    });
+  }
+
+  dayPressed(date, _) {
+    _currentDate = date;
+    setState(() {});
+  }
+
+  dayBuilder(Size size) {
+    Widget widgetDay(
+        {@required Color colorRadius,
+        @required Color colorText,
+        @required DateTime day,
+        BoxShape shape = BoxShape.rectangle}) {
+      var decoration = BoxDecoration();
+      if (shape == BoxShape.circle) {
+        decoration = BoxDecoration(
+          color: colorRadius,
+          shape: shape,
+        );
+      } else {
+        decoration = BoxDecoration(
+          color: colorRadius,
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.all(Radius.circular(50.0)),
+        );
+      }
+
+      return Container(
+        decoration: decoration,
+        margin: const EdgeInsets.all(1),
+        width: 50,
+        height: 50,
+        child: Center(
+          child: Text(
+            '${day.day}',
+            style: GoogleFonts.poppins(
+              fontSize: 18.0,
+              color: colorText,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      );
+    }
+
+    return (bool isSelectable, int index, bool isSelectedDay, bool isToday, bool isPrevMonthDay, TextStyle textStyle,
+        bool isNextMonthDay, bool isThisMonthDay, DateTime day) {
+      if (widget?.aulas?.containsKey(day)??false) {
+        return widgetDay(colorRadius: Colors.amber, colorText: Colors.white, day: day, shape: BoxShape.circle);
+      }
+
+      if (isNextMonthDay || isPrevMonthDay) {
+        return widgetDay(colorRadius: Colors.transparent, colorText: Color.fromRGBO(34, 33, 91, 0.3), day: day);
+      } else if (isSelectedDay) {
+        return widgetDay(colorRadius: Color(0xff28313B), colorText: Colors.white, day: day, shape: BoxShape.circle);
+      } else if (isToday) {
+        return widgetDay(colorRadius: Color(0x9928313B), colorText: Colors.white, day: day, shape: BoxShape.circle);
+      } else {
+        return widgetDay(colorRadius: Colors.transparent, colorText: Color(0xff28313B), day: day);
+      }
+    };
+  }
+
+  buildHeader() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          "Calendário",
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            color: Color(0xff28313b),
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            fontStyle: FontStyle.normal,
+          ),
+        ),
+        DropdownButtonCustom<String>(
+          value: dropdownValue,
+          icon: Icon(ProfessorIcons.dropright),
+          iconSize: 14,
+          elevation: 16,
+          style: GoogleFonts.poppins(
+            color: Color(0xff28313b),
+            fontSize: 25,
+            fontWeight: FontWeight.w700,
+            fontStyle: FontStyle.normal,
+          ),
+          onChanged: (String newValue) {
+            setState(() {
+              dropdownValue = newValue;
+              calendarChange(DateTime(today.year, monthList.indexOf(newValue) + 1, 1));
+            });
+          },
+          items: monthList.map<DropdownMenuItemCustom<String>>((String value) {
+            return DropdownMenuItemCustom<String>(
+              value: value,
+              child: Text(value + " " + _targetDateTime.year.toString()),
+            );
+          }).toList(),
+        )
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+    /// Example with custom icon
+    _calendarCarousel = CalendarCarousel(
+      locale: 'pt_BR',
+      selectedDayButtonColor: Colors.transparent,
+      selectedDayBorderColor: Colors.transparent,
+      todayBorderColor: Colors.transparent,
+      todayButtonColor: Colors.transparent,
+      weekDayFormat: WeekdayFormat.narrow,
+      weekdayTextStyle: GoogleFonts.poppins(
+        color: Color(0xaa28313B),
+        fontWeight: FontWeight.w600,
+        fontSize: 20,
+      ),
+      firstDayOfWeek: 0,
+      showHeader: false,
+      height: 290,
+      childAspectRatio: 1.2,
+      width: size.width,
+      staticSixWeekFormat: true,
+      selectedDateTime: _currentDate,
+      markedDateMoreShowTotal: true,
+      targetDateTime: _targetDateTime,
+      minSelectedDate: DateTime(today.year - 1, 12, 31),
+      maxSelectedDate: DateTime(today.year, 12, 31),
+      onCalendarChanged: calendarChange,
+      onDayPressed: dayPressed,
+      customDayBuilder: dayBuilder(size),
+      markedDateCustomShapeBorder: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(100.0),
+        ),
+      ),
+    );
+
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        children: [
+          buildHeader(),
+          _calendarCarousel,
+        ],
+      ),
+    ); //
+  }
+}
