@@ -1,3 +1,4 @@
+import 'package:censeo/src/Aluno/BottomNavigationProfessor/BottomNavigationBar.dart';
 import 'package:censeo/src/Login/bloc/bloc.dart';
 import 'package:censeo/src/Professor/BottomNavigationProfessor/BottomNavigationBar.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,7 +46,7 @@ class _LoginState extends State<Login> {
     );
   }
 
-  InputDecoration decoration(label, error) => InputDecoration(
+  static InputDecoration decoration(label, error) => InputDecoration(
         fillColor: Color(0x78FFFFFF),
         suffixIcon: error
             ? Container(
@@ -203,7 +204,7 @@ class _LoginState extends State<Login> {
         if (response['type'] == "Professor") {
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavigationProfessor()));
         } else {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavigationProfessor()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavigationAluno()));
         }
         return;
       } else {

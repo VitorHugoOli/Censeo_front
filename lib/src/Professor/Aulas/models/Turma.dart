@@ -47,7 +47,9 @@ class Turma {
         ano: json["ano"],
         semestre: json["semestre"],
         disciplina: Disciplina.fromJson(json["disciplina"]),
-        horarios: List<Horario>.from(json["horarios"].map((x) => Horario.fromJson(x))),
+        horarios: json.containsKey("horarios")
+            ? List<Horario>.from(json["horarios"].map((x) => Horario.fromJson(x)))
+            : List<Horario>(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -92,7 +94,6 @@ class Disciplina {
       };
 }
 
-
 class Horario {
   Horario({
     this.id,
@@ -121,7 +122,6 @@ class Horario {
       };
 }
 
-
 class TurmaOpenClass {
   TurmaOpenClass({
     this.id,
@@ -136,16 +136,16 @@ class TurmaOpenClass {
   String semestre;
 
   factory TurmaOpenClass.fromJson(Map<String, dynamic> json) => TurmaOpenClass(
-    id: json["id"],
-    codigo: json["codigo"],
-    ano: json["ano"],
-    semestre: json["semestre"],
-  );
+        id: json["id"],
+        codigo: json["codigo"],
+        ano: json["ano"],
+        semestre: json["semestre"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "codigo": codigo,
-    "ano": ano,
-    "semestre": semestre,
-  };
+        "id": id,
+        "codigo": codigo,
+        "ano": ano,
+        "semestre": semestre,
+      };
 }

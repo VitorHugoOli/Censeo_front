@@ -23,7 +23,7 @@ class Alunos {
         id: json["id"],
         xp: double.parse(json["xp"]),
         curso: json["curso"],
-        user: User.fromJson(json["user"]),
+        user: User.fromJson(json["user_u"]),
       );
 
   Map<String, dynamic> toJson() => {

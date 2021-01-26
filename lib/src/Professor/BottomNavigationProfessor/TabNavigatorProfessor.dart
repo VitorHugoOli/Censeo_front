@@ -1,6 +1,6 @@
 import 'package:censeo/src/Professor/Aulas/ui/Professor.dart';
 import 'package:censeo/src/Professor/Data/Data.dart';
-import 'package:censeo/src/Professor/Suggestions/Suggestions.dart';
+import 'package:censeo/src/Professor/Suggestions/ui/Categories.dart';
 import 'package:flutter/material.dart';
 
 class TabNavigatorRoutes {
@@ -30,7 +30,7 @@ class TabNavigator extends StatelessWidget {
     return {
       TabNavigatorRoutes.aulas: (context) => Professor(onPush: (page) => _push(context,page)),
       TabNavigatorRoutes.dados: (context) => Data(onPush: (page) => _push(context,page)),
-      TabNavigatorRoutes.sugestoes: (context) => Suggestions(onPush: (page) => _push(context,page))
+      TabNavigatorRoutes.sugestoes: (context) => CategoriesPage(onPush: (page) => _push(context,page))
     };
   }
 

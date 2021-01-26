@@ -1,10 +1,11 @@
 import 'dart:math';
 
+import 'package:censeo/resources/Transformer.dart';
 import 'package:censeo/resources/loader.dart';
-import 'package:censeo/src/Professor/Aulas/bloc/turma.dart';
+import 'package:censeo/src/Professor/Aulas/bloc/professor.dart';
 import 'package:censeo/src/Professor/Aulas/models/Aula.dart';
 import 'package:censeo/src/Professor/Aulas/models/Turma.dart';
-import 'package:censeo/src/Professor/Aulas/ui/managerTurmas/DayDialog.dart';
+import 'package:censeo/src/Professor/Aulas/ui/managerTurmas/EditClassDialog.dart';
 import 'package:censeo/src/User/models/alunos.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -16,8 +17,9 @@ import 'Calendar.dart';
 
 class ManagerTurma extends StatefulWidget {
   final Turma _turma;
+  final Bloc bloc;
 
-  ManagerTurma(this._turma);
+  ManagerTurma(this._turma, this.bloc);
 
   @override
   _ManagerTurmaState createState() => _ManagerTurmaState();
@@ -25,23 +27,14 @@ class ManagerTurma extends StatefulWidget {
 
 class _ManagerTurmaState extends State<ManagerTurma> {
   static const List<String> days = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
-  Bloc bloc;
 
   @override
   void initState() {
-    bloc = Bloc(widget._turma.id);
     super.initState();
   }
 
-  Widget buildNameTitle(Size size) {
-    String verfNameDisciplina(String sigla, String name) {
-      var hasTurma = sigla.replaceAll(new RegExp(r"([A-Za-z]{3}[0-9]{3})"), '');
-      if (hasTurma.contains("T")) {
-        return name + " - turma " + hasTurma.replaceAll("T", '');
-      }
-      return name;
-    }
 
+  Widget buildNameTitle(Size size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -73,7 +66,7 @@ class _ManagerTurmaState extends State<ManagerTurma> {
         Container(
           width: size.width * 0.5,
           child: Text(
-            verfNameDisciplina(widget._turma.codigo, widget._turma.disciplina.nome),
+            checkDisciplinaName(widget._turma.codigo, widget._turma.disciplina.nome),
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
               color: Color(0xffffffff),
@@ -131,7 +124,7 @@ class _ManagerTurmaState extends State<ManagerTurma> {
         width: size.width * 0.8,
         child: Center(
           child: StreamBuilder<List<Alunos>>(
-              stream: bloc.getAlunos,
+              stream: widget.bloc.getAlunos,
               builder: (context, AsyncSnapshot<List<Alunos>> snapshot) {
                 List<Alunos> data = snapshot.data ?? [];
 
@@ -209,7 +202,7 @@ class _ManagerTurmaState extends State<ManagerTurma> {
     };
 
     return Container(
-      margin: EdgeInsets.only(top: 15,bottom: 30),
+      margin: EdgeInsets.only(top: 15, bottom: 30),
       height: size.height * 0.33,
       width: size.width * 0.9,
       decoration: BoxDecoration(
@@ -225,39 +218,42 @@ class _ManagerTurmaState extends State<ManagerTurma> {
 
   Widget buildCalendar(size) {
     return Container(
-        margin: EdgeInsets.only(top: 15),
-        height: 340,
-        width: size.width * 0.9,
-        decoration: BoxDecoration(
-          color: Color(0xffffffff),
-          borderRadius: BorderRadius.circular(9),
-        ),
-        child: StreamBuilder<Map<DateTime, Aula>>(
-            stream: bloc.getDaysCalender,
-            builder: (context, AsyncSnapshot<Map<DateTime, Aula>> snapshot) {
-              return Calendar(aulas: snapshot.data);
-            }));
+      margin: EdgeInsets.only(top: 15),
+      height: 340,
+      width: size.width * 0.9,
+      decoration: BoxDecoration(
+        color: Color(0xffffffff),
+        borderRadius: BorderRadius.circular(9),
+      ),
+      child: StreamBuilder<Map<DateTime, Aula>>(
+          stream: widget.bloc.getDaysCalender,
+          builder: (context, AsyncSnapshot<Map<DateTime, Aula>> snapshot) {
+            return Calendar(
+              aulas: snapshot.data,
+              bloc: widget.bloc,
+              turma: widget._turma,
+            );
+          }),
+    );
   }
 
   Widget buildProgDays(size) {
-    dialogEditClass() {
+    dialogEditClass(Turma turma) {
       return showDialog(
         context: context,
         builder: (BuildContext context) {
           Size size = MediaQuery.of(context).size;
           return AlertDialog(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(32.0))),
-            title: DayDialog.title(),
-            content: DayDialog(widget._turma.horarios, widget._turma.id, bloc),
-            actions: DayDialog.actions(context, size, bloc, widget._turma, setState),
+            title: EditClassDialog.title(),
+            content: EditClassDialog(turma.horarios, turma.id, widget.bloc),
+            actions: EditClassDialog.actions(context, turma.id, size, widget.bloc),
           );
         },
-      ).then((value) {
-        setState(() {});
-      });
+      );
     }
 
-    Function body = () {
+    Function body = (Turma turma) {
       return Container(
         height: size.height * 0.12,
         margin: EdgeInsets.only(top: 2),
@@ -268,7 +264,7 @@ class _ManagerTurmaState extends State<ManagerTurma> {
             Horario date;
             new DateFormat.yMMMd().format(new DateTime.now());
             bool hasDate = false;
-            widget._turma.horarios.forEach((element) {
+            turma?.horarios?.forEach((element) {
               if (element.dia.toLowerCase() == days.toLowerCase()) {
                 date = element;
                 hasDate = true;
@@ -337,7 +333,7 @@ class _ManagerTurmaState extends State<ManagerTurma> {
       );
     };
 
-    Function button = () {
+    Function button = (Turma turma) {
       return Container(
         height: size.height * 0.07,
         width: size.width * 0.8,
@@ -346,7 +342,7 @@ class _ManagerTurmaState extends State<ManagerTurma> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             GestureDetector(
-              onTap: dialogEditClass,
+              onTap: () => dialogEditClass(turma),
               child: Text("Editar",
                   style: GoogleFonts.poppins(
                     color: Color(0xff28313b),
@@ -369,10 +365,22 @@ class _ManagerTurmaState extends State<ManagerTurma> {
         color: Color(0xffffffff),
         borderRadius: BorderRadius.circular(9),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[title(), body(), button()],
-      ),
+      child: StreamBuilder(
+          stream: widget.bloc.turmaList,
+          builder: (context, AsyncSnapshot<TurmaProfessor> snapshot) {
+            Turma thisTurma = Turma();
+            if (snapshot.hasData) {
+              snapshot?.data?.turmas?.forEach((element) {
+                if (element.id == widget._turma.id) {
+                  thisTurma = element;
+                }
+              });
+            }
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[title(), body(thisTurma), button(thisTurma)],
+            );
+          }),
     );
   }
 
@@ -380,34 +388,34 @@ class _ManagerTurmaState extends State<ManagerTurma> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      backgroundColor: Color(0xffff3f85),
-      body: SingleChildScrollView(
-        child: StreamBuilder<bool>(
-            stream: bloc.hasData,
-            builder: (context, snapshot) {
-              return Loader(
-                loader: (snapshot.hasData && snapshot.data),
+    return FutureBuilder(
+      future: widget.bloc.fetchDataTurma(widget._turma.id),
+      builder: (context, snapshot) {
+        return Loader(
+          loader: (snapshot.connectionState == ConnectionState.done),
+          child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+            ),
+            backgroundColor: Color(0xffff3f85),
+            body: SingleChildScrollView(
                 child: Container(
-                  padding: EdgeInsets.only(left: 5, right: 5, top: 0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      buildNameTitle(size),
-                      buildProgDays(size),
-                      buildCalendar(size),
-                      buildAlunos(size),
-                    ],
-                  ),
-                ),
-              );
-            }),
-      ),
+              padding: EdgeInsets.only(left: 5, right: 5, top: 0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  buildNameTitle(size),
+                  buildProgDays(size),
+                  buildCalendar(size),
+                  buildAlunos(size),
+                ],
+              ),
+            )),
+          ),
+        );
+      },
     );
   }
 }

@@ -1,15 +1,19 @@
 import 'package:censeo/resources/CustomScrollBar.dart';
 import 'package:censeo/resources/loader.dart';
 import 'package:censeo/src/Professor/Aulas/bloc/professor.dart';
-import 'package:censeo/src/Professor/Aulas/models/AulasAbertas.dart';
+import 'package:censeo/src/Professor/Aulas/models/Aula.dart';
 import 'package:censeo/src/Professor/Aulas/models/Turma.dart';
 import 'package:censeo/src/User/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../main.dart';
+import 'managerClass/FinishingClass.dart';
+import 'managerClass/ManagerClass.dart';
 import 'managerTurmas/ManagerTurma.dart';
 
 class Professor extends StatefulWidget {
@@ -36,26 +40,71 @@ class _ProfessorState extends State<Professor> {
     return StreamBuilder<User>(
         stream: bloc.user,
         builder: (context, AsyncSnapshot<User> snapshot) {
-          return Column(
-            children: <Widget>[
-              Text(
-                snapshot.hasData ? snapshot.data.nome : "",
-                style: GoogleFonts.poppins(
-                  color: Color(0xffffffff),
-                  fontSize: 25,
-                  fontWeight: FontWeight.w600,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: -0.77,
+          return Stack(
+            children: [
+              Center(
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      snapshot.hasData ? snapshot.data.nome : "",
+                      style: GoogleFonts.poppins(
+                        color: Color(0xffffffff),
+                        fontSize: 25,
+                        fontWeight: FontWeight.w600,
+                        fontStyle: FontStyle.normal,
+                        letterSpacing: -0.77,
+                      ),
+                    ),
+                    Text(
+                      "professor",
+                      style: GoogleFonts.poppins(
+                        color: Color(0xffffffff),
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                        fontStyle: FontStyle.normal,
+                        letterSpacing: -0.49,
+                      ),
+                    )
+                  ],
                 ),
               ),
-              Text(
-                "professor",
-                style: GoogleFonts.poppins(
-                  color: Color(0xffffffff),
-                  fontSize: 17,
-                  fontWeight: FontWeight.w500,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: -0.49,
+              Center(
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      snapshot.hasData ? snapshot.data.nome : "",
+                      style: GoogleFonts.poppins(
+                        color: Color(0xffffffff),
+                        fontSize: 25,
+                        fontWeight: FontWeight.w600,
+                        fontStyle: FontStyle.normal,
+                        letterSpacing: -0.77,
+                      ),
+                    ),
+                    Text(
+                      "professor",
+                      style: GoogleFonts.poppins(
+                        color: Color(0xffffffff),
+                        fontSize: 17,
+                        fontWeight: FontWeight.w500,
+                        fontStyle: FontStyle.normal,
+                        letterSpacing: -0.49,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: IconButton(
+                  onPressed: () {
+                    bloc.logOut();
+                    navigatorKey.currentState.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+                  },
+                  icon: Icon(
+                    Feather.log_out,
+                    color: Colors.white,
+                  ),
                 ),
               )
             ],
@@ -69,25 +118,28 @@ class _ProfessorState extends State<Professor> {
         builder: (context, AsyncSnapshot<TurmaProfessor> snapshot) {
           return Container(
             width: size.width * 0.9,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: size.height * 2, minHeight: size.height),
-              child: ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.only(top: 10, bottom: 10),
-                itemCount: (snapshot.hasData && snapshot.data != null) ? snapshot.data.turmas.length ?? 0 : 0,
-                itemBuilder: (context, index) {
-                  Turma turma = snapshot.data.turmas[index];
-                  return buildCardTurmas(turma, size);
-                },
-              ),
+            child: Flex(
+              direction: Axis.horizontal,
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.only(top: 10, bottom: 10),
+                    itemCount: (snapshot.hasData && snapshot.data != null) ? snapshot.data.turmas.length ?? 0 : 0,
+                    itemBuilder: (context, index) {
+                      Turma turma = snapshot.data.turmas[index];
+                      return buildCardTurmas(turma, size);
+                    },
+                  ),
+                ),
+              ],
             ),
           );
         });
   }
 
   Widget buildCardTurmas(Turma turma, Size size) {
-
     Function title = () {
       return Container(
         height: size.height * 0.1,
@@ -214,7 +266,7 @@ class _ProfessorState extends State<Professor> {
           onPressed: () => {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ManagerTurma(turma)),
+              MaterialPageRoute(builder: (context) => ManagerTurma(turma, bloc)),
             ).then((value) {
               setState(() {});
             })
@@ -251,10 +303,10 @@ class _ProfessorState extends State<Professor> {
 
   Widget buildOpenClass(Size size) {
     Function body = () {
-      return StreamBuilder<List<AulasAbertas>>(
+      return StreamBuilder<List<Aula>>(
           stream: bloc.openClassList,
-          builder: (context, AsyncSnapshot<List<AulasAbertas>> snapshot) {
-            List<AulasAbertas> data = snapshot.data;
+          builder: (context, AsyncSnapshot<List<Aula>> snapshot) {
+            List<Aula> data = snapshot.data;
             return Container(
               width: size.width * 0.8,
               height: size.height * 0.27,
@@ -265,7 +317,7 @@ class _ProfessorState extends State<Professor> {
                   controller: _scrollController,
                   itemCount: snapshot.data?.length ?? 0,
                   itemBuilder: (context, index) {
-                    AulasAbertas item = data[index];
+                    Aula item = data[index];
                     return buildOpenClassItem(size, item);
                   },
                 ),
@@ -308,7 +360,7 @@ class _ProfessorState extends State<Professor> {
     );
   }
 
-  Container buildOpenClassItem(Size size, AulasAbertas item) {
+  Widget buildOpenClassItem(Size size, Aula item) {
     genericText({
       String text,
       double size,
@@ -330,28 +382,42 @@ class _ProfessorState extends State<Professor> {
       );
     }
 
-
-
-    return Container(
-      margin: EdgeInsets.only(bottom: 15),
-      height: size.height * 0.042,
-      decoration: new BoxDecoration(color: Color(0xff5280da), borderRadius: BorderRadius.circular(8)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Container(
-            width: size.width * 0.23,
-            child: genericText(
-                text: item.turma.codigo,
-                size: 18,
-                letterSpacing: -0.63,
-                weight: FontWeight.w600,
-                align: TextAlign.left),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FinishingClass(item, item.turma.codigo, item.turma.id, ClassBloc(bloc)),
           ),
-          genericText(text: item.turma.codigo, size: 15, weight: FontWeight.w500, align: TextAlign.left),
-          genericText(
-              text: DateFormat.Hm().format(item.diaHorario), size: 15, weight: FontWeight.w500, align: TextAlign.left),
-        ],
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.only(bottom: 15),
+        height: size.height * 0.042,
+        decoration: new BoxDecoration(color: Color(0xff5280da), borderRadius: BorderRadius.circular(8)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Hero(
+              tag: "horario_class",
+              child: Container(
+                width: size.width * 0.23,
+                child: genericText(
+                    text: item.turma.codigo,
+                    size: 18,
+                    letterSpacing: -0.63,
+                    weight: FontWeight.w600,
+                    align: TextAlign.left),
+              ),
+            ),
+            genericText(text: item.turma.codigo, size: 15, weight: FontWeight.w500, align: TextAlign.left),
+            genericText(
+                text: DateFormat.Hm().format(item.horario),
+                size: 15,
+                weight: FontWeight.w500,
+                align: TextAlign.left),
+          ],
+        ),
       ),
     );
   }
@@ -363,14 +429,14 @@ class _ProfessorState extends State<Professor> {
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
-          return await bloc.updateClass;
+          return await bloc.fetchOpenClass();
         },
-        child: SingleChildScrollView(
-          child: StreamBuilder<bool>(
-              stream: bloc.hasData,
-              builder: (context, snapshot) {
-                return Loader(
-                  loader: (snapshot.hasData && snapshot.data),
+        child: FutureBuilder<dynamic>(
+            future: bloc.fetchDataProf(),
+            builder: (context, snapshot) {
+              return Loader(
+                loader: (snapshot.connectionState == ConnectionState.done),
+                child: SingleChildScrollView(
                   child: Container(
                     width: size.width,
                     decoration: BoxDecoration(
@@ -394,9 +460,9 @@ class _ProfessorState extends State<Professor> {
                       ),
                     ),
                   ),
-                );
-              }),
-        ),
+                ),
+              );
+            }),
       ),
     );
   }

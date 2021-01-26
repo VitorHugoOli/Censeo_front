@@ -37,7 +37,7 @@ class CenseoApiProvider {
     }
   }
 
-  Future<dynamic> _baseRequest(String type, String finalUrl, Map body) async {
+  Future<dynamic> _baseRequest(String type, String finalUrl, body) async {
     try {
       if (!await _checkWifi()) {
         throw ("No Connect");
@@ -77,7 +77,7 @@ class CenseoApiProvider {
     }
   }
 
-  Future<dynamic> authRequest({@required String type, @required String endpoint, Map body}) async {
+  Future<dynamic> authRequest({@required String type, @required String endpoint, body}) async {
     var finalUrl = "$_baseUrl$endpoint";
     try {
       var token = await _sharePreference();
@@ -92,7 +92,7 @@ class CenseoApiProvider {
       alertNoAuth();
       throw ("Você não está logado.");
     } catch (e) {
-      throw ("Request Error before realize the request.");
+      throw ("Request Error before realize the request.\n"+">>> $e");
     }
   }
 

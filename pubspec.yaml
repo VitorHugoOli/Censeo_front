@@ -39,6 +39,7 @@ dependencies:
   flare_flutter:
   flutter_icons:
   flutter_calendar_carousel:
+  diacritic: ^0.1.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -65,10 +66,12 @@ flutter:
     - assets/ori_bubbles.svg
     - assets/noConnection.json
     - assets/serverDown.json
+    - assets/empty.json
     - assets/noAuth.json
     - assets/loader.flr
     - assets/loader.json
     - assets/loader_2.json
+    - assets/Avatar.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

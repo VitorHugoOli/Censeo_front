@@ -4,8 +4,9 @@ import 'package:lottie/lottie.dart';
 class Loader extends StatelessWidget {
   final Widget child;
   final bool loader;
+  final bool preChild;
 
-  Loader({@required this.child, @required this.loader});
+  Loader({@required this.child, @required this.loader,this.preChild=true});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class Loader extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Stack(
       children: <Widget>[
-        child,
+        (!loader || preChild) ? child: Container(),
         !loader
             ? Container(
                 height: size.height,

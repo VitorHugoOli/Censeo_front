@@ -171,7 +171,7 @@ Future<dynamic> alertNoAuth() {
 }
 
 Future<dynamic> genericAlert() {
-  return showDialog(
+  showDialog(
     context: navigatorKey.currentState.overlay.context,
     builder: (BuildContext context) {
       Size size = MediaQuery.of(context).size;

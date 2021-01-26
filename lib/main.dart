@@ -1,3 +1,4 @@
+import 'package:censeo/src/Aluno/BottomNavigationProfessor/BottomNavigationBar.dart';
 import 'package:censeo/src/Login/ui/Login.dart';
 import 'package:censeo/src/Professor/BottomNavigationProfessor/BottomNavigationBar.dart';
 import 'package:flutter/material.dart';
@@ -42,12 +43,13 @@ BuildContext globalContext;
 
 class MyApp extends StatelessWidget {
   final String type;
-  static final initRoutes = {"Professor": "/professor", null: "/"};
+  static final initRoutes = {"Professor": "/professor", null: "/","Aluno":"/aluno"};
 
   MyApp({@required this.type});
 
   @override
   Widget build(BuildContext context) {
+    print(type);
     globalContext = context;
     return MaterialApp(
       title: 'Censeo',
@@ -71,6 +73,7 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         "/": (BuildContext context) => new Login(),
         "/professor": (BuildContext context) => new BottomNavigationProfessor(),
+        "/aluno": (BuildContext context) => new BottomNavigationAluno(),
       },
     );
   }

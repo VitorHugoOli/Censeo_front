@@ -1,4 +1,4 @@
-import 'package:censeo/src/Professor/Aulas/bloc/turma.dart';
+import 'package:censeo/src/Professor/Aulas/bloc/professor.dart';
 import 'package:censeo/src/Professor/Aulas/models/Turma.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +16,11 @@ class ClassTime {
   ClassTime(this.schedule);
 }
 
-class DayDialog extends StatefulWidget {
-  final List<Horario> horarios;
-  final int turmaId;
+class CreateClassDialog extends StatefulWidget {
+  final DateTime date;
   final Bloc bloc;
 
-  DayDialog(this.horarios, this.turmaId, this.bloc);
+  CreateClassDialog(this.date, this.bloc);
 
   static InputDecoration decoration(label, error) => InputDecoration(
         fillColor: Color(0xffe1e1e1),
@@ -81,7 +80,7 @@ class DayDialog extends StatefulWidget {
 
   static Widget title() {
     return Text(
-      "Horários de Aula",
+      "Criar Aula",
       textAlign: TextAlign.center,
       style: GoogleFonts.poppins(
         color: Color(0xff7000ff),
@@ -90,7 +89,7 @@ class DayDialog extends StatefulWidget {
     );
   }
 
-  static List<Widget> actions(context, size, Bloc bloc, Turma turma, setState) {
+  static List<Widget> actions(context, size, DateTime date, Bloc bloc, int id) {
     return <Widget>[
       new Container(
         width: size.width * 0.8,
@@ -121,18 +120,20 @@ class DayDialog extends StatefulWidget {
                 ),
               ),
             ),
-            StreamBuilder<List<ClassTime>>(
-                stream: bloc.listSchedule,
-                builder: (context, AsyncSnapshot<List<ClassTime>> snapshot) {
-                  return Container(
-                    width: size.width * 0.35,
-                    height: size.height * 0.06,
-                    child: RaisedButton(
+            Container(
+              width: size.width * 0.35,
+              height: size.height * 0.06,
+              child: StreamBuilder<bool>(
+                  stream: bloc.submitCheck,
+                  builder: (context, snapshot) {
+                    return RaisedButton(
                       color: Color(0xffff3f85),
-                      onPressed: () async {
-                        bloc.submitSchedule(snapshot.data, turma);
-                        Navigator.of(context).pop();
-                      },
+                      onPressed: (snapshot.hasData && snapshot.data)
+                          ? () async {
+                              bloc.submitCreateClass(id, date);
+                              Navigator.of(context).pop();
+                            }
+                          : null,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(76),
                       ),
@@ -146,9 +147,9 @@ class DayDialog extends StatefulWidget {
                           letterSpacing: -0.56,
                         ),
                       ),
-                    ),
-                  );
-                }),
+                    );
+                  }),
+            )
           ],
         ),
       ),
@@ -156,88 +157,60 @@ class DayDialog extends StatefulWidget {
   }
 
   @override
-  _DayDialogState createState() => _DayDialogState();
+  _CreateClassDialogState createState() => _CreateClassDialogState();
 }
 
-class _DayDialogState extends State<DayDialog> {
-  final List<ClassTime> days = [
-    ClassTime(Horario(dia: 'Segunda', sala: '')),
-    ClassTime(Horario(dia: 'Terça', sala: '')),
-    ClassTime(Horario(dia: 'Quarta', sala: '')),
-    ClassTime(Horario(dia: 'Quinta', sala: '')),
-    ClassTime(Horario(dia: 'Sexta', sala: '')),
-    ClassTime(Horario(dia: 'Sabado', sala: '')),
-  ];
+class _CreateClassDialogState extends State<CreateClassDialog> {
+  TextEditingController controllerTime = TextEditingController();
+  TextEditingController controllerRoom = TextEditingController();
+  bool timeError = false;
+  bool roomError = false;
+  String messages = "";
 
-  _validatorTime(value, index) {
+  _validatorTime(value) {
     final reg = RegExp(r'^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$');
 
     if (reg.hasMatch(value)) {
       setState(() {
-        days[index].error = true;
-//        messages = "Entre com um email valido.";
+        timeError = true;
+        messages = "Entre com um Horario valido.";
       });
       return "";
     } else {
       setState(() {
-        days[index].error = false;
+        roomError = false;
       });
       return null;
     }
   }
 
   @override
-  void initState() {
-    days.forEach((day) {
-      for (Horario i in widget.horarios) {
-        if (day.schedule.dia.substring(0, 3).toLowerCase() == i.dia.toLowerCase()) {
-          day.controllerTime.text = DateFormat.Hm().format(i.horario);
-          day.controllerRoom.text = i.sala;
-          day.schedule.id = i.id;
-        }
-      }
-    });
-    widget.bloc.listScheduleChanged(days);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    days.clear();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      height: size.height * 0.6,
-      child: SingleChildScrollView(
-        child: Column(
-          children: days.map((day) {
-            return Container(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(bottom: size.height * 0.01, top: size.height * 0.02),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          day.schedule.dia,
-                          style: GoogleFonts.poppins(fontWeight: FontWeight.w700),
-                        )
-                      ],
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Container(
+      height: size.height * 0.18,
+      child: Column(
+        children: [
+          Container(
+            child: Column(
+              children: <Widget>[
+                Text(
+                  DateFormat.EEEE('pt_BR').format(widget.date),
+                  style: GoogleFonts.poppins(fontWeight: FontWeight.w700),
+                ),
+                Text(
+                  DateFormat.Md('pt_BR').format(widget.date),
+                  style: GoogleFonts.poppins(fontWeight: FontWeight.w700),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    Container(
                         height: size.height * 0.08,
                         width: size.width * 0.33,
                         child: TextFormField(
-                          controller: day.controllerTime,
+                          onChanged: widget.bloc.horarioChanged,
+                          controller: controllerTime,
                           keyboardType: TextInputType.datetime,
                           inputFormatters: [
                             MaskTextInputFormatter(
@@ -252,34 +225,33 @@ class _DayDialogState extends State<DayDialog> {
                             fontStyle: FontStyle.normal,
                             letterSpacing: -0.735,
                           ),
-                          decoration: DayDialog.decoration("Horário", day.error),
-                          validator: (value) => _validatorTime(value, days.indexOf(day)),
+                          decoration: CreateClassDialog.decoration("Horário", timeError),
+                          validator: (value) => _validatorTime(value),
+                        )),
+                    Container(
+                      height: size.height * 0.08,
+                      width: size.width * 0.33,
+                      child: TextFormField(
+                        onChanged: widget.bloc.roomChanged,
+                        controller: controllerRoom,
+                        keyboardType: TextInputType.text,
+                        textAlign: TextAlign.left,
+                        style: GoogleFonts.poppins(
+                          color: Color(0xff000000),
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.normal,
+                          letterSpacing: -0.735,
                         ),
+                        decoration: CreateClassDialog.decoration("Sala", roomError),
                       ),
-                      Container(
-                        height: size.height * 0.08,
-                        width: size.width * 0.33,
-                        child: TextFormField(
-                          controller: day.controllerRoom,
-                          keyboardType: TextInputType.text,
-                          textAlign: TextAlign.left,
-                          style: GoogleFonts.poppins(
-                            color: Color(0xff000000),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            fontStyle: FontStyle.normal,
-                            letterSpacing: -0.735,
-                          ),
-                          decoration: DayDialog.decoration("Sala", day.error),
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            );
-          }).toList(),
-        ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
