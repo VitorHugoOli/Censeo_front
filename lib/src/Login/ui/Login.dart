@@ -38,7 +38,8 @@ class _LoginState extends State<Login> {
             child: Text(
               "O melhor aprendizado é\n a critica",
               textAlign: TextAlign.left,
-              style: TextStyle(fontFamily: "Myriad Pro", fontSize: 28, color: Colors.white),
+              style: TextStyle(
+                  fontFamily: "Myriad Pro", fontSize: 28, color: Colors.white),
             ),
           )
         ],
@@ -53,7 +54,9 @@ class _LoginState extends State<Login> {
                 margin: EdgeInsets.only(right: 10, top: 5, bottom: 5),
                 width: 35,
                 height: 35,
-                decoration: new BoxDecoration(borderRadius: BorderRadius.circular(50), color: Color(0xffffffff)),
+                decoration: new BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Color(0xffffffff)),
                 child: Center(
                   child: Text("!",
                       style: TextStyle(
@@ -202,16 +205,21 @@ class _LoginState extends State<Login> {
 
       if (response['status']) {
         if (response['type'] == "Professor") {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavigationProfessor()));
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => BottomNavigationProfessor()));
         } else {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavigationAluno()));
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => BottomNavigationAluno()));
         }
         return;
       } else {
         setState(() {
           messages = response['message'];
           passError = (response['message'] == "Senha incorreta.");
-          emailError = ((response['message'] == "" ? false : true) && !(response['message'] == "Senha incorreta."));
+          emailError = ((response['message'] == "" ? false : true) &&
+              !(response['message'] == "Senha incorreta."));
         });
         return;
       }
@@ -249,15 +257,16 @@ class _LoginState extends State<Login> {
   Widget buildRescue(size) {
     return Container(
       width: size.width * 0.45,
-      height: size.height * 0.06,
+      // height: size.height * 0.06,
       child: RaisedButton(
         color: Colors.white,
         onPressed: () {},
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(76),
+          borderRadius: BorderRadius.circular(8),
         ),
         child: Text(
           "Resgatar Senha",
+          textAlign: TextAlign.center,
           style: GoogleFonts.poppins(
             color: Color(0xff4b2e9d),
             fontSize: 18,
@@ -281,7 +290,9 @@ class _LoginState extends State<Login> {
           margin: EdgeInsets.only(bottom: 5, top: 3),
           child: (emailError && isEmail)
               ? buildAlertMessage(size)
-              : (passError && !isEmail) ? buildAlertMessage(size) : Container()),
+              : (passError && !isEmail)
+                  ? buildAlertMessage(size)
+                  : Container()),
     );
   }
 

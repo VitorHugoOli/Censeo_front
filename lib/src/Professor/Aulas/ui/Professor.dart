@@ -99,7 +99,8 @@ class _ProfessorState extends State<Professor> {
                 child: IconButton(
                   onPressed: () {
                     bloc.logOut();
-                    navigatorKey.currentState.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+                    navigatorKey.currentState.pushNamedAndRemoveUntil(
+                        '/', (Route<dynamic> route) => false);
                   },
                   icon: Icon(
                     Feather.log_out,
@@ -126,7 +127,9 @@ class _ProfessorState extends State<Professor> {
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.only(top: 10, bottom: 10),
-                    itemCount: (snapshot.hasData && snapshot.data != null) ? snapshot.data.turmas.length ?? 0 : 0,
+                    itemCount: (snapshot.hasData && snapshot.data != null)
+                        ? snapshot.data.turmas.length ?? 0
+                        : 0,
                     itemBuilder: (context, index) {
                       Turma turma = snapshot.data.turmas[index];
                       return buildCardTurmas(turma, size);
@@ -144,7 +147,8 @@ class _ProfessorState extends State<Professor> {
       return Container(
         height: size.height * 0.1,
         padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
-        decoration: new BoxDecoration(color: Color(0xffff3f85), borderRadius: BorderRadius.circular(6)),
+        decoration: new BoxDecoration(
+            color: Color(0xffff3f85), borderRadius: BorderRadius.circular(6)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -219,7 +223,8 @@ class _ProfessorState extends State<Professor> {
                   width: 50,
                   height: 50,
                   decoration: new BoxDecoration(
-                      color: hasDate ? Color(0xffFF3F85) : Color(0xff727272), borderRadius: BorderRadius.circular(9)),
+                      color: hasDate ? Color(0xffFF3F85) : Color(0xff727272),
+                      borderRadius: BorderRadius.circular(9)),
                   child: Center(
                     child: Text(
                       days,
@@ -266,7 +271,8 @@ class _ProfessorState extends State<Professor> {
           onPressed: () => {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ManagerTurma(turma, bloc)),
+              MaterialPageRoute(
+                  builder: (context) => ManagerTurma(turma, bloc)),
             ).then((value) {
               setState(() {});
             })
@@ -387,14 +393,16 @@ class _ProfessorState extends State<Professor> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => FinishingClass(item, item.turma.codigo, item.turma.id, ClassBloc(bloc)),
+            builder: (context) => FinishingClass(
+                item, item.turma.codigo, item.turma.id, ClassBloc(bloc)),
           ),
         );
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 15),
         height: size.height * 0.042,
-        decoration: new BoxDecoration(color: Color(0xff5280da), borderRadius: BorderRadius.circular(8)),
+        decoration: new BoxDecoration(
+            color: Color(0xff5280da), borderRadius: BorderRadius.circular(8)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
@@ -410,7 +418,11 @@ class _ProfessorState extends State<Professor> {
                     align: TextAlign.left),
               ),
             ),
-            genericText(text: item.turma.codigo, size: 15, weight: FontWeight.w500, align: TextAlign.left),
+            genericText(
+                text: item.turma.codigo,
+                size: 15,
+                weight: FontWeight.w500,
+                align: TextAlign.left),
             genericText(
                 text: DateFormat.Hm().format(item.horario),
                 size: 15,
@@ -436,28 +448,30 @@ class _ProfessorState extends State<Professor> {
             builder: (context, snapshot) {
               return Loader(
                 loader: (snapshot.connectionState == ConnectionState.done),
-                child: SingleChildScrollView(
-                  child: Container(
-                    width: size.width,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Color(0xff7000FF), Color(0xFF5E06CE), Color(0xFF8F00FF)],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        stops: [0, 0.01, 0.4951],
-                      ),
+                child: Container(
+                  constraints: BoxConstraints.expand(),
+                  padding: EdgeInsets.only(left: 5, right: 5, top: 25),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0xff7000FF),
+                        Color(0xFF5E06CE),
+                        Color(0xFF8F00FF)
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: [0, 0.01, 0.4951],
                     ),
-                    child: Container(
-                      padding: EdgeInsets.only(left: 5, right: 5, top: 25),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          buildNameTitle(size),
-                          buildOpenClass(size),
-                          buildListTurmas(size),
-                        ],
-                      ),
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        buildNameTitle(size),
+                        buildOpenClass(size),
+                        buildListTurmas(size),
+                      ],
                     ),
                   ),
                 ),

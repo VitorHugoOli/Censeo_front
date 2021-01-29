@@ -22,137 +22,26 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fa7e52c-2703-4912-a5b8-6c3dc54d1e87" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/empty.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/resources/Transformer.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Aluno/Avaliar/bloc/aluno.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Aluno/Avaliar/models/Avaliacao.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Aluno/Avaliar/provider.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Aluno/Avaliar/ui/Avaliar.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Aluno/Avaliar/ui/Perguntas.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Aluno/BottomNavigationProfessor/BottomNavigationBar.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Aluno/BottomNavigationProfessor/TabNavigatorAluno.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/managerClass/FinishingClass.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/managerClass/ManagerClass.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/managerTurmas/CreateClassDialog.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/bloc/suggestions.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/models/Categories.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/models/Seuggestion.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/models/Topicos.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/provider.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/ui/Categories.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/ui/EditSuggestionsDialog.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/ui/Suggestions.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/teste.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_for_Android.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_for_Android.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/KotlinJavaRuntime.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/KotlinJavaRuntime.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/main_dart.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/main_dart.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="7fa7e52c-2703-4912-a5b8-6c3dc54d1e87" name="Default Changelist" comment="Subindo algumas alteracoe no app">
+      <change afterPath="$PROJECT_DIR$/lib/resources/CustomTextField.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Aluno/Suggestion/bloc/suggestions.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Aluno/Suggestion/provider.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Aluno/Suggestion/ui/Categories.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Aluno/Suggestion/ui/Dialog.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/src/Aluno/Suggestion/ui/Suggestion.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.metadata" beforeDir="false" afterPath="$PROJECT_DIR$/.metadata" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/debug/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/kotlin/com/poc/censeo/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/kotlin/com/poc/censeo/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/drawable/launch_background.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/drawable/launch_background.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/res/values/styles.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/src/profile/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/profile/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/censeo_android.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/censeo_android.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/bubbles.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/bubbles.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/fonts/MYRIADPRO-BOLD.OTF" beforeDir="false" afterPath="$PROJECT_DIR$/assets/fonts/MYRIADPRO-BOLD.OTF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/fonts/ProfessorIcons.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/assets/fonts/ProfessorIcons.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/loader.flr" beforeDir="false" afterPath="$PROJECT_DIR$/assets/loader.flr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/loader.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/loader.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/loader_2.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/loader_2.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/noConnection.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/noConnection.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/ori_bubbles.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/ori_bubbles.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/censeo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/censeo.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/ios/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Flutter/AppFrameworkInfo.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/AppFrameworkInfo.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Flutter/Debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/Debug.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Flutter/Release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Flutter/Release.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.xcworkspace/contents.xcworkspacedata" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcworkspace/contents.xcworkspacedata" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/AppDelegate.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-20x20@3x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-29x29@3x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-40x40@3x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-60x60@3x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@1x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-76x76@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-83.5x83.5@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/LaunchImage@3x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Base.lproj/LaunchScreen.storyboard" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Base.lproj/LaunchScreen.storyboard" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Base.lproj/Main.storyboard" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Base.lproj/Main.storyboard" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Info.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Runner/Runner-Bridging-Header.h" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/Runner-Bridging-Header.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/resources/CustomScrollBar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/resources/CustomScrollBar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/resources/censeo_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/resources/censeo_provider.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/resources/globalAlerts.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/resources/globalAlerts.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/resources/loader.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/resources/loader.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/resources/professorIcons.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/resources/professorIcons.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Login/bloc/bloc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Login/bloc/bloc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Login/provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Login/provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/Aluno/Avaliar/ui/Avaliar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Aluno/Avaliar/ui/Avaliar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/Aluno/Avaliar/ui/Perguntas.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Aluno/Avaliar/ui/Perguntas.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/Aluno/BottomNavigationProfessor/TabNavigatorAluno.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Aluno/BottomNavigationProfessor/TabNavigatorAluno.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/Login/ui/Login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Login/ui/Login.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Aulas/bloc/professor.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/bloc/professor.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Aulas/bloc/turma.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Aulas/models/Aula.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/models/Aula.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Aulas/models/AulasAbertas.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Aulas/models/Turma.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/models/Turma.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Aulas/provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/provider.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/Professor.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/Professor.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/managerTurmas/Calendar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/managerTurmas/Calendar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/managerTurmas/DayDialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/managerTurmas/EditClassDialog.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/managerTurmas/ManagerTurma.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/managerTurmas/ManagerTurma.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/managerTurmas/dropDown.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/managerTurmas/dropDown.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/managerTurmas/teste.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/BottomNavigationProfessor/BottomNavigationBar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/BottomNavigationProfessor/BottomNavigationBar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/BottomNavigationProfessor/TabNavigatorProfessor.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/BottomNavigationProfessor/TabNavigatorProfessor.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Data/Data.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Data/Data.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Suggestions/Suggestions.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/User/models/alunos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/User/models/alunos.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/User/models/user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/User/models/user.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Suggestions/bloc/suggestions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/bloc/suggestions.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Suggestions/models/Seuggestion.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/models/Suggestion.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Suggestions/provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Suggestions/ui/Categories.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/ui/Categories.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Suggestions/ui/Suggestions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/ui/Suggestions.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/widget_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/widget_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,25 +78,25 @@
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Codigo_Font/healthy_connection/app/flutter" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/resources" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="flutter.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/resources" />
+      <recent name="$PROJECT_DIR$/lib/src/Aluno/Suggestion/ui" />
+      <recent name="$PROJECT_DIR$/lib/src/Aluno/Suggestion" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/lib/src/Aluno/Avaliar" />
-      <recent name="$PROJECT_DIR$/lib/src/Aluno" />
-      <recent name="$PROJECT_DIR$/assets" />
-      <recent name="$PROJECT_DIR$/lib/src/Professor/Suggestions/bloc" />
-      <recent name="$PROJECT_DIR$/assets/fonts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/caleb/ui" />
+      <recent name="$PROJECT_DIR$/lib" />
       <recent name="$PROJECT_DIR$/lib/src/Professor/Suggestions/ui" />
       <recent name="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/managerTurmas" />
       <recent name="$PROJECT_DIR$/lib/src/Professor/BottomNavigationProfessor" />
-      <recent name="$PROJECT_DIR$/lib/src/Professor" />
-      <recent name="$PROJECT_DIR$/lib/src/Professor/Suggestions" />
     </key>
   </component>
   <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="4" Folder0="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master" Folder1="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master" Folder2="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master" Folder3="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master" CustomDictionaries="4" CustomDictionary0="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master/portuguese-brazil.dic" CustomDictionary1="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master/portuguese-brazil_technical-terms.dic" CustomDictionary2="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master/portuguese-brazil_technical-terms_without-accents.dic" CustomDictionary3="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master/portuguese-brazil_without-accents.dic" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="project-level" UseSingleDictionary="true" />
@@ -243,7 +132,14 @@
       <option name="project" value="LOCAL" />
       <updated>1597799386214</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Subindo algumas alteracoe no app">
+      <created>1611690486776</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1611690486776</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -261,17 +157,24 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit" />
     <MESSAGE value="Terminando a primeira parte do calendario" />
-    <option name="LAST_COMMIT_MESSAGE" value="Terminando a primeira parte do calendario" />
+    <MESSAGE value="Subindo algumas alteracoe no app" />
+    <option name="LAST_COMMIT_MESSAGE" value="Subindo algumas alteracoe no app" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="147" y="37" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606977533525">
+    <state x="147" y="37" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1611693536105">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="147" y="37" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.768/1366.0.2560.1080@0.0.1366.768" timestamp="1606977533525" />
-    <state x="187" y="141" width="2188" height="801" key="AVDManager" timestamp="1611519375233">
-      <screen x="0" y="0" width="2560" height="1080" />
+    <state x="147" y="37" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1366.768/3926.0.1280.1024/1366.0.2560.1080@0.0.1366.768" timestamp="1611693536105" />
+    <state x="421" y="128" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1611812518936">
+      <screen x="0" y="0" width="1366" height="768" />
     </state>
-    <state x="1553" y="141" width="2186" height="799" key="AVDManager/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1608474593427" />
+    <state x="421" y="128" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1611812518936" />
+    <state x="100" y="100" width="1168" height="570" key="AVDManager" timestamp="1611895552687">
+      <screen x="0" y="0" width="1366" height="768" />
+    </state>
+    <state x="100" y="100" width="1168" height="570" key="AVDManager/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1611811393794" />
+    <state x="100" y="100" width="1168" height="570" key="AVDManager/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611895552687" />
     <state x="100" y="100" width="1166" height="568" key="AVDManager/0.0.1366.768/1366.0.2560.1080@0.0.1366.768" timestamp="1606977561951" />
     <state x="100" y="100" width="1167" height="569" key="AVDManager/0.0.1366.768@0.0.1366.768" timestamp="1608520674592" />
     <state x="187" y="141" width="2188" height="801" key="AVDManager/0.0.2560.1080@0.0.2560.1080" timestamp="1611519375233" />
@@ -282,39 +185,55 @@
     </state>
     <state x="536" y="126" key="FileChooserDialogImpl/0.0.1366.768/1366.0.2560.1080@0.0.1366.768" timestamp="1606977408063" />
     <state x="2371" y="177" key="FileChooserDialogImpl/1366.0.2560.1080/0.0.1366.768@1366.0.2560.1080" timestamp="1607370752054" />
-    <state width="1234" height="337" key="GridCell.Tab.0.bottom" timestamp="1611452402717">
-      <screen x="0" y="0" width="2560" height="1080" />
+    <state width="2514" height="271" key="GridCell.Tab.0.bottom" timestamp="1611902077747">
+      <screen x="1366" y="0" width="2560" height="1080" />
     </state>
-    <state width="1234" height="416" key="GridCell.Tab.0.bottom/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1608052955117" />
+    <state width="1320" height="257" key="GridCell.Tab.0.bottom/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1611812020488" />
+    <state width="2514" height="271" key="GridCell.Tab.0.bottom/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611902077747" />
+    <state width="1234" height="397" key="GridCell.Tab.0.bottom/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1611850432490" />
     <state width="2514" height="445" key="GridCell.Tab.0.bottom/0.0.1366.768/1366.0.2560.1080@0.0.1366.768" timestamp="1607096745905" />
     <state width="2514" height="445" key="GridCell.Tab.0.bottom/0.0.1366.768/1366.0.2560.1080@1366.0.2560.1080" timestamp="1607096669311" />
+    <state width="1320" height="258" key="GridCell.Tab.0.bottom/0.0.1366.768/3926.0.1280.1024/1366.0.2560.1080@0.0.1366.768" timestamp="1611701925757" />
+    <state width="1234" height="337" key="GridCell.Tab.0.bottom/0.0.1366.768/3926.0.1280.1024/1366.0.2560.1080@1366.0.2560.1080" timestamp="1611691813684" />
     <state width="797" height="250" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1608520674459" />
     <state width="1234" height="337" key="GridCell.Tab.0.bottom/0.0.2560.1080@0.0.2560.1080" timestamp="1611452402717" />
     <state width="1234" height="337" key="GridCell.Tab.0.bottom/3926.0.1280.1024/0.0.1366.768/1366.0.2560.1080@1366.0.2560.1080" timestamp="1611447024821" />
-    <state width="1234" height="337" key="GridCell.Tab.0.center" timestamp="1611452402717">
-      <screen x="0" y="0" width="2560" height="1080" />
+    <state width="2514" height="271" key="GridCell.Tab.0.center" timestamp="1611902077747">
+      <screen x="1366" y="0" width="2560" height="1080" />
     </state>
-    <state width="1234" height="416" key="GridCell.Tab.0.center/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1608052955117" />
+    <state width="1320" height="257" key="GridCell.Tab.0.center/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1611812020488" />
+    <state width="2514" height="271" key="GridCell.Tab.0.center/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611902077747" />
+    <state width="1234" height="397" key="GridCell.Tab.0.center/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1611850432490" />
     <state width="2514" height="445" key="GridCell.Tab.0.center/0.0.1366.768/1366.0.2560.1080@0.0.1366.768" timestamp="1607096745903" />
     <state width="2514" height="445" key="GridCell.Tab.0.center/0.0.1366.768/1366.0.2560.1080@1366.0.2560.1080" timestamp="1607096669311" />
+    <state width="1320" height="258" key="GridCell.Tab.0.center/0.0.1366.768/3926.0.1280.1024/1366.0.2560.1080@0.0.1366.768" timestamp="1611701925757" />
+    <state width="1234" height="337" key="GridCell.Tab.0.center/0.0.1366.768/3926.0.1280.1024/1366.0.2560.1080@1366.0.2560.1080" timestamp="1611691813684" />
     <state width="797" height="250" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1608520674459" />
     <state width="1234" height="337" key="GridCell.Tab.0.center/0.0.2560.1080@0.0.2560.1080" timestamp="1611452402717" />
     <state width="1234" height="337" key="GridCell.Tab.0.center/3926.0.1280.1024/0.0.1366.768/1366.0.2560.1080@1366.0.2560.1080" timestamp="1611447024821" />
-    <state width="1234" height="337" key="GridCell.Tab.0.left" timestamp="1611452402716">
-      <screen x="0" y="0" width="2560" height="1080" />
+    <state width="2514" height="271" key="GridCell.Tab.0.left" timestamp="1611902077746">
+      <screen x="1366" y="0" width="2560" height="1080" />
     </state>
-    <state width="1234" height="416" key="GridCell.Tab.0.left/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1608052955117" />
+    <state width="1320" height="257" key="GridCell.Tab.0.left/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1611812020488" />
+    <state width="2514" height="271" key="GridCell.Tab.0.left/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611902077746" />
+    <state width="1234" height="397" key="GridCell.Tab.0.left/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1611850432490" />
     <state width="2514" height="445" key="GridCell.Tab.0.left/0.0.1366.768/1366.0.2560.1080@0.0.1366.768" timestamp="1607096745902" />
     <state width="2514" height="445" key="GridCell.Tab.0.left/0.0.1366.768/1366.0.2560.1080@1366.0.2560.1080" timestamp="1607096669311" />
+    <state width="1320" height="258" key="GridCell.Tab.0.left/0.0.1366.768/3926.0.1280.1024/1366.0.2560.1080@0.0.1366.768" timestamp="1611701925757" />
+    <state width="1234" height="337" key="GridCell.Tab.0.left/0.0.1366.768/3926.0.1280.1024/1366.0.2560.1080@1366.0.2560.1080" timestamp="1611691813684" />
     <state width="797" height="250" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1608520674459" />
     <state width="1234" height="337" key="GridCell.Tab.0.left/0.0.2560.1080@0.0.2560.1080" timestamp="1611452402716" />
     <state width="1234" height="337" key="GridCell.Tab.0.left/3926.0.1280.1024/0.0.1366.768/1366.0.2560.1080@1366.0.2560.1080" timestamp="1611447024821" />
-    <state width="1234" height="337" key="GridCell.Tab.0.right" timestamp="1611452402717">
-      <screen x="0" y="0" width="2560" height="1080" />
+    <state width="2514" height="271" key="GridCell.Tab.0.right" timestamp="1611902077747">
+      <screen x="1366" y="0" width="2560" height="1080" />
     </state>
-    <state width="1234" height="416" key="GridCell.Tab.0.right/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1608052955117" />
+    <state width="1320" height="257" key="GridCell.Tab.0.right/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1611812020488" />
+    <state width="2514" height="271" key="GridCell.Tab.0.right/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611902077747" />
+    <state width="1234" height="397" key="GridCell.Tab.0.right/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1611850432490" />
     <state width="2514" height="445" key="GridCell.Tab.0.right/0.0.1366.768/1366.0.2560.1080@0.0.1366.768" timestamp="1607096745903" />
     <state width="2514" height="445" key="GridCell.Tab.0.right/0.0.1366.768/1366.0.2560.1080@1366.0.2560.1080" timestamp="1607096669311" />
+    <state width="1320" height="258" key="GridCell.Tab.0.right/0.0.1366.768/3926.0.1280.1024/1366.0.2560.1080@0.0.1366.768" timestamp="1611701925757" />
+    <state width="1234" height="337" key="GridCell.Tab.0.right/0.0.1366.768/3926.0.1280.1024/1366.0.2560.1080@1366.0.2560.1080" timestamp="1611691813684" />
     <state width="797" height="250" key="GridCell.Tab.0.right/0.0.1366.768@0.0.1366.768" timestamp="1608520674459" />
     <state width="1234" height="337" key="GridCell.Tab.0.right/0.0.2560.1080@0.0.2560.1080" timestamp="1611452402717" />
     <state width="1234" height="337" key="GridCell.Tab.0.right/3926.0.1280.1024/0.0.1366.768/1366.0.2560.1080@1366.0.2560.1080" timestamp="1611447024821" />
@@ -322,12 +241,41 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="184" y="14" key="SettingsEditor/0.0.1366.768/1366.0.2560.1080@0.0.1366.768" timestamp="1607083318069" />
-    <state x="982" y="255" width="1054" height="735" key="find.popup" timestamp="1611506231759">
-      <screen x="0" y="0" width="2560" height="1080" />
+    <state x="2246" y="271" key="Vcs.Push.Dialog.v2" timestamp="1611690489310">
+      <screen x="1366" y="0" width="2560" height="1080" />
     </state>
-    <state x="2348" y="254" width="777" height="669" key="find.popup/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1607630058401" />
+    <state x="2246" y="271" key="Vcs.Push.Dialog.v2/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611690489310" />
+    <state x="1716" y="0" width="1166" height="568" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1611807205228">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="1716" y="0" width="1166" height="568" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611807205228" />
+    <state x="1466" y="100" width="2360" height="880" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog" timestamp="1611898571084">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="1466" y="100" width="2360" height="880" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611898571084" />
+    <state x="2005" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1611900026383">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="2005" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611900026383" />
+    <state x="341" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.768/3926.0.1280.1024/1366.0.2560.1080@0.0.1366.768" timestamp="1611697919423" />
+    <state x="2444" y="450" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1611898941404">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="2444" y="450" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611898941404" />
+    <state x="2348" y="254" width="777" height="669" key="find.popup" timestamp="1611852447825">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="524" y="181" width="563" height="523" key="find.popup/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1611812344157" />
+    <state x="2348" y="254" width="777" height="669" key="find.popup/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611852447825" />
+    <state x="4417" y="241" width="562" height="635" key="find.popup/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1611850716815" />
+    <state x="524" y="181" width="563" height="523" key="find.popup/0.0.1366.768/3926.0.1280.1024/1366.0.2560.1080@0.0.1366.768" timestamp="1611696317016" />
     <state x="524" y="181" width="562" height="522" key="find.popup/0.0.1366.768@0.0.1366.768" timestamp="1610027040664" />
     <state x="982" y="255" width="1054" height="735" key="find.popup/0.0.2560.1080@0.0.2560.1080" timestamp="1611506231759" />
+    <state x="2016" y="233" key="run.anything.popup" timestamp="1611843777324">
+      <screen x="1366" y="0" width="2560" height="1080" />
+    </state>
+    <state x="2016" y="233" key="run.anything.popup/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611843777324" />
+    <state x="347" y="166" key="run.anything.popup/0.0.1366.768/3926.0.1280.1024/1366.0.2560.1080@0.0.1366.768" timestamp="1611693324577" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

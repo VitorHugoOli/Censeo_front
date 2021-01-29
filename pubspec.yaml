@@ -37,9 +37,11 @@ dependencies:
     git: https://github.com/VitorHugoOli/bubble_bottom_bar.git
   badges:
   flare_flutter:
-  flutter_icons:
+  flutter_icons: ^1.1.0
+  flutter_feather_icons: ^1.0.3
   flutter_calendar_carousel:
   diacritic: ^0.1.1
+
 
 
   # The following adds the Cupertino Icons font to your application.

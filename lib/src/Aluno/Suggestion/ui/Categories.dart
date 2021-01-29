@@ -1,18 +1,20 @@
 import 'package:censeo/resources/loader.dart';
+import 'package:censeo/src/Professor/Suggestions/models/Categories.dart';
+import 'package:censeo/src/Professor/Suggestions/ui/Suggestions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../bloc/suggestions.dart';
-import '../models/Categories.dart';
-import 'Suggestions.dart';
+import 'Suggestion.dart';
 
-class CategoriesPage extends StatelessWidget {
+class CategoriesPageAluno extends StatelessWidget {
   final Bloc suggestionBloc = Bloc();
   final ValueChanged<Widget> onPush;
 
-  CategoriesPage({this.onPush});
+  CategoriesPageAluno({this.onPush});
 
   Widget buildNameTitle(Size size) {
     return Container(
@@ -70,9 +72,12 @@ class CategoriesPage extends StatelessWidget {
   Widget buildCardCategories(Size size, Categories categories, context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => SuggestionPage(categories, suggestionBloc),
-        ));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => SuggestionAluno(suggestionBloc, categories),
+          ),
+        );
       },
       child: Container(
         height: size.height * 0.1,
@@ -134,7 +139,6 @@ class CategoriesPage extends StatelessWidget {
         stream: suggestionBloc.categoriesList,
         builder: (context, snapshot) {
           return Container(
-            height: size.height * 0.7,
             width: size.width * 0.9,
             child: Loader(
               loader: snapshot.hasData,
@@ -147,6 +151,7 @@ class CategoriesPage extends StatelessWidget {
                                 buildSubTitle(size, key),
                                 ListView.separated(
                                   shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
                                   separatorBuilder: (context, index) {
                                     return SizedBox(
                                       height: 10,
@@ -181,8 +186,7 @@ class CategoriesPage extends StatelessWidget {
           return false;
         },
         child: Container(
-          width: size.width,
-          height: size.height - MediaQuery.of(context).padding.top,
+          constraints: BoxConstraints.expand(),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [Color(0xff7000FF), Color(0xFF5E06CE), Color(0xFF8F00FF)],
@@ -196,12 +200,13 @@ class CategoriesPage extends StatelessWidget {
               loader: true,
               child: Container(
                 padding: EdgeInsets.only(left: 5, right: 5, top: 25),
+                margin: EdgeInsets.only(bottom: 25),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Center(child: buildNameTitle(size)),
-                    Center(child: buildCategories(size)),
+                    buildCategories(size),
                   ],
                 ),
               ),

@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final type = await _initialized();
@@ -43,13 +44,16 @@ BuildContext globalContext;
 
 class MyApp extends StatelessWidget {
   final String type;
-  static final initRoutes = {"Professor": "/professor", null: "/","Aluno":"/aluno"};
+  static final initRoutes = {
+    "Professor": "/professor",
+    null: "/",
+    "Aluno": "/aluno"
+  };
 
   MyApp({@required this.type});
 
   @override
   Widget build(BuildContext context) {
-    print(type);
     globalContext = context;
     return MaterialApp(
       title: 'Censeo',

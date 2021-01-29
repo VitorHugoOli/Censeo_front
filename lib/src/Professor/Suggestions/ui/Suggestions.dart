@@ -1,5 +1,5 @@
 import 'package:censeo/resources/loader.dart';
-import 'package:censeo/src/Professor/Suggestions/models/Seuggestion.dart';
+import 'package:censeo/src/Professor/Suggestions/models/Suggestion.dart';
 import 'package:censeo/src/Professor/Suggestions/models/Topicos.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -109,7 +109,10 @@ class _SuggestionPageState extends State<SuggestionPage> {
             decoration: BoxDecoration(
               color: Color(0x77ffffff),
               borderRadius: BorderRadius.circular(32.0),
-              border: Border.all(color: Colors.transparent, style: BorderStyle.solid, width: 0.80),
+              border: Border.all(
+                  color: Colors.transparent,
+                  style: BorderStyle.solid,
+                  width: 0.80),
             ),
             child: StreamBuilder<List<Topicos>>(
                 stream: widget.suggestionBloc.topicosList,
@@ -118,6 +121,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
                     child: Container(
                       margin: EdgeInsets.only(left: 10.0, right: 10.0),
                       child: new DropdownButton<String>(
+                          elevation: 0,
                           dropdownColor: Color(0xffBEA3EB),
                           value: categories,
                           onChanged: (value) {
@@ -139,9 +143,10 @@ class _SuggestionPageState extends State<SuggestionPage> {
                             FontAwesome.chevron_down,
                             color: Colors.white,
                           ),
-                          style: GoogleFonts.poppins(fontSize: 12, color: Colors.white),
-                          items: snapshot?.data?.map<DropdownMenuItem<String>>((Topicos value) {
-                            print("value ${value.topico}");
+                          style: GoogleFonts.poppins(
+                              fontSize: 12, color: Colors.white),
+                          items: snapshot?.data
+                              ?.map<DropdownMenuItem<String>>((Topicos value) {
                             return DropdownMenuItem<String>(
                               value: value.topico,
                               child: Align(
@@ -170,10 +175,14 @@ class _SuggestionPageState extends State<SuggestionPage> {
               elevation: 60, // button color
               child: InkWell(
                 splashColor: Colors.transparent, // inkwell color
-                child:
-                    SizedBox(width: 50, height: 50, child: Icon(EvilIcons.pencil, size: 45, color: Color(0xffffffff))),
+                child: SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: Icon(EvilIcons.pencil,
+                        size: 45, color: Color(0xffffffff))),
                 onTap: () {
-                  EditSuggestion.dialog(context, widget.suggestionBloc, widget._categories.id, widget._categories.tipo);
+                  EditSuggestion.dialog(context, widget.suggestionBloc,
+                      widget._categories.id, widget._categories.tipo);
                 },
               ),
             ),
@@ -188,7 +197,8 @@ class _SuggestionPageState extends State<SuggestionPage> {
       width: size.width * 0.8,
       height: size.height * 0.3,
       padding: EdgeInsets.all(16),
-      decoration: new BoxDecoration(color: Color(0xffffffff), borderRadius: BorderRadius.circular(9)),
+      decoration: new BoxDecoration(
+          color: Color(0xffffffff), borderRadius: BorderRadius.circular(9)),
       child: Stack(
         children: [
           Align(
@@ -245,7 +255,9 @@ class _SuggestionPageState extends State<SuggestionPage> {
                     },
                     icon: Icon(
                       FontAwesome.frown_o,
-                      color: sug.relevancia == 0 ? Color(0xfffc0808) : Color(0xff898989),
+                      color: sug.relevancia == 0
+                          ? Color(0xfffc0808)
+                          : Color(0xff898989),
                       size: 35,
                     ),
                   ),
@@ -256,7 +268,9 @@ class _SuggestionPageState extends State<SuggestionPage> {
                     },
                     icon: Icon(
                       FontAwesome.meh_o,
-                      color: sug.relevancia == 1 ? Color(0xfffcb808) : Color(0xff898989),
+                      color: sug.relevancia == 1
+                          ? Color(0xfffcb808)
+                          : Color(0xff898989),
                       size: 35,
                     ),
                   ),
@@ -267,7 +281,9 @@ class _SuggestionPageState extends State<SuggestionPage> {
                     },
                     icon: Icon(
                       FontAwesome.smile_o,
-                      color: sug.relevancia == 2 ? Color(0xff36E37E) : Color(0xff898989),
+                      color: sug.relevancia == 2
+                          ? Color(0xff36E37E)
+                          : Color(0xff898989),
                       size: 35,
                     ),
                   )
@@ -327,6 +343,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           title: Center(
+            widthFactor: 1.5,
             child: Text(
               "Sugestões " + widget._categories.sigla,
               style: GoogleFonts.poppins(

@@ -1,4 +1,5 @@
 import 'package:censeo/src/Aluno/Avaliar/ui/Avaliar.dart';
+import 'package:censeo/src/Aluno/Suggestion/ui/Categories.dart';
 import 'package:censeo/src/Professor/Data/Data.dart';
 import 'package:censeo/src/Professor/Suggestions/ui/Categories.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class TabNavigator extends StatelessWidget {
     return {
       TabNavigatorRoutes.avaliar: (context) => Avaliar(onPush: (page) => _push(context,page)),
       TabNavigatorRoutes.rank: (context) => Data(onPush: (page) => _push(context,page)),
-      TabNavigatorRoutes.sugestoes: (context) => Container(),
+      TabNavigatorRoutes.sugestoes: (context) => CategoriesPageAluno(onPush: (page) => _push(context,page)),
     };
   }
 

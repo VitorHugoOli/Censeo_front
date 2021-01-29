@@ -17,7 +17,8 @@ class Perguntas extends StatefulWidget {
         fillColor: Color(0x96ffffff),
         filled: true,
         hintText: "Digite sua experiencia",
-        hintStyle: GoogleFonts.poppins(color: Colors.white.withOpacity(0.9), fontWeight: FontWeight.w600),
+        hintStyle: GoogleFonts.poppins(
+            color: Colors.white.withOpacity(0.9), fontWeight: FontWeight.w600),
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
@@ -48,7 +49,8 @@ class Perguntas extends StatefulWidget {
 }
 
 class _PerguntasState extends State<Perguntas> {
-  final TextEditingController _abertaController = TextEditingController(text: "");
+  final TextEditingController _abertaController =
+      TextEditingController(text: "");
   int currentIndex = 0;
 
   Widget buildNameTitle(Size size) {
@@ -164,7 +166,11 @@ class _PerguntasState extends State<Perguntas> {
     }
   ];
 
-  Widget frameButton({@required Size size, @required Widget child, @required width, @required Function onClick}) {
+  Widget frameButton(
+      {@required Size size,
+      @required Widget child,
+      @required width,
+      @required Function onClick}) {
     return GestureDetector(
       onTap: onClick,
       child: Container(
@@ -183,12 +189,15 @@ class _PerguntasState extends State<Perguntas> {
 
   submitResposta(Avaliacao aval, resp, tipo) {
     if (currentIndex < aval.perguntas.length - 1) {
-      widget._blocAluno.submitAvaliacao(aval.id, aval.perguntas[currentIndex].id, resp, tipo);
+      widget._blocAluno.submitAvaliacao(
+          aval.id, aval.perguntas[currentIndex].id, resp, tipo);
       setState(() {
         currentIndex++;
       });
     } else {
-      widget._blocAluno.submitAvaliacao(aval.id, aval.perguntas[currentIndex].id, resp, tipo, end: true);
+      widget._blocAluno.submitAvaliacao(
+          aval.id, aval.perguntas[currentIndex].id, resp, tipo,
+          end: true);
       Navigator.pop(context);
     }
   }
@@ -224,7 +233,8 @@ class _PerguntasState extends State<Perguntas> {
           children: qualificativas.map((value) {
             return frameButton(
               onClick: () {
-                submitResposta(avaliacao, value['label'].toLowerCase(), 'qualificativa');
+                submitResposta(
+                    avaliacao, value['label'].toLowerCase(), 'qualificativa');
               },
               size: size,
               width: size.width * 0.9,
@@ -312,24 +322,15 @@ class _PerguntasState extends State<Perguntas> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+        backgroundColor: Color(0xff0E153A),
         body: StreamBuilder<Avaliacao>(
             stream: widget._blocAluno.avalList,
             builder: (context, snapshot) {
               Avaliacao avaliacao = snapshot.data;
-              if (snapshot.hasData) {
+              if (snapshot.hasData && avaliacao.perguntas.length > 0) {
                 return Container(
                   constraints: BoxConstraints(minHeight: size.height),
                   width: size.width,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xff9e1a99), Color(0xffc01aba)],
-                      stops: [0, 0.0989583358168602],
-                      begin: Alignment(-1.00, 0.00),
-                      end: Alignment(1.00, -0.00),
-                      // angle: 0,
-                      // scale: undefined,
-                    ),
-                  ),
                   child: SingleChildScrollView(
                     child: Container(
                       padding: EdgeInsets.only(left: 5, right: 5, top: 20),

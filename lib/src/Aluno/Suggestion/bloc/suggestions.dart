@@ -66,38 +66,14 @@ class Bloc extends Object implements BaseBloc {
     suggestionChanged(suggestions);
   }
 
-  changeTopicosValue(value, index) {
-    List<Topicos> listTemp = _topicosController.value;
-    listTemp[index] = Topicos(id: listTemp[index].id, topico: value);
-    topicosChanged(listTemp);
-  }
-
-  removeTopicosValue(index, id, type) async {
-    List<Topicos> listTemp = _topicosController.value;
-    var response = await provider.deleteTopicos(id, type);
-    print(response);
-    if (response['status']) {
-      listTemp.removeAt(index);
-    }
-    topicosChanged(listTemp);
-  }
-
-  addTopicosValue() {
-    List<Topicos> listTemp = _topicosController.value;
-    listTemp.add(Topicos(id: -1, topico: ''));
-    topicosChanged(listTemp);
-  }
-
-  submitTopicos(id, String type) async {
+  createSuggestion(id, Suggestion sug,String tipo) async {
+    List<Suggestion> suggestions = List<Suggestion>();
     try {
-      var body = _topicosController.value;
-      print(body);
-      await provider.putTopicos(id, body, type);
-      //Todo: Otimizar o retorno do put para retornar a lista e já atualizar
-      await fetchTopicos(id, type);
+      await provider.createSugestoes(id, sug,tipo);
     } catch (ex) {
       debugPrint("Exception Convert Object $ex");
     }
+    suggestionChanged(suggestions);
   }
 
   @override

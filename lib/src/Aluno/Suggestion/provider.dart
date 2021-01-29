@@ -1,5 +1,6 @@
 import 'package:censeo/resources/censeo_provider.dart';
 import 'package:censeo/resources/globalAlerts.dart';
+import 'package:censeo/src/Professor/Suggestions/models/Suggestion.dart';
 
 class ClassesProvider {
   final api = CenseoApiProvider();
@@ -7,8 +8,7 @@ class ClassesProvider {
   fetchSuggestionsCategories() async {
     try {
       var response = await api.authRequest(
-          type: "GET",
-          endpoint: "/prof/suggestionCategories");
+          type: "GET", endpoint: "/aluno/suggestionCategories");
       return response['categorias'];
     } catch (e) {
       print(">>> Algum erro $e, file: ");
@@ -22,15 +22,15 @@ class ClassesProvider {
       switch (type) {
         case 'materia':
           response =
-              await api.authRequest(type: "GET", endpoint: "/topicosTurma/$id");
+          await api.authRequest(type: "GET", endpoint: "/topicosTurma/$id");
           break;
         case 'curso':
           response =
-              await api.authRequest(type: "GET", endpoint: "/topicosCurso/$id");
+          await api.authRequest(type: "GET", endpoint: "/topicosCurso/$id");
           break;
         case 'facu':
           response =
-              await api.authRequest(type: "GET", endpoint: "/topicosFacu/$id");
+          await api.authRequest(type: "GET", endpoint: "/topicosFacu/$id");
           break;
       }
       return response['topicos'];
@@ -54,9 +54,10 @@ class ClassesProvider {
           break;
         case 'facu':
           response =
-              await api.authRequest(type: "GET", endpoint: "/sugestaoFacu/$id");
+          await api.authRequest(type: "GET", endpoint: "/sugestaoFacu/$id");
           break;
       }
+      print(response);
       return response['suguestoes'];
     } catch (e) {
       print(">>> Algum erro $e, file: ");
@@ -64,48 +65,24 @@ class ClassesProvider {
     }
   }
 
-  putTopicos(id, body, type) async {
+  createSugestoes(id, Suggestion sug, tipo) async {
     try {
       var response;
-      switch (type) {
+      switch (tipo) {
         case 'materia':
           response = await api.authRequest(
-              type: "PUT", endpoint: "/topicosTurma/$id/", body: body);
+              type: "POST", endpoint: "/sugestaoTurma", body: sug.toJson());
           break;
         case 'curso':
           response = await api.authRequest(
-              type: "PUT", endpoint: "/topicosCurso/$id/", body: body);
+              type: "POST", endpoint: "/sugestaoCurso", body: sug.toJson());
           break;
         case 'facu':
           response = await api.authRequest(
-              type: "PUT", endpoint: "/topicosFacu/$id/", body: body);
+              type: "POST", endpoint: "/sugestaoFacu", body: sug.toJson());
           break;
       }
-      return response;
-    } catch (e) {
-      print(">>> Algum erro $e, file: ");
-      genericAlert();
-    }
-  }
-
-  deleteTopicos(id, type) async {
-    try {
-      var response;
-      switch (type) {
-        case 'materia':
-          response = await api.authRequest(
-              type: "DELETE", endpoint: "/topicosTurma/$id/");
-          break;
-        case 'curso':
-          response = await api.authRequest(
-              type: "DELETE", endpoint: "/topicosCurso/$id/");
-          break;
-        case 'facu':
-          response = await api.authRequest(
-              type: "DELETE", endpoint: "/topicosFacu/$id/");
-          break;
-      }
-      return response;
+      return response['suguestoes'];
     } catch (e) {
       print(">>> Algum erro $e, file: ");
       genericAlert();
