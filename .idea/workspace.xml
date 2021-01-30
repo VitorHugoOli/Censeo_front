@@ -23,25 +23,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fa7e52c-2703-4912-a5b8-6c3dc54d1e87" name="Default Changelist" comment="Subindo algumas alteracoe no app">
-      <change afterPath="$PROJECT_DIR$/lib/resources/CustomTextField.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Aluno/Suggestion/bloc/suggestions.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Aluno/Suggestion/provider.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Aluno/Suggestion/ui/Categories.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Aluno/Suggestion/ui/Dialog.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/src/Aluno/Suggestion/ui/Suggestion.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Avatar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/ninja.webp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/resources/CustomTextField.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/resources/CustomTextField.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/resources/censeo_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/resources/censeo_provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/Aluno/Avaliar/bloc/aluno.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Aluno/Avaliar/bloc/aluno.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/Aluno/Avaliar/ui/Avaliar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Aluno/Avaliar/ui/Avaliar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Aluno/Avaliar/ui/Perguntas.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Aluno/Avaliar/ui/Perguntas.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Aluno/BottomNavigationProfessor/TabNavigatorAluno.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Aluno/BottomNavigationProfessor/TabNavigatorAluno.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Login/ui/Login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Login/ui/Login.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/Professor.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/Professor.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Suggestions/bloc/suggestions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/bloc/suggestions.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Suggestions/models/Seuggestion.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/models/Suggestion.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Suggestions/provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/provider.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Suggestions/ui/Categories.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/ui/Categories.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Suggestions/ui/Suggestions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/ui/Suggestions.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/Aluno/Suggestion/ui/Dialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Aluno/Suggestion/ui/Dialog.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/Login/provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Login/provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Suggestions/models/Suggestion.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/models/Suggestion.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/User/models/user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/User/models/user.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,25 +70,25 @@
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/resources" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/assets" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="flutter.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/lib/resources" />
-      <recent name="$PROJECT_DIR$/lib/src/Aluno/Suggestion/ui" />
-      <recent name="$PROJECT_DIR$/lib/src/Aluno/Suggestion" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/lib/src/Aluno/Avaliar" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/lib/caleb/ui" />
       <recent name="$PROJECT_DIR$/lib" />
       <recent name="$PROJECT_DIR$/lib/src/Professor/Suggestions/ui" />
       <recent name="$PROJECT_DIR$/lib/src/Professor/Aulas/ui/managerTurmas" />
       <recent name="$PROJECT_DIR$/lib/src/Professor/BottomNavigationProfessor" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets" />
+      <recent name="$PROJECT_DIR$/lib/resources" />
+      <recent name="$PROJECT_DIR$/lib/src/Aluno/Suggestion/ui" />
+      <recent name="$PROJECT_DIR$/lib/src/Aluno/Suggestion" />
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="4" Folder0="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master" Folder1="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master" Folder2="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master" Folder3="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master" CustomDictionaries="4" CustomDictionary0="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master/portuguese-brazil.dic" CustomDictionary1="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master/portuguese-brazil_technical-terms.dic" CustomDictionary2="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master/portuguese-brazil_technical-terms_without-accents.dic" CustomDictionary3="$PROJECT_DIR$/../../../Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master/portuguese-brazil_without-accents.dic" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="project-level" UseSingleDictionary="true" />
@@ -139,7 +131,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611690486776</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Subindo algumas alteracoe no app">
+      <created>1611942199495</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1611942199495</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -170,11 +169,11 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="421" y="128" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1611812518936" />
-    <state x="100" y="100" width="1168" height="570" key="AVDManager" timestamp="1611895552687">
+    <state x="100" y="100" width="1168" height="570" key="AVDManager" timestamp="1611950560609">
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="100" y="100" width="1168" height="570" key="AVDManager/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1611811393794" />
-    <state x="100" y="100" width="1168" height="570" key="AVDManager/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611895552687" />
+    <state x="100" y="100" width="1168" height="570" key="AVDManager/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611950560609" />
     <state x="100" y="100" width="1166" height="568" key="AVDManager/0.0.1366.768/1366.0.2560.1080@0.0.1366.768" timestamp="1606977561951" />
     <state x="100" y="100" width="1167" height="569" key="AVDManager/0.0.1366.768@0.0.1366.768" timestamp="1608520674592" />
     <state x="187" y="141" width="2188" height="801" key="AVDManager/0.0.2560.1080@0.0.2560.1080" timestamp="1611519375233" />
@@ -185,11 +184,11 @@
     </state>
     <state x="536" y="126" key="FileChooserDialogImpl/0.0.1366.768/1366.0.2560.1080@0.0.1366.768" timestamp="1606977408063" />
     <state x="2371" y="177" key="FileChooserDialogImpl/1366.0.2560.1080/0.0.1366.768@1366.0.2560.1080" timestamp="1607370752054" />
-    <state width="2514" height="271" key="GridCell.Tab.0.bottom" timestamp="1611902077747">
+    <state width="2514" height="426" key="GridCell.Tab.0.bottom" timestamp="1611987410790">
       <screen x="1366" y="0" width="2560" height="1080" />
     </state>
     <state width="1320" height="257" key="GridCell.Tab.0.bottom/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1611812020488" />
-    <state width="2514" height="271" key="GridCell.Tab.0.bottom/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611902077747" />
+    <state width="2514" height="426" key="GridCell.Tab.0.bottom/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611987410790" />
     <state width="1234" height="397" key="GridCell.Tab.0.bottom/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1611850432490" />
     <state width="2514" height="445" key="GridCell.Tab.0.bottom/0.0.1366.768/1366.0.2560.1080@0.0.1366.768" timestamp="1607096745905" />
     <state width="2514" height="445" key="GridCell.Tab.0.bottom/0.0.1366.768/1366.0.2560.1080@1366.0.2560.1080" timestamp="1607096669311" />
@@ -198,11 +197,11 @@
     <state width="797" height="250" key="GridCell.Tab.0.bottom/0.0.1366.768@0.0.1366.768" timestamp="1608520674459" />
     <state width="1234" height="337" key="GridCell.Tab.0.bottom/0.0.2560.1080@0.0.2560.1080" timestamp="1611452402717" />
     <state width="1234" height="337" key="GridCell.Tab.0.bottom/3926.0.1280.1024/0.0.1366.768/1366.0.2560.1080@1366.0.2560.1080" timestamp="1611447024821" />
-    <state width="2514" height="271" key="GridCell.Tab.0.center" timestamp="1611902077747">
+    <state width="2514" height="426" key="GridCell.Tab.0.center" timestamp="1611987410789">
       <screen x="1366" y="0" width="2560" height="1080" />
     </state>
     <state width="1320" height="257" key="GridCell.Tab.0.center/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1611812020488" />
-    <state width="2514" height="271" key="GridCell.Tab.0.center/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611902077747" />
+    <state width="2514" height="426" key="GridCell.Tab.0.center/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611987410789" />
     <state width="1234" height="397" key="GridCell.Tab.0.center/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1611850432490" />
     <state width="2514" height="445" key="GridCell.Tab.0.center/0.0.1366.768/1366.0.2560.1080@0.0.1366.768" timestamp="1607096745903" />
     <state width="2514" height="445" key="GridCell.Tab.0.center/0.0.1366.768/1366.0.2560.1080@1366.0.2560.1080" timestamp="1607096669311" />
@@ -211,11 +210,11 @@
     <state width="797" height="250" key="GridCell.Tab.0.center/0.0.1366.768@0.0.1366.768" timestamp="1608520674459" />
     <state width="1234" height="337" key="GridCell.Tab.0.center/0.0.2560.1080@0.0.2560.1080" timestamp="1611452402717" />
     <state width="1234" height="337" key="GridCell.Tab.0.center/3926.0.1280.1024/0.0.1366.768/1366.0.2560.1080@1366.0.2560.1080" timestamp="1611447024821" />
-    <state width="2514" height="271" key="GridCell.Tab.0.left" timestamp="1611902077746">
+    <state width="2514" height="426" key="GridCell.Tab.0.left" timestamp="1611987410789">
       <screen x="1366" y="0" width="2560" height="1080" />
     </state>
     <state width="1320" height="257" key="GridCell.Tab.0.left/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1611812020488" />
-    <state width="2514" height="271" key="GridCell.Tab.0.left/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611902077746" />
+    <state width="2514" height="426" key="GridCell.Tab.0.left/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611987410789" />
     <state width="1234" height="397" key="GridCell.Tab.0.left/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1611850432490" />
     <state width="2514" height="445" key="GridCell.Tab.0.left/0.0.1366.768/1366.0.2560.1080@0.0.1366.768" timestamp="1607096745902" />
     <state width="2514" height="445" key="GridCell.Tab.0.left/0.0.1366.768/1366.0.2560.1080@1366.0.2560.1080" timestamp="1607096669311" />
@@ -224,11 +223,11 @@
     <state width="797" height="250" key="GridCell.Tab.0.left/0.0.1366.768@0.0.1366.768" timestamp="1608520674459" />
     <state width="1234" height="337" key="GridCell.Tab.0.left/0.0.2560.1080@0.0.2560.1080" timestamp="1611452402716" />
     <state width="1234" height="337" key="GridCell.Tab.0.left/3926.0.1280.1024/0.0.1366.768/1366.0.2560.1080@1366.0.2560.1080" timestamp="1611447024821" />
-    <state width="2514" height="271" key="GridCell.Tab.0.right" timestamp="1611902077747">
+    <state width="2514" height="426" key="GridCell.Tab.0.right" timestamp="1611987410789">
       <screen x="1366" y="0" width="2560" height="1080" />
     </state>
     <state width="1320" height="257" key="GridCell.Tab.0.right/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1611812020488" />
-    <state width="2514" height="271" key="GridCell.Tab.0.right/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611902077747" />
+    <state width="2514" height="426" key="GridCell.Tab.0.right/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611987410789" />
     <state width="1234" height="397" key="GridCell.Tab.0.right/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1611850432490" />
     <state width="2514" height="445" key="GridCell.Tab.0.right/0.0.1366.768/1366.0.2560.1080@0.0.1366.768" timestamp="1607096745903" />
     <state width="2514" height="445" key="GridCell.Tab.0.right/0.0.1366.768/1366.0.2560.1080@1366.0.2560.1080" timestamp="1607096669311" />
@@ -241,10 +240,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="184" y="14" key="SettingsEditor/0.0.1366.768/1366.0.2560.1080@0.0.1366.768" timestamp="1607083318069" />
-    <state x="2246" y="271" key="Vcs.Push.Dialog.v2" timestamp="1611690489310">
+    <state x="2246" y="271" key="Vcs.Push.Dialog.v2" timestamp="1611942201967">
       <screen x="1366" y="0" width="2560" height="1080" />
     </state>
-    <state x="2246" y="271" key="Vcs.Push.Dialog.v2/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611690489310" />
+    <state x="2246" y="271" key="Vcs.Push.Dialog.v2/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611942201967" />
     <state x="1716" y="0" width="1166" height="568" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1611807205228">
       <screen x="1366" y="0" width="2560" height="1080" />
     </state>
@@ -253,20 +252,20 @@
       <screen x="1366" y="0" width="2560" height="1080" />
     </state>
     <state x="1466" y="100" width="2360" height="880" key="com.intellij.history.integration.ui.views.SelectionHistoryDialog/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611898571084" />
-    <state x="2005" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1611900026383">
+    <state x="2005" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1611985531512">
       <screen x="1366" y="0" width="2560" height="1080" />
     </state>
-    <state x="2005" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611900026383" />
+    <state x="2005" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611985531512" />
     <state x="341" y="0" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1366.768/3926.0.1280.1024/1366.0.2560.1080@0.0.1366.768" timestamp="1611697919423" />
     <state x="2444" y="450" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1611898941404">
       <screen x="1366" y="0" width="2560" height="1080" />
     </state>
     <state x="2444" y="450" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611898941404" />
-    <state x="2348" y="254" width="777" height="669" key="find.popup" timestamp="1611852447825">
+    <state x="2794" y="197" width="777" height="669" key="find.popup" timestamp="1611987284032">
       <screen x="1366" y="0" width="2560" height="1080" />
     </state>
     <state x="524" y="181" width="563" height="523" key="find.popup/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1611812344157" />
-    <state x="2348" y="254" width="777" height="669" key="find.popup/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611852447825" />
+    <state x="2794" y="197" width="777" height="669" key="find.popup/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611987284032" />
     <state x="4417" y="241" width="562" height="635" key="find.popup/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1611850716815" />
     <state x="524" y="181" width="563" height="523" key="find.popup/0.0.1366.768/3926.0.1280.1024/1366.0.2560.1080@0.0.1366.768" timestamp="1611696317016" />
     <state x="524" y="181" width="562" height="522" key="find.popup/0.0.1366.768@0.0.1366.768" timestamp="1610027040664" />

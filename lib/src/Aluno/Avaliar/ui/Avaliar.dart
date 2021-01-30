@@ -33,81 +33,106 @@ class _AvaliarState extends State<Avaliar> {
     // Add code after super
   }
 
-  Widget buildNameTitle() {
-    return StreamBuilder<User>(
-        stream: bloc.user,
-        builder: (context, AsyncSnapshot<User> snapshot) {
-          return Stack(
-            children: [
-              Center(
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      snapshot.hasData ? snapshot.data.nome : "",
-                      style: GoogleFonts.poppins(
-                        color: Color(0xffffffff),
-                        fontSize: 25,
-                        fontWeight: FontWeight.w500,
-                        fontStyle: FontStyle.normal,
-                        letterSpacing: -0.35,
-                      ),
-                    ),
-                    Text(
-                      "Aluno",
-                      style: GoogleFonts.poppins(
-                        color: Color(0xffffffff),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        fontStyle: FontStyle.normal,
-                        letterSpacing: -0.49,
-                      ),
-                    )
-                  ],
+  Widget buildNameTitle(snapshot) {
+    return Stack(
+      children: [
+        Center(
+          child: Column(
+            children: <Widget>[
+              Text(
+                snapshot.hasData ? snapshot.data.nome : "",
+                style: GoogleFonts.poppins(
+                  color: Color(0xffffffff),
+                  fontSize: 25,
+                  fontWeight: FontWeight.w500,
+                  fontStyle: FontStyle.normal,
+                  letterSpacing: -0.35,
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        Feather.settings,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {},
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        bloc.logOut();
-                        navigatorKey.currentState.pushNamedAndRemoveUntil(
-                            '/', (Route<dynamic> route) => false);
-                      },
-                      icon: Icon(
-                        Feather.log_out,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
+              Text(
+                "Aluno",
+                style: GoogleFonts.poppins(
+                  color: Color(0xffffffff),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  fontStyle: FontStyle.normal,
+                  letterSpacing: -0.49,
                 ),
               )
             ],
-          );
-        });
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              IconButton(
+                icon: Icon(
+                  Feather.settings,
+                  color: Colors.white,
+                ),
+                onPressed: () {},
+              ),
+              IconButton(
+                onPressed: () {
+                  bloc.logOut();
+                  navigatorKey.currentState.pushNamedAndRemoveUntil(
+                      '/', (Route<dynamic> route) => false);
+                },
+                icon: Icon(
+                  Feather.log_out,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
+    );
   }
 
-  Widget buildCardAvatar() {
-    return Container(
-      padding: EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        color: Color(0xffffffff),
-        shape: BoxShape.circle,
-      ),
-      child: Image.asset(
-        'assets/Avatar.png',
-        height: 150,
-      ),
-    );
+  Widget buildCardAvatar(AsyncSnapshot<User> snapshot) {
+    String profile = snapshot.data.perfilPhoto;
+    return snapshot.connectionState == ConnectionState.done
+        ? Container(
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: Color(0xffffffff),
+              shape: BoxShape.circle,
+            ),
+            child: profile != null
+                ? Image.network(
+                    profile,
+                    height: 150,
+                    errorBuilder: (BuildContext context, Object exception,
+                        StackTrace stackTrace) {
+                      return Container(
+                        height: 150,
+                        child: Center(
+                          child: Icon(Feather.cloud_off, size: 20),
+                        ),
+                      );
+                    },
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  loadingProgress.expectedTotalBytes
+                              : null,
+                        ),
+                      );
+                    },
+                  )
+                : Image.asset(
+                    'assets/Avatar.png',
+                    height: 150,
+                  ),
+          )
+        : Container();
   }
 
   Widget buildListTurmas(Size size) {
@@ -198,7 +223,7 @@ class _AvaliarState extends State<Avaliar> {
       );
     }
 
-    Widget button(){
+    Widget button() {
       return Container(
         margin: EdgeInsets.only(top: 15),
         height: size.height * 0.055,
@@ -282,11 +307,21 @@ class _AvaliarState extends State<Avaliar> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        buildNameTitle(),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        buildCardAvatar(),
+                        StreamBuilder<User>(
+                            stream: bloc.user,
+                            builder:
+                                (context, AsyncSnapshot<User> snapshotUser) {
+                              print(snapshotUser.data.perfilPhoto);
+                              return Column(
+                                children: [
+                                  buildNameTitle(snapshotUser),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  buildCardAvatar(snapshotUser),
+                                ],
+                              );
+                            }),
                         SizedBox(
                           height: 10,
                         ),

@@ -16,7 +16,11 @@ class BlocAluno extends Object implements BaseBloc {
 
   Stream<User> get user async* {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final user = User.fromJson(jsonDecode(prefs.get("user")));
+    final user = User.fromJson(
+      jsonDecode(
+        prefs.get("user"),
+      ),
+    );
     yield user;
   }
 
@@ -59,9 +63,15 @@ class BlocAluno extends Object implements BaseBloc {
     return true;
   }
 
-  Future<bool> submitAvaliacao(avalId, pergId, resp, tipo, {end = false}) async {
+  Future<bool> submitAvaliacao(avalId, pergId, resp, tipo,
+      {end = false}) async {
     try {
-      Map body = {'resposta': resp, 'tipo_resposta': tipo, 'avaliacaoId': avalId, 'perguntaId': pergId};
+      Map body = {
+        'resposta': resp,
+        'tipo_resposta': tipo,
+        'avaliacaoId': avalId,
+        'perguntaId': pergId
+      };
       if (end) {
         body['end'] = end;
       }

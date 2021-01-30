@@ -8,7 +8,8 @@ class LoginProvider {
 
   fetchLogin(body) async {
     try {
-      var response = await api.withoutAuthRequest(type: "POST", endpoint: "/login/", body: body);
+      var response = await api.withoutAuthRequest(
+          type: "POST", endpoint: "/login/", body: body);
       if (response['status'] == true) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('user', jsonEncode(response['user']));

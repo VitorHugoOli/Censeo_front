@@ -95,25 +95,25 @@ class CustomTextField extends StatelessWidget {
       floatingLabelBehavior: FloatingLabelBehavior.auto,
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.transparent),
-        borderRadius: BorderRadius.circular(33.0),
+        borderRadius: BorderRadius.circular(16.0),
       ),
       border: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.transparent),
-        borderRadius: BorderRadius.circular(33.0),
+        borderRadius: BorderRadius.circular(16.0),
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.transparent),
-        borderRadius: BorderRadius.circular(33.0),
+        borderRadius: BorderRadius.circular(16.0),
       ),
       errorBorder: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.transparent),
-        borderRadius: BorderRadius.circular(33.0),
+        borderRadius: BorderRadius.circular(16.0),
       ),
       errorText: null,
       disabledBorder: InputBorder.none,
       focusedErrorBorder: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.transparent),
-        borderRadius: BorderRadius.circular(33.0),
+        borderRadius: BorderRadius.circular(16.0),
       ),
     );
   }

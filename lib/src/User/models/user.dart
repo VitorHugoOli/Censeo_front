@@ -15,6 +15,7 @@ class User {
     this.matricula,
     this.username,
     this.email,
+    this.perfilPhoto,
     this.firstTime,
     this.type,
     this.token,
@@ -26,6 +27,7 @@ class User {
   String matricula;
   String username;
   String email;
+  String perfilPhoto;
   dynamic firstTime;
   String type;
   String token;
@@ -37,6 +39,8 @@ class User {
         matricula: json["matricula"],
         username: json["username"],
         email: json["email"],
+        perfilPhoto:
+            json.containsKey("perfilPhoto") ? json["perfilPhoto"] : null,
         firstTime: json["first_time"],
         type: json["type"],
         token: json["token"] ?? "",
