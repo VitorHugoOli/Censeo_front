@@ -23,26 +23,15 @@ class _LoginState extends State<Login> {
 
   Widget buildTitle(Size size) {
     return Container(
-      height: size.height * 0.385,
-      child: Stack(
-        children: <Widget>[
-          SvgPicture.asset(
-            'assets/ori_bubbles.svg',
-            width: size.width,
-            fit: BoxFit.cover,
-            alignment: Alignment.topLeft,
-          ),
-          Center(
-            heightFactor: 4,
-            widthFactor: 1.2,
-            child: Text(
-              "O melhor aprendizado é\n a critica",
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                  fontFamily: "Myriad Pro", fontSize: 28, color: Colors.white),
-            ),
-          )
-        ],
+      margin: EdgeInsets.only(left:50),
+      child: Text(
+        "O melhor aprendizado é a critica",
+        textAlign: TextAlign.left,
+        style: GoogleFonts.poppins(
+          fontSize: 40,
+          fontWeight: FontWeight.w500,
+          color: Colors.white,
+        ),
       ),
     );
   }
@@ -55,13 +44,13 @@ class _LoginState extends State<Login> {
                 width: 35,
                 height: 35,
                 decoration: new BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
+                    borderRadius: BorderRadius.circular(18),
                     color: Color(0xffffffff)),
                 child: Center(
                   child: Text("!",
                       style: TextStyle(
                         fontFamily: 'Poppins',
-                        color: Color(0xffff3f85),
+                        color: Color(0xff3D5AF1),
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.normal,
@@ -242,9 +231,9 @@ class _LoginState extends State<Login> {
               child: Text(
                 "Log In",
                 style: GoogleFonts.poppins(
-                  color: Color(0xffff3f85),
-                  fontSize: 25,
-                  fontWeight: FontWeight.w700,
+                  color: Color(0xff3D5AF1),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
                   fontStyle: FontStyle.normal,
                   letterSpacing: -0.875,
                 ),
@@ -255,25 +244,19 @@ class _LoginState extends State<Login> {
   }
 
   Widget buildRescue(size) {
-    return Container(
-      width: size.width * 0.45,
-      // height: size.height * 0.06,
-      child: RaisedButton(
-        color: Colors.white,
-        onPressed: () {},
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Text(
-          "Resgatar Senha",
-          textAlign: TextAlign.center,
-          style: GoogleFonts.poppins(
-            color: Color(0xff4b2e9d),
-            fontSize: 18,
-            fontWeight: FontWeight.w700,
-            fontStyle: FontStyle.normal,
-            letterSpacing: -0.56,
-          ),
+    return RaisedButton(
+      color: Color(0xff0E153A),
+      elevation: 0,
+      onPressed: () {},
+      child: Text(
+        "Resgatar Senha",
+        textAlign: TextAlign.start,
+        style: GoogleFonts.poppins(
+          color: Color(0xff3390FF),
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+          fontStyle: FontStyle.normal,
+          letterSpacing: -0.56,
         ),
       ),
     );
@@ -348,15 +331,10 @@ class _LoginState extends State<Login> {
             SingleChildScrollView(
               child: Container(
                 height: size.height - MediaQuery.of(context).padding.top,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xff7e00de), Color(0xffff3f85)],
-                    begin: Alignment.topLeft,
-                    end: Alignment(0.5, 1.1),
-                    stops: [0.3572, 0.9606],
-                  ),
-                ),
+                decoration: BoxDecoration(color: Color(0xff0E153A)),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     buildTitle(size),
                     buildAlertMessageMux(size, true),
@@ -366,15 +344,17 @@ class _LoginState extends State<Login> {
                         children: <Widget>[
                           buildFieldLogin(size),
                           buildAlertMessageMux(size, false),
-                          buildFieldPassword(size),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              buildFieldPassword(size),
+                              buildRescue(size),
+                            ],
+                          ),
                           SizedBox(
                             height: size.height * 0.065,
                           ),
                           buildLoginInButton(size),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          buildRescue(size),
                         ],
                       ),
                     )

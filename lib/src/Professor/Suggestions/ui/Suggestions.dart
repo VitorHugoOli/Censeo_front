@@ -332,12 +332,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
     Size size = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xff7000FF), Color(0xFF5E06CE), Color(0xFF8F00FF)],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          stops: [0, 0.01, 0.4951],
-        ),
+        color: Color(0xff0E153A),
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,

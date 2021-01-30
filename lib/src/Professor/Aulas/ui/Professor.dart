@@ -148,7 +148,7 @@ class _ProfessorState extends State<Professor> {
         height: size.height * 0.1,
         padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
         decoration: new BoxDecoration(
-            color: Color(0xffff3f85), borderRadius: BorderRadius.circular(6)),
+            color: Color(0xff3D5AF1), borderRadius: BorderRadius.circular(6)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -223,7 +223,7 @@ class _ProfessorState extends State<Professor> {
                   width: 50,
                   height: 50,
                   decoration: new BoxDecoration(
-                      color: hasDate ? Color(0xffFF3F85) : Color(0xff727272),
+                      color: hasDate ? Color(0xff3D5AF1) : Color(0xff727272),
                       borderRadius: BorderRadius.circular(9)),
                   child: Center(
                     child: Text(
@@ -452,16 +452,7 @@ class _ProfessorState extends State<Professor> {
                   constraints: BoxConstraints.expand(),
                   padding: EdgeInsets.only(left: 5, right: 5, top: 25),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Color(0xff7000FF),
-                        Color(0xFF5E06CE),
-                        Color(0xFF8F00FF)
-                      ],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      stops: [0, 0.01, 0.4951],
-                    ),
+                      color: Color(0xff0E153A),
                   ),
                   child: SingleChildScrollView(
                     child: Column(

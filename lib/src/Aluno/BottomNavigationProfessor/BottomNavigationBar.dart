@@ -6,6 +6,7 @@ import 'package:censeo/src/Aluno/BottomNavigationProfessor/TabNavigatorAluno.dar
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -33,7 +34,7 @@ class _BottomNavigationAlunoState extends State<BottomNavigationAluno> {
 
   static madeBubbleBottomBarItem(IconData icon, String title) {
     return BubbleBottomBarItem(
-      backgroundColor: Color(0xFFFF3F85),
+      backgroundColor: Color(0xFF3D5AF1),
       icon: Icon(
         icon,
         color: Color(0xFF383838),
@@ -58,8 +59,8 @@ class _BottomNavigationAlunoState extends State<BottomNavigationAluno> {
   static final List<BubbleBottomBarItem> barItens = <BubbleBottomBarItem>[
     madeBubbleBottomBarItem(Feather.star, "Avaliar"),
     madeBubbleBottomBarItem(Feather.star, "Avaliar"),
-    madeBubbleBottomBarItem(FontAwesome.trophy, "Rank"),
-    madeBubbleBottomBarItem(ProfessorIcons.chat, "Sugestões"),
+    madeBubbleBottomBarItem(FeatherIcons.barChart, "Rank"),
+    madeBubbleBottomBarItem(FeatherIcons.messageSquare, "Sugestões"),
   ];
 
   static final mapPag = {
@@ -138,7 +139,7 @@ class _BottomNavigationAlunoState extends State<BottomNavigationAluno> {
               color: Colors.white,
               size: 25,
             ),
-            backgroundColor: Color(0xFFFF3F85),
+            backgroundColor: Color(0xFF3D5AF1),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: BubbleBottomBar(

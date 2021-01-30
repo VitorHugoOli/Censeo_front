@@ -184,12 +184,7 @@ class CategoriesPage extends StatelessWidget {
           width: size.width,
           height: size.height - MediaQuery.of(context).padding.top,
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xff7000FF), Color(0xFF5E06CE), Color(0xFF8F00FF)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              stops: [0, 0.01, 0.4951],
-            ),
+              color: Color(0xff0E153A),
           ),
           child: SingleChildScrollView(
             child: Loader(
