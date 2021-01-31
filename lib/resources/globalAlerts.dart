@@ -117,7 +117,7 @@ Future<dynamic> alertNoAuth() {
       Size size = MediaQuery.of(context).size;
       // retorna um objeto do tipo Dialog
       return AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(32.0))),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
 //        title: new Text("Você não está conectado a internet"),
         content: Container(
           height: size.height * 0.5,
@@ -127,14 +127,14 @@ Future<dynamic> alertNoAuth() {
                 "Humm.. você não\n estava logado",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(
-                  color: Color(0xff4b2e9d),
+                  color: Color(0xff0E153A),
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
                   fontStyle: FontStyle.normal,
                   letterSpacing: -0.56,
                 ),
               ),
-              Lottie.asset('assets/noAuth.json', height: size.height * 0.4),
+              Lottie.asset('assets/noAuth.json', height: size.height * 0.3),
             ],
           ),
         ),
@@ -150,14 +150,14 @@ Future<dynamic> alertNoAuth() {
                 Navigator.of(context).pop();
               },
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(76),
+                borderRadius: BorderRadius.circular(6),
               ),
               child: Text(
                 "Voltar",
                 style: GoogleFonts.poppins(
                   color: Colors.white,
                   fontSize: 16,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w400,
                   fontStyle: FontStyle.normal,
                   letterSpacing: -0.56,
                 ),
@@ -187,7 +187,7 @@ Future<dynamic> genericAlert() {
                 "Humm.. algo deu errado, tente mais tarde!",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(
-                  color: Color(0xff3D5AF1),
+                  color: Color(0xff0E153A),
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
                   fontStyle: FontStyle.normal,
