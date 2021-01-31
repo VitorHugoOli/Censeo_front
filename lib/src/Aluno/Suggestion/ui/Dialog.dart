@@ -66,30 +66,35 @@ class CreateSuggestion {
       Container(
         width: double.maxFinite,
         child: Center(
-          child: Container(
-            width: size.width * 0.35,
-            height: size.height * 0.05,
-            child: RaisedButton(
-              color: Color(0xff3D5AF1),
-              onPressed: () {
-                // bloc.submitTopicos(id, type);
-                print(_suggestion.toJson());
-                Navigator.pop(context);
-              },
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                "Pronto!",
-                style: GoogleFonts.montserrat(
-                  color: Colors.white,
-                  fontSize: 17,
-                  fontWeight: FontWeight.w500,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: -0.56,
+          child: Column(
+            children: [
+              Container(
+                width: size.width * 0.35,
+                height: size.height * 0.05,
+                child: RaisedButton(
+                  color: Color(0xff0E153A),
+                  onPressed: () {
+                    // bloc.submitTopicos(id, type);
+                    print(_suggestion.toJson());
+                    Navigator.pop(context);
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    "Pronto!",
+                    style: GoogleFonts.montserrat(
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w500,
+                      fontStyle: FontStyle.normal,
+                      letterSpacing: -0.56,
+                    ),
+                  ),
                 ),
               ),
-            ),
+              Container(height: size.height * 0.02,)
+            ],
           ),
         ),
       ),
@@ -140,7 +145,7 @@ class CreateSuggestion {
               _controller,
               label: "",
               fillColors: Color(0xffE1E1E1),
-              hintText: "titulo",
+              hintText: "Título",
               upDate: (value) {
                 _suggestion.titulo = value;
               },
@@ -150,11 +155,12 @@ class CreateSuggestion {
             _controller,
             label: "",
             fillColors: Color(0xffE1E1E1),
-            hintText: "Descricao",
+            hintText: "Descrição",
             maxLines: 8,
             upDate: (value) {
               _suggestion.titulo = value;
             },
+
           )
         ],
       ),

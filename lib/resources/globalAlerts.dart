@@ -194,7 +194,7 @@ Future<dynamic> genericAlert() {
                   letterSpacing: -0.56,
                 ),
               ),
-              Lottie.asset('assets/noAuth.json', height: size.height * 0.4),
+              Lottie.asset('assets/noAuth.json', height: size.height * 0.3),
             ],
           ),
         ),

@@ -65,10 +65,10 @@ class CustomTextField extends StatelessWidget {
   });
 
   static InputDecoration formDecoration(String text,
-      {fillColors = const Color(0xffe1e1e1),
+      {fillColors = const Color(0x78ffffff),
       bool pass = false,
       Icon prefixIcon,
-      hintColor = const Color(0x88898989)}) {
+      hintColor = const Color(0x99ffffff)}) {
     return InputDecoration(
       fillColor: fillColors,
       filled: true,
@@ -76,7 +76,7 @@ class CustomTextField extends StatelessWidget {
       hintStyle: GoogleFonts.poppins(
         color: hintColor,
         fontSize: 17,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w400,
         fontStyle: FontStyle.normal,
         letterSpacing: -0.525,
       ),
@@ -95,25 +95,25 @@ class CustomTextField extends StatelessWidget {
       floatingLabelBehavior: FloatingLabelBehavior.auto,
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.transparent),
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(6.0),
       ),
       border: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.transparent),
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(6.0),
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.transparent),
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(6.0),
       ),
       errorBorder: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.transparent),
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(6.0),
       ),
       errorText: null,
       disabledBorder: InputBorder.none,
       focusedErrorBorder: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.transparent),
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(6.0),
       ),
     );
   }

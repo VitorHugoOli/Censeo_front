@@ -70,7 +70,7 @@ class _CalendarState extends State<Calendar> {
       builder: (BuildContext context) {
         Size size = MediaQuery.of(context).size;
         return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(6.0))),
           title: CreateClassDialog.title(),
           content: CreateClassDialog(date, widget.bloc),
           actions: CreateClassDialog.actions(context, size, date, widget.bloc, widget.turma.id),

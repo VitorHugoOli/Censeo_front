@@ -1,3 +1,4 @@
+import 'package:censeo/resources/CustomTextField.dart';
 import 'package:censeo/src/Professor/Aulas/bloc/professor.dart';
 import 'package:censeo/src/Professor/Aulas/models/Turma.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,68 +23,12 @@ class CreateClassDialog extends StatefulWidget {
 
   CreateClassDialog(this.date, this.bloc);
 
-  static InputDecoration decoration(label, error) => InputDecoration(
-        fillColor: Color(0xffe1e1e1),
-        suffixIcon: error
-            ? Container(
-                margin: EdgeInsets.only(right: 10, top: 5, bottom: 5),
-                width: 35,
-                height: 35,
-                decoration: new BoxDecoration(borderRadius: BorderRadius.circular(50), color: Color(0xffffffff)),
-                child: Center(
-                  child: Text("!",
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        color: Color(0xffff3f85),
-                        fontSize: 24,
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                        letterSpacing: -0.84,
-                      )),
-                ),
-              )
-            : null,
-        filled: true,
-        errorStyle: TextStyle(height: 0),
-        floatingLabelBehavior: FloatingLabelBehavior.auto,
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
-        ),
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
-        ),
-        errorText: null,
-        disabledBorder: InputBorder.none,
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
-        ),
-        labelText: label,
-        labelStyle: GoogleFonts.poppins(
-          color: Color(0xff898989),
-          fontSize: 18,
-          fontWeight: FontWeight.w400,
-          fontStyle: FontStyle.normal,
-          letterSpacing: -0.735,
-        ),
-      );
-
   static Widget title() {
     return Text(
       "Criar Aula",
       textAlign: TextAlign.center,
       style: GoogleFonts.poppins(
-        color: Color(0xff7000ff),
+        color: Color(0xff0E153A),
         fontWeight: FontWeight.w600,
       ),
     );
@@ -101,17 +46,17 @@ class CreateClassDialog extends StatefulWidget {
               width: size.width * 0.35,
               height: size.height * 0.06,
               child: RaisedButton(
-                color: Color(0xff7E00DE),
+                color: Colors.white,
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(76),
+                  borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
                   "Voltar",
                   style: GoogleFonts.poppins(
-                    color: Colors.white,
+                    color: Color(0xff0E153A),
                     fontSize: 16,
                     fontWeight: FontWeight.w700,
                     fontStyle: FontStyle.normal,
@@ -127,7 +72,7 @@ class CreateClassDialog extends StatefulWidget {
                   stream: bloc.submitCheck,
                   builder: (context, snapshot) {
                     return RaisedButton(
-                      color: Color(0xffff3f85),
+                      color: Color(0xff3D5AF1),
                       onPressed: (snapshot.hasData && snapshot.data)
                           ? () async {
                               bloc.submitCreateClass(id, date);
@@ -135,7 +80,7 @@ class CreateClassDialog extends StatefulWidget {
                             }
                           : null,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(76),
+                        borderRadius: BorderRadius.circular(6),
                       ),
                       child: Text(
                         "Confirmar",
@@ -194,28 +139,39 @@ class _CreateClassDialogState extends State<CreateClassDialog> {
           Container(
             child: Column(
               children: <Widget>[
-                Text(
-                  DateFormat.EEEE('pt_BR').format(widget.date),
-                  style: GoogleFonts.poppins(fontWeight: FontWeight.w700),
-                ),
-                Text(
-                  DateFormat.Md('pt_BR').format(widget.date),
-                  style: GoogleFonts.poppins(fontWeight: FontWeight.w700),
+                Container(
+                  padding: EdgeInsets.only(bottom: 3),
+                  width: size.width * 0.4,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        DateFormat.EEEE('pt_BR').format(widget.date),
+                        style: GoogleFonts.poppins(fontWeight: FontWeight.w600,color: Color(0xff0E153A),fontSize: 31),
+                      ),
+                      Text(
+                        DateFormat.Md('pt_BR').format(widget.date),
+                        style: GoogleFonts.poppins(fontWeight: FontWeight.w600,color: Color(0xff0E153A), fontSize: 31),
+                      ),
+                    ],
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     Container(
                         height: size.height * 0.08,
-                        width: size.width * 0.33,
+                        width: size.width * 0.315,
                         child: TextFormField(
                           onChanged: widget.bloc.horarioChanged,
                           controller: controllerTime,
                           keyboardType: TextInputType.datetime,
                           inputFormatters: [
-                            MaskTextInputFormatter(
-                                mask: '#@:&@',
-                                filter: {"#": RegExp(r'[0-2]'), '@': RegExp(r'[0-9]'), '&': RegExp(r'[0-5]')})
+                            MaskTextInputFormatter(mask: '#@:&@', filter: {
+                              "#": RegExp(r'[0-2]'),
+                              '@': RegExp(r'[0-9]'),
+                              '&': RegExp(r'[0-5]')
+                            })
                           ],
                           textAlign: TextAlign.left,
                           style: GoogleFonts.poppins(
@@ -225,12 +181,14 @@ class _CreateClassDialogState extends State<CreateClassDialog> {
                             fontStyle: FontStyle.normal,
                             letterSpacing: -0.735,
                           ),
-                          decoration: CreateClassDialog.decoration("Horário", timeError),
+                          decoration: CustomTextField.formDecoration("Horário",
+                              fillColors: Color(0x78c2c2c2),
+                              hintColor: Color(0xff696969)),
                           validator: (value) => _validatorTime(value),
                         )),
                     Container(
                       height: size.height * 0.08,
-                      width: size.width * 0.33,
+                      width: size.width * 0.315,
                       child: TextFormField(
                         onChanged: widget.bloc.roomChanged,
                         controller: controllerRoom,
@@ -239,11 +197,13 @@ class _CreateClassDialogState extends State<CreateClassDialog> {
                         style: GoogleFonts.poppins(
                           color: Color(0xff000000),
                           fontSize: 18,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w200,
                           fontStyle: FontStyle.normal,
                           letterSpacing: -0.735,
                         ),
-                        decoration: CreateClassDialog.decoration("Sala", roomError),
+                        decoration: CustomTextField.formDecoration("Sala",
+                            fillColors: Color(0x78c2c2c2),
+                            hintColor: Color(0xff696969)),
                       ),
                     )
                   ],
@@ -256,3 +216,4 @@ class _CreateClassDialogState extends State<CreateClassDialog> {
     );
   }
 }
+

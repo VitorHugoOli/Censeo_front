@@ -1,3 +1,4 @@
+import 'package:censeo/resources/CustomTextField.dart';
 import 'package:censeo/src/Professor/Aulas/bloc/professor.dart';
 import 'package:censeo/src/Professor/Aulas/models/Aula.dart';
 import 'package:diacritic/diacritic.dart';
@@ -24,7 +25,8 @@ class _ManagerClassState extends State<ManagerClass> {
   bool temaError = false;
   final _formKey = GlobalKey<FormState>();
   TextEditingController _temaController = TextEditingController(text: "");
-  TextEditingController _descriptionController = TextEditingController(text: "");
+  TextEditingController _descriptionController =
+      TextEditingController(text: "");
   TextEditingController _linkController = TextEditingController(text: "");
   TextEditingController _extraController = TextEditingController(text: "");
 
@@ -35,7 +37,8 @@ class _ManagerClassState extends State<ManagerClass> {
     _temaController.text = widget._aula.tema;
     _descriptionController.text = widget._aula.descricao;
     _linkController.text = widget._aula.linkDocumento;
-    _extraController.text = widget._aula.extra[getExtra[widget._aula.tipoAula]] ?? "";
+    _extraController.text =
+        widget._aula.extra[getExtra[widget._aula.tipoAula]] ?? "";
 
     _classBloc = ClassBloc(widget.bloc,
         tema: widget._aula.tema,
@@ -62,13 +65,16 @@ class _ManagerClassState extends State<ManagerClass> {
           fontStyle: FontStyle.normal,
           letterSpacing: -0.525,
         ),
-        prefixIcon: Container(margin: EdgeInsets.only(left: 20, right: 30), child: icon),
+        prefixIcon: Container(
+            margin: EdgeInsets.only(left: 20, right: 30), child: icon),
         suffixIcon: error
             ? Container(
                 margin: EdgeInsets.only(right: 10, top: 5, bottom: 5),
                 width: 35,
                 height: 35,
-                decoration: new BoxDecoration(borderRadius: BorderRadius.circular(50), color: Color(0xffffffff)),
+                decoration: new BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Color(0xffffffff)),
                 child: Center(
                   child: Text("!",
                       style: TextStyle(
@@ -178,14 +184,14 @@ class _ManagerClassState extends State<ManagerClass> {
                 fontStyle: FontStyle.normal,
                 letterSpacing: -0.735,
               ),
-              decoration: decoration(
-                  "Digite o tema da aula",
-                  Icon(
-                    FontAwesome.graduation_cap,
-                    size: 28,
-                    color: Colors.white,
-                  ),
-                  temaError),
+              decoration: CustomTextField.formDecoration(
+                "Digite o tema da aula",
+                prefixIcon: Icon(
+                  FontAwesome.graduation_cap,
+                  size: 28,
+                  color: Colors.white,
+                ),
+              ),
             ),
           );
         });
@@ -210,14 +216,14 @@ class _ManagerClassState extends State<ManagerClass> {
                 fontStyle: FontStyle.normal,
                 letterSpacing: -0.735,
               ),
-              decoration: decoration(
-                  "Digite a descrição",
-                  Icon(
-                    Feather.info,
-                    size: 29,
-                    color: Colors.white,
-                  ),
-                  temaError),
+              decoration: CustomTextField.formDecoration(
+                "Digite a descrição",
+                prefixIcon: Icon(
+                  Feather.info,
+                  size: 29,
+                  color: Colors.white,
+                ),
+              ),
             ),
           );
         });
@@ -242,14 +248,14 @@ class _ManagerClassState extends State<ManagerClass> {
                 fontStyle: FontStyle.normal,
                 letterSpacing: -0.735,
               ),
-              decoration: decoration(
-                  "Link sobre a aula(Opcional)",
-                  Icon(
-                    Feather.link,
-                    size: 29,
-                    color: Colors.white,
-                  ),
-                  temaError),
+              decoration: CustomTextField.formDecoration(
+                "Link sobre a aula (Opcional)",
+                prefixIcon: Icon(
+                  Feather.link,
+                  size: 29,
+                  color: Colors.white,
+                ),
+              ),
             ),
           );
         });
@@ -284,7 +290,11 @@ class _ManagerClassState extends State<ManagerClass> {
           size: 29,
         )
       },
-      'teorica': {'hint': '', 'type': TextInputType.text, 'icon': Icon(Feather.github)}
+      'teorica': {
+        'hint': '',
+        'type': TextInputType.text,
+        'icon': Icon(Feather.github)
+      }
     };
 
     return StreamBuilder<String>(
@@ -298,15 +308,17 @@ class _ManagerClassState extends State<ManagerClass> {
             child: Container(
               width: size.width * 0.9,
               height: size.height * 0.08,
-              child: snapshotType.hasData && type.toLowerCase() != "teorica" && typeField.containsKey(type)
+              child: snapshotType.hasData &&
+                      type.toLowerCase() != "teorica" &&
+                      typeField.containsKey(type)
                   ? StreamBuilder<String>(
                       stream: _classBloc.getExtra,
                       builder: (context, snapshot) {
                         return TextFormField(
                           onChanged: (value) {
                             if (value.isNotEmpty) {
-                              String newString =
-                                  'Ȟ' + value; //Caracter adicionado para saber que o campo extra sofreu modificações
+                              String newString = 'Ȟ' +
+                                  value; //Caracter adicionado para saber que o campo extra sofreu modificações
                               _classBloc.extraChanged(newString);
                             } else {
                               _classBloc.extraChanged(value);
@@ -322,7 +334,8 @@ class _ManagerClassState extends State<ManagerClass> {
                             fontStyle: FontStyle.normal,
                             letterSpacing: -0.735,
                           ),
-                          decoration: decoration(typeField[type]['hint'], typeField[type]['icon'], temaError),
+                          decoration: decoration(typeField[type]['hint'],
+                              typeField[type]['icon'], temaError),
                         );
                       })
                   : Container(),
@@ -340,23 +353,27 @@ class _ManagerClassState extends State<ManagerClass> {
             width: size.width * 0.9,
             height: size.height * 0.09,
             child: DropdownButtonFormField(
-              value: ((snapshot.data?.isEmpty ?? false) || snapshot.data == 'null') ? null : snapshot.data,
-              dropdownColor: Color(0xffBEA3EB),
+              value:
+                  ((snapshot.data?.isEmpty ?? false) || snapshot.data == 'null')
+                      ? null
+                      : snapshot.data,
+              dropdownColor: Colors.white38,
               onChanged: _classBloc.typeChanged,
               icon: Icon(
                 FontAwesome.chevron_down,
                 color: Colors.white,
                 size: 25,
               ),
-              decoration: decoration(
-                  "Entre com o tipo",
-                  Icon(
-                    FontAwesome.user_circle,
-                    size: 29,
-                    color: Colors.white,
-                  ),
-                  temaError),
-              items: <String>['Teorica', 'Prova', 'Trabalho', 'Excursão'].map<DropdownMenuItem<String>>((String value) {
+              decoration: CustomTextField.formDecoration(
+                "Entre com o tipo",
+                prefixIcon: Icon(
+                  FontAwesome.user_circle,
+                  size: 26,
+                  color: Colors.white,
+                ),
+              ),
+              items: <String>['Teorica', 'Prova', 'Trabalho', 'Excursão']
+                  .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: removeDiacritics(value).toLowerCase(),
                   child: Align(
@@ -382,7 +399,8 @@ class _ManagerClassState extends State<ManagerClass> {
 
   submitClassEdit() {
     if (_formKey.currentState.validate()) {
-      _classBloc.submitEditClass(idAula: widget._aula.id, idTurma: widget.idTurma);
+      _classBloc.submitEditClass(
+          idAula: widget._aula.id, idTurma: widget.idTurma);
     }
   }
 
@@ -395,7 +413,7 @@ class _ManagerClassState extends State<ManagerClass> {
           Container(
             width: size.width * 0.40,
             child: RaisedButton(
-              color: Color(0xff22215b),
+              color: Colors.white,
               onPressed: () {
                 _classBloc.submitDeleteClass(
                   idAula: widget._aula.id,
@@ -410,8 +428,8 @@ class _ManagerClassState extends State<ManagerClass> {
               child: Text(
                 "Cancelar Aula",
                 style: GoogleFonts.poppins(
-                  color: Color(0xffFF3C3C),
-                  fontSize: 17,
+                  color: Color(0xff0E153A),
+                  fontSize: 16,
                   fontWeight: FontWeight.w600,
                   fontStyle: FontStyle.normal,
                   letterSpacing: -0.63,
@@ -422,7 +440,7 @@ class _ManagerClassState extends State<ManagerClass> {
           Container(
             width: size.width * 0.40,
             child: RaisedButton(
-              color: Color(0xffff3f85),
+              color: Color(0xff3D5AF1),
               onPressed: () {
                 submitClassEdit();
                 Navigator.pop(context);
@@ -433,8 +451,8 @@ class _ManagerClassState extends State<ManagerClass> {
               child: Text(
                 "Salvar",
                 style: GoogleFonts.poppins(
-                  color: Color(0xffffffff),
-                  fontSize: 17,
+                  color: Colors.white,
+                  fontSize: 16,
                   fontWeight: FontWeight.w600,
                   fontStyle: FontStyle.normal,
                   letterSpacing: -0.63,
@@ -456,7 +474,7 @@ class _ManagerClassState extends State<ManagerClass> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      backgroundColor: Color(0xff8552DA),
+      backgroundColor: Color(0xff0E153A),
       body: Container(
         padding: EdgeInsets.only(left: 5, right: 5, top: 0),
         child: SingleChildScrollView(

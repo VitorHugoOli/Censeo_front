@@ -277,7 +277,7 @@ class _ManagerTurmaState extends State<ManagerTurma> {
                   width: 50,
                   height: 50,
                   decoration: new BoxDecoration(
-                      color: hasDate ? Color(0xffFF3F85) : Color(0xff727272), borderRadius: BorderRadius.circular(9)),
+                      color: hasDate ? Color(0xff0E153A) : Color(0xff727272), borderRadius: BorderRadius.circular(9)),
                   child: Center(
                     child: Text(
                       days,
@@ -398,7 +398,7 @@ class _ManagerTurmaState extends State<ManagerTurma> {
               backgroundColor: Colors.transparent,
               elevation: 0,
             ),
-            backgroundColor: Color(0xffff3f85),
+            backgroundColor: Color(0xff0E153A),
             body: SingleChildScrollView(
                 child: Container(
               padding: EdgeInsets.only(left: 5, right: 5, top: 0),

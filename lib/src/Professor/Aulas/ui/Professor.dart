@@ -146,7 +146,7 @@ class _ProfessorState extends State<Professor> {
     Function title = () {
       return Container(
         height: size.height * 0.1,
-        padding: EdgeInsets.only(left: 20, top: 10, bottom: 10),
+        padding: EdgeInsets.only(left: 20, top: 10, bottom: 0),
         decoration: new BoxDecoration(
             color: Color(0xff3D5AF1), borderRadius: BorderRadius.circular(6)),
         child: Row(
@@ -166,8 +166,10 @@ class _ProfessorState extends State<Professor> {
                     fontWeight: FontWeight.w700,
                     fontStyle: FontStyle.normal,
                     letterSpacing: 0.2,
+                    height: 1
                   ),
                 ),
+               SizedBox(height: size.height * 0.01),
                 Text(turma.disciplina.sigla,
                     textAlign: TextAlign.left,
                     style: GoogleFonts.poppins(
@@ -176,12 +178,13 @@ class _ProfessorState extends State<Professor> {
                       fontWeight: FontWeight.w500,
                       fontStyle: FontStyle.normal,
                       letterSpacing: -0.385,
+                      height: 1
                     ))
               ],
             ),
             Container(
               width: size.width * 0.6,
-              padding: EdgeInsets.only(left: 20),
+              padding: EdgeInsets.only(left: 20,),
               child: Text(
                 turma.disciplina.nome,
                 textAlign: TextAlign.start,
@@ -191,6 +194,7 @@ class _ProfessorState extends State<Professor> {
                   fontWeight: FontWeight.w500,
                   fontStyle: FontStyle.normal,
                   letterSpacing: -0.56,
+                  height: 1
                 ),
               ),
             )
@@ -340,7 +344,7 @@ class _ProfessorState extends State<Professor> {
             "Aulas em aberto",
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
-              color: Color(0xff833cf8),
+              color: Color(0xff0E153A),
               fontSize: 22,
               fontWeight: FontWeight.w600,
               fontStyle: FontStyle.normal,
@@ -400,9 +404,9 @@ class _ProfessorState extends State<Professor> {
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 15),
-        height: size.height * 0.042,
+        height: size.height * 0.049,
         decoration: new BoxDecoration(
-            color: Color(0xff5280da), borderRadius: BorderRadius.circular(8)),
+            color: Color(0xff3D5AF1), borderRadius: BorderRadius.circular(8)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
