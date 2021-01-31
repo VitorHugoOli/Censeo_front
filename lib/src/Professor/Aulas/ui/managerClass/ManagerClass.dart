@@ -4,6 +4,7 @@ import 'package:censeo/src/Professor/Aulas/models/Aula.dart';
 import 'package:diacritic/diacritic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -29,6 +30,7 @@ class _ManagerClassState extends State<ManagerClass> {
       TextEditingController(text: "");
   TextEditingController _linkController = TextEditingController(text: "");
   TextEditingController _extraController = TextEditingController(text: "");
+  bool isAssincrona = false;
 
   @override
   void initState() {
@@ -55,111 +57,46 @@ class _ManagerClassState extends State<ManagerClass> {
     'teorica': '',
   };
 
-  static InputDecoration decoration(hint, icon, error) => InputDecoration(
-        fillColor: Color(0x77ffffff),
-        hintText: hint,
-        hintStyle: GoogleFonts.poppins(
-          color: Color(0x88ffffff),
-          fontSize: 17,
-          fontWeight: FontWeight.w600,
-          fontStyle: FontStyle.normal,
-          letterSpacing: -0.525,
-        ),
-        prefixIcon: Container(
-            margin: EdgeInsets.only(left: 20, right: 30), child: icon),
-        suffixIcon: error
-            ? Container(
-                margin: EdgeInsets.only(right: 10, top: 5, bottom: 5),
-                width: 35,
-                height: 35,
-                decoration: new BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: Color(0xffffffff)),
-                child: Center(
-                  child: Text("!",
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        color: Color(0xffff3f85),
-                        fontSize: 24,
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                        letterSpacing: -0.84,
-                      )),
-                ),
-              )
-            : null,
-        filled: true,
-        errorStyle: TextStyle(height: 0),
-        floatingLabelBehavior: FloatingLabelBehavior.auto,
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
-        ),
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
-        ),
-        errorText: null,
-        disabledBorder: InputBorder.none,
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
-        ),
-      );
-
   Widget buildNameTitle(Size size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Hero(
-              tag: "horario_class",
-              child: Text(
-                widget.siglaTurma,
-                style: GoogleFonts.poppins(
-                  color: Color(0xffffffff),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: -0.77,
-                ),
-              ),
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Hero(
+          tag: "horario_class",
+          child: Text(
+            widget.siglaTurma,
+            style: GoogleFonts.poppins(
+              color: Color(0xffffffff),
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              fontStyle: FontStyle.normal,
+              letterSpacing: -0.77,
             ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 30),
-              child: Text(
-                DateFormat.Md("pt_BR").format(widget._aula.horario),
-                style: GoogleFonts.poppins(
-                  color: Color(0xffffffff),
-                  fontSize: 19,
-                  fontWeight: FontWeight.w600,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: -0.49,
-                ),
-              ),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 30),
+          child: Text(
+            DateFormat.Md("pt_BR").format(widget._aula.horario),
+            style: GoogleFonts.poppins(
+              color: Color(0xffffffff),
+              fontSize: 19,
+              fontWeight: FontWeight.w600,
+              fontStyle: FontStyle.normal,
+              letterSpacing: -0.49,
             ),
-            Text(
-              widget._aula.sala.toUpperCase(),
-              style: GoogleFonts.poppins(
-                color: Color(0xffffffff),
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                fontStyle: FontStyle.normal,
-                letterSpacing: -0.49,
-              ),
-            ),
-          ],
+          ),
+        ),
+        Text(
+          widget._aula.sala.toUpperCase(),
+          style: GoogleFonts.poppins(
+            color: Color(0xffffffff),
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            fontStyle: FontStyle.normal,
+            letterSpacing: -0.49,
+          ),
         ),
       ],
     );
@@ -171,7 +108,6 @@ class _ManagerClassState extends State<ManagerClass> {
         builder: (context, snapshot) {
           return Container(
             width: size.width * 0.9,
-            height: size.height * 0.08,
             child: TextFormField(
               onChanged: _classBloc.temaChanged,
               controller: _temaController,
@@ -203,7 +139,6 @@ class _ManagerClassState extends State<ManagerClass> {
         builder: (context, snapshot) {
           return Container(
             width: size.width * 0.9,
-            height: size.height * 0.08,
             child: TextFormField(
               onChanged: _classBloc.descriptionChanged,
               controller: _descriptionController,
@@ -235,7 +170,6 @@ class _ManagerClassState extends State<ManagerClass> {
         builder: (context, snapshot) {
           return Container(
             width: size.width * 0.9,
-            height: size.height * 0.08,
             child: TextFormField(
               onChanged: _classBloc.linkChanged,
               controller: _linkController,
@@ -307,7 +241,6 @@ class _ManagerClassState extends State<ManagerClass> {
             opacity: snapshotType.hasData && type != "Teorica" ? 1 : 0,
             child: Container(
               width: size.width * 0.9,
-              height: size.height * 0.08,
               child: snapshotType.hasData &&
                       type.toLowerCase() != "teorica" &&
                       typeField.containsKey(type)
@@ -334,8 +267,9 @@ class _ManagerClassState extends State<ManagerClass> {
                             fontStyle: FontStyle.normal,
                             letterSpacing: -0.735,
                           ),
-                          decoration: decoration(typeField[type]['hint'],
-                              typeField[type]['icon'], temaError),
+                          decoration: CustomTextField.formDecoration(
+                              typeField[type]['hint'],
+                              prefixIcon: typeField[type]['icon']),
                         );
                       })
                   : Container(),
@@ -344,14 +278,55 @@ class _ManagerClassState extends State<ManagerClass> {
         });
   }
 
+  Widget buildFieldIsAssincrona(size) {
+    return Container(
+      width: size.width * 0.9,
+      child: DropdownButtonFormField(
+        value: isAssincrona,
+        dropdownColor: Colors.white38,
+        onChanged: _classBloc.isAssincronaChanged,
+        icon: Icon(
+          FeatherIcons.chevronDown,
+          color: Colors.white,
+          size: 28,
+        ),
+        decoration: CustomTextField.formDecoration(
+          "Entre com o tipo",
+          prefixIcon: Icon(
+            FeatherIcons.cloud,
+            size: 26,
+            color: Colors.white,
+          ),
+        ),
+        items: <bool>[true, false].map<DropdownMenuItem<bool>>((bool value) {
+          return DropdownMenuItem<bool>(
+            value: value,
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                value ? "Assincrona" : "Sincrona",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins(
+                  color: Colors.white,
+                  fontSize: 19,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal,
+                  letterSpacing: -0.63,
+                ),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
   Widget buildFieldType(size) {
     return StreamBuilder<String>(
         stream: _classBloc.getType,
         builder: (context, snapshot) {
-          print(">>>>>>>>>> ${snapshot.data}");
           return Container(
             width: size.width * 0.9,
-            height: size.height * 0.09,
             child: DropdownButtonFormField(
               value:
                   ((snapshot.data?.isEmpty ?? false) || snapshot.data == 'null')
@@ -360,9 +335,9 @@ class _ManagerClassState extends State<ManagerClass> {
               dropdownColor: Colors.white38,
               onChanged: _classBloc.typeChanged,
               icon: Icon(
-                FontAwesome.chevron_down,
+                FeatherIcons.chevronDown,
                 color: Colors.white,
-                size: 25,
+                size: 28,
               ),
               decoration: CustomTextField.formDecoration(
                 "Entre com o tipo",
@@ -407,6 +382,7 @@ class _ManagerClassState extends State<ManagerClass> {
   Widget buildButtonsEdit(Size size) {
     return Container(
       width: size.width * 0.9,
+      margin: EdgeInsets.only(bottom: 30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -477,36 +453,37 @@ class _ManagerClassState extends State<ManagerClass> {
       backgroundColor: Color(0xff0E153A),
       body: Container(
         padding: EdgeInsets.only(left: 5, right: 5, top: 0),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              buildNameTitle(size),
-              SizedBox(
-                height: size.height * 0.02,
-              ),
-              Container(
-                height: size.height * 0.5,
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      buildFieldTema(size),
-                      buildFieldDescription(size),
-                      buildFieldLink(size),
-                      buildFieldType(size),
-                      buildFieldExtra(size),
-                    ],
-                  ),
+        child: LayoutBuilder(
+          builder: (context, constraints) => SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: IntrinsicHeight(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    buildNameTitle(size),
+                    Expanded(
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            buildFieldTema(size),
+                            buildFieldDescription(size),
+                            buildFieldLink(size),
+                            buildFieldIsAssincrona(size),
+                            buildFieldType(size),
+                            buildFieldExtra(size),
+                          ],
+                        ),
+                      ),
+                    ),
+                    buildButtonsEdit(size)
+                  ],
                 ),
               ),
-              SizedBox(
-                height: size.height * 0.01,
-              ),
-              buildButtonsEdit(size)
-            ],
+            ),
           ),
         ),
       ),

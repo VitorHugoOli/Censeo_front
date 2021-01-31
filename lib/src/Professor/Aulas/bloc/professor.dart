@@ -36,11 +36,13 @@ class Bloc extends Object implements BaseBloc {
     yield user;
   }
 
-  Stream<Map<DateTime, Aula>> get getDaysCalender => _classCalendarController.stream;
+  Stream<Map<DateTime, Aula>> get getDaysCalender =>
+      _classCalendarController.stream;
 
   Stream<List<Alunos>> get getAlunos => _alunosController.stream;
 
-  Function(List<ClassTime>) get listScheduleChanged => _listScheduleController.sink.add;
+  Function(List<ClassTime>) get listScheduleChanged =>
+      _listScheduleController.sink.add;
 
   Stream<List<ClassTime>> get listSchedule => _listScheduleController.stream;
 
@@ -52,7 +54,8 @@ class Bloc extends Object implements BaseBloc {
 
   Stream<String> get getRoom => _roomController.stream;
 
-  Stream<bool> get submitCheck => Rx.combineLatest2(getHorario, getRoom, (e, p) {
+  Stream<bool> get submitCheck =>
+      Rx.combineLatest2(getHorario, getRoom, (e, p) {
         return (!e.isEmpty && !p.isEmpty);
       });
 
@@ -114,7 +117,8 @@ class Bloc extends Object implements BaseBloc {
       if (e.controllerTime.text.contains(":")) {
         List<String> hours = e.controllerTime.text.split(":");
         DateTime now = DateTime.now();
-        e.schedule.horario = new DateTime(now.year, now.month, now.day, int.parse(hours[0]), int.parse(hours[1]));
+        e.schedule.horario = new DateTime(now.year, now.month, now.day,
+            int.parse(hours[0]), int.parse(hours[1]));
         return e.schedule.toJson();
       } else if (e.schedule.id != null) {
         e.schedule.horario = null;
@@ -138,7 +142,9 @@ class Bloc extends Object implements BaseBloc {
     List<String> hours = _horarioController.value.split(":");
     Map body = {
       'turmaId': id,
-      'time': DateTime(date.year, date.month, date.day, int.parse(hours[0]), int.parse(hours[1])).toIso8601String(),
+      'time': DateTime(date.year, date.month, date.day, int.parse(hours[0]),
+              int.parse(hours[1]))
+          .toIso8601String(),
       'room': _roomController.value,
     };
 
@@ -172,9 +178,11 @@ class ClassBloc extends Object implements BaseBloc {
   final _descriptionController = BehaviorSubject<String>();
   final _linkController = BehaviorSubject<String>();
   final _typeController = BehaviorSubject<String>();
+  final _isAssincronaController = BehaviorSubject<bool>();
   final _extraController = BehaviorSubject<String>();
 
-  ClassBloc(this.bloc, {tema = '', description = '', link = '', type, extra = ''}) {
+  ClassBloc(this.bloc,
+      {tema = '', description = '', link = '', type, extra = ''}) {
     temaChanged(tema);
     descriptionChanged(tema);
     linkChanged(link);
@@ -191,6 +199,10 @@ class ClassBloc extends Object implements BaseBloc {
 
   Function(String) get typeChanged => _typeController.sink.add;
 
+  Stream<bool> get getIsAssincrona => _isAssincronaController.stream;
+
+  Function(bool) get isAssincronaChanged => _isAssincronaController.sink.add;
+
   Stream<String> get getLink => _linkController.stream;
 
   Function(String) get linkChanged => _linkController.sink.add;
@@ -204,8 +216,13 @@ class ClassBloc extends Object implements BaseBloc {
   Function(String) get descriptionChanged => _descriptionController.sink.add;
 
   Stream<bool> get submitCheck =>
-      Rx.combineLatest5(getTema, getDescription, getLink, getType, getExtra, (e, p, c, t, o) {
-        return (!e.isEmpty && !p.isEmpty && !c.isEmpty && !t.isEmpty && !o.isEmpty);
+      Rx.combineLatest5(getTema, getDescription, getLink, getType, getExtra,
+          (e, p, c, t, o) {
+        return (!e.isEmpty &&
+            !p.isEmpty &&
+            !c.isEmpty &&
+            !t.isEmpty &&
+            !o.isEmpty);
       });
 
   submitDeleteClass({idAula, idTurma}) {

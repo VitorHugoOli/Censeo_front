@@ -288,15 +288,15 @@ class _AvaliarState extends State<Avaliar> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () async {
-          return await bloc.fetchOpenClass();
-        },
-        child: FutureBuilder<dynamic>(
-            future: bloc.fetchOpenClass(),
-            builder: (context, snapshot) {
-              return Loader(
-                loader: (snapshot.connectionState == ConnectionState.done),
+      body: FutureBuilder<dynamic>(
+          future: bloc.fetchOpenClass(),
+          builder: (context, snapshot) {
+            return Loader(
+              loader: (snapshot.connectionState == ConnectionState.done),
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  return await bloc.fetchOpenClass();
+                },
                 child: Container(
                   constraints: BoxConstraints.expand(),
                   width: size.width,
@@ -330,9 +330,9 @@ class _AvaliarState extends State<Avaliar> {
                     ),
                   ),
                 ),
-              );
-            }),
-      ),
+              ),
+            );
+          }),
     );
   }
 }
