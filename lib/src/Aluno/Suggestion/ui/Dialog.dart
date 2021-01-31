@@ -121,7 +121,7 @@ class CreateSuggestion {
             width: double.maxFinite,
             decoration: BoxDecoration(
               color: Color(0xffE1E1E1),
-              borderRadius: BorderRadius.circular(32.0),
+              borderRadius: BorderRadius.circular(6.0),
               border: Border.all(
                   color: Colors.transparent,
                   style: BorderStyle.solid,

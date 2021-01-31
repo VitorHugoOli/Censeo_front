@@ -26,12 +26,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/censeo_android.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/censeo_android.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/resources/censeo_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/resources/censeo_provider.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/resources/globalAlerts.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/resources/globalAlerts.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/BottomNavigationProfessor/BottomNavigationBar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/BottomNavigationProfessor/BottomNavigationBar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Suggestions/ui/EditSuggestionsDialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/ui/EditSuggestionsDialog.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/Professor/Suggestions/ui/Suggestions.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Professor/Suggestions/ui/Suggestions.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/Aluno/Suggestion/ui/Dialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Aluno/Suggestion/ui/Dialog.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/Login/ui/Login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/Login/ui/Login.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/teste.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/teste.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,10 +62,11 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/assets" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="flutter.settings" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -87,7 +85,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="4" Folder0="C:\Users\Legendary Destroyer\Brazillian Dictionary\IntelliJ.Portuguese.Brazil.Dictionary-master" Folder1="C:\Users\Legendary Destroyer\Brazillian Dictionary\IntelliJ.Portuguese.Brazil.Dictionary-master" Folder2="C:\Users\Legendary Destroyer\Brazillian Dictionary\IntelliJ.Portuguese.Brazil.Dictionary-master" Folder3="C:\Users\Legendary Destroyer\Brazillian Dictionary\IntelliJ.Portuguese.Brazil.Dictionary-master" CustomDictionaries="4" CustomDictionary0="$USER_HOME$/Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master/portuguese-brazil.dic" CustomDictionary1="$USER_HOME$/Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master/portuguese-brazil_technical-terms.dic" CustomDictionary2="$USER_HOME$/Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master/portuguese-brazil_technical-terms_without-accents.dic" CustomDictionary3="$USER_HOME$/Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master/portuguese-brazil_without-accents.dic" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="project-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="4" Folder0="C:\Users\jocam\Brazillian Dictionary\IntelliJ.Portuguese.Brazil.Dictionary-master" Folder1="C:\Users\jocam\Brazillian Dictionary\IntelliJ.Portuguese.Brazil.Dictionary-master" Folder2="C:\Users\jocam\Brazillian Dictionary\IntelliJ.Portuguese.Brazil.Dictionary-master" Folder3="C:\Users\jocam\Brazillian Dictionary\IntelliJ.Portuguese.Brazil.Dictionary-master" CustomDictionaries="4" CustomDictionary0="$USER_HOME$/Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master/portuguese-brazil.dic" CustomDictionary1="$USER_HOME$/Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master/portuguese-brazil_technical-terms.dic" CustomDictionary2="$USER_HOME$/Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master/portuguese-brazil_technical-terms_without-accents.dic" CustomDictionary3="$USER_HOME$/Brazillian Dictionary/IntelliJ.Portuguese.Brazil.Dictionary-master/portuguese-brazil_without-accents.dic" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="project-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -177,9 +175,10 @@
       <screen x="0" y="0" width="1366" height="768" />
     </state>
     <state x="421" y="128" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1611812518936" />
-    <state x="2560" y="0" width="1642" height="772" key="AVDManager" timestamp="1612041093284">
-      <screen x="2560" y="0" width="1920" height="1040" />
+    <state x="0" y="0" width="1095" height="731" key="AVDManager" timestamp="1612063506176">
+      <screen x="0" y="0" width="1280" height="984" />
     </state>
+    <state x="0" y="0" width="1095" height="731" key="AVDManager/0.0.1280.984/-1366.81.1366.728@0.0.1280.984" timestamp="1612063506176" />
     <state x="100" y="100" width="1168" height="570" key="AVDManager/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1611811393794" />
     <state x="100" y="100" width="1168" height="570" key="AVDManager/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611950560609" />
     <state x="100" y="100" width="1166" height="568" key="AVDManager/0.0.1366.768/1366.0.2560.1080@0.0.1366.768" timestamp="1606977561951" />
@@ -256,9 +255,10 @@
     <state width="1234" height="337" key="GridCell.Tab.0.right/0.0.2560.1080@0.0.2560.1080" timestamp="1611452402717" />
     <state width="1320" height="119" key="GridCell.Tab.0.right/2560.0.1366.768/0.0.2560.1080@2560.0.1366.768" timestamp="1612039482008" />
     <state width="1234" height="337" key="GridCell.Tab.0.right/3926.0.1280.1024/0.0.1366.768/1366.0.2560.1080@1366.0.2560.1080" timestamp="1611447024821" />
-    <state x="2819" y="19" key="SettingsEditor" timestamp="1612040872292">
-      <screen x="2560" y="0" width="1920" height="1040" />
+    <state x="171" y="0" key="SettingsEditor" timestamp="1612062279980">
+      <screen x="0" y="0" width="1280" height="984" />
     </state>
+    <state x="171" y="0" key="SettingsEditor/0.0.1280.984/-1366.81.1366.728@0.0.1280.984" timestamp="1612062279980" />
     <state x="184" y="14" key="SettingsEditor/0.0.1366.768/1366.0.2560.1080@0.0.1366.768" timestamp="1607083318069" />
     <state x="2819" y="19" key="SettingsEditor/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1612040872292" />
     <state x="3030" y="193" key="Vcs.Push.Dialog.v2" timestamp="1612032780389">
@@ -284,9 +284,10 @@
       <screen x="1366" y="0" width="2560" height="1080" />
     </state>
     <state x="2444" y="450" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611898941404" />
-    <state x="3230" y="0" width="953" height="921" key="find.popup" timestamp="1612055250993">
-      <screen x="2560" y="0" width="1920" height="1040" />
+    <state x="447" y="0" width="636" height="872" key="find.popup" timestamp="1612071086576">
+      <screen x="0" y="0" width="1280" height="984" />
     </state>
+    <state x="447" y="0" width="636" height="872" key="find.popup/0.0.1280.984/-1366.81.1366.728@0.0.1280.984" timestamp="1612071086576" />
     <state x="524" y="181" width="563" height="523" key="find.popup/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@0.0.1366.768" timestamp="1611812344157" />
     <state x="2794" y="197" width="777" height="669" key="find.popup/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611987284032" />
     <state x="4417" y="241" width="562" height="635" key="find.popup/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@3926.0.1280.1024" timestamp="1611850716815" />
@@ -295,11 +296,16 @@
     <state x="3230" y="0" width="953" height="921" key="find.popup/0.0.2560.1040/2560.0.1920.1040@2560.0.1920.1040" timestamp="1612055250993" />
     <state x="982" y="255" width="1054" height="735" key="find.popup/0.0.2560.1080@0.0.2560.1080" timestamp="1611506231759" />
     <state x="3037" y="0" width="678" height="680" key="find.popup/2560.0.1366.768/0.0.2560.1080@2560.0.1366.768" timestamp="1612035975538" />
-    <state x="2016" y="233" key="run.anything.popup" timestamp="1611843777324">
-      <screen x="1366" y="0" width="2560" height="1080" />
+    <state x="325" y="212" key="run.anything.popup" timestamp="1612068953723">
+      <screen x="0" y="0" width="1280" height="984" />
     </state>
+    <state x="325" y="212" key="run.anything.popup/0.0.1280.984/-1366.81.1366.728@0.0.1280.984" timestamp="1612068953723" />
     <state x="2016" y="233" key="run.anything.popup/0.0.1366.768/1366.0.2560.1080/3926.0.1280.1024@1366.0.2560.1080" timestamp="1611843777324" />
     <state x="347" y="166" key="run.anything.popup/0.0.1366.768/3926.0.1280.1024/1366.0.2560.1080@0.0.1366.768" timestamp="1611693324577" />
+    <state x="302" y="151" width="672" height="678" key="search.everywhere.popup" timestamp="1612064726695">
+      <screen x="0" y="0" width="1280" height="984" />
+    </state>
+    <state x="302" y="151" width="672" height="678" key="search.everywhere.popup/0.0.1280.984/-1366.81.1366.728@0.0.1280.984" timestamp="1612064726695" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

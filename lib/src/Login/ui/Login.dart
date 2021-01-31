@@ -23,15 +23,15 @@ class _LoginState extends State<Login> {
 
   Widget buildTitle(Size size) {
     return Container(
-      margin: EdgeInsets.only(left:50),
+      margin: EdgeInsets.only(left: 50),
       child: Text(
         "O melhor aprendizado é a critica",
         textAlign: TextAlign.left,
         style: GoogleFonts.poppins(
-          fontSize: 40,
-          fontWeight: FontWeight.w500,
-          color: Colors.white,
-        ),
+            fontSize: 34,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+            height: 1.13),
       ),
     );
   }
@@ -60,23 +60,24 @@ class _LoginState extends State<Login> {
               )
             : null,
         filled: true,
-        errorStyle: TextStyle(height: 0),
-        floatingLabelBehavior: FloatingLabelBehavior.auto,
+        errorStyle: TextStyle(),
+        contentPadding: const EdgeInsets.only(bottom: 10, left: 3),
+        floatingLabelBehavior: FloatingLabelBehavior.always,
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
+          borderRadius: BorderRadius.circular(6.0),
         ),
         border: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
+          borderRadius: BorderRadius.circular(6.0),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
+          borderRadius: BorderRadius.circular(6.0),
         ),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
+          borderRadius: BorderRadius.circular(6.0),
         ),
         errorText: null,
         disabledBorder: InputBorder.none,
@@ -133,7 +134,7 @@ class _LoginState extends State<Login> {
                 fontStyle: FontStyle.normal,
                 letterSpacing: -0.735,
               ),
-              decoration: decoration("Matrícula", emailError),
+              decoration: decoration("", emailError),
               validator: (value) => validatorEmail(value),
             ),
           );
@@ -177,7 +178,7 @@ class _LoginState extends State<Login> {
                 letterSpacing: -0.735,
               ),
               validator: (value) => validatorPass(value),
-              decoration: decoration("Senha", passError),
+              decoration: decoration("", passError),
             ),
           );
         });
@@ -320,6 +321,22 @@ class _LoginState extends State<Login> {
     );
   }
 
+  Widget m_e_s(String mes) {
+    return Container(
+      child: Text(
+        mes,
+        style: GoogleFonts.poppins(
+          color: Colors.white,
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          fontStyle: FontStyle.normal,
+          letterSpacing: -0.735,
+        ),
+      ),
+      padding: EdgeInsets.only(bottom: 3, left: 3),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -342,11 +359,18 @@ class _LoginState extends State<Login> {
                       key: _formKey,
                       child: Column(
                         children: <Widget>[
-                          buildFieldLogin(size),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              m_e_s("Matrícula"),
+                              buildFieldLogin(size),
+                            ],
+                          ),
                           buildAlertMessageMux(size, false),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              m_e_s("Senha"),
                               buildFieldPassword(size),
                               buildRescue(size),
                             ],
