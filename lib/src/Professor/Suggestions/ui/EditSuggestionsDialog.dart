@@ -138,7 +138,7 @@ class EditSuggestion {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              width: size.width * 0.56,
+              width: size.width * 0.46,
               height: size.height * 0.08,
               child: TextFormField(
                 onChanged: (value) {

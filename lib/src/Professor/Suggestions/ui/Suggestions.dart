@@ -4,6 +4,7 @@ import 'package:censeo/src/Professor/Suggestions/models/Topicos.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -100,15 +101,15 @@ class _SuggestionPageState extends State<SuggestionPage> {
     return Container(
       width: size.width * 0.9,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            width: size.width * 0.7,
+            width: size.width * 0.75,
             height: size.height * 0.08,
             decoration: BoxDecoration(
-              color: Color(0x77ffffff),
-              borderRadius: BorderRadius.circular(32.0),
+              color: Colors.white,
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(8),bottomLeft: Radius.circular(8)),
               border: Border.all(
                   color: Colors.transparent,
                   style: BorderStyle.solid,
@@ -120,66 +121,78 @@ class _SuggestionPageState extends State<SuggestionPage> {
                   return DropdownButtonHideUnderline(
                     child: Container(
                       margin: EdgeInsets.only(left: 10.0, right: 10.0),
-                      child: new DropdownButton<String>(
-                          elevation: 0,
-                          dropdownColor: Color(0xffBEA3EB),
-                          value: categories,
-                          onChanged: (value) {
-                            setState(() {
-                              categories = value;
-                            });
-                          },
-                          hint: Text(
-                            "Entre com o topico",
-                            style: GoogleFonts.poppins(
-                              color: Color(0x88ffffff),
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                              fontStyle: FontStyle.normal,
-                              letterSpacing: -0.525,
+                      child: ButtonTheme(
+                        alignedDropdown: true,
+                        child: new DropdownButton<String>(
+                            elevation: 0,
+                            dropdownColor: Color(0xff6B6B6B),
+                            value: categories,
+                            onChanged: (value) {
+                              setState(() {
+                                categories = value;
+                              });
+                            },
+                            hint: Text(
+                              "Tópico",
+                              style: GoogleFonts.poppins(
+                                color: Color(0xff0E153A),
+                                fontSize: 17,
+                                fontWeight: FontWeight.w400,
+                                fontStyle: FontStyle.normal,
+                                letterSpacing: -0.525,
+                              ),
                             ),
-                          ),
-                          icon: Icon(
-                            FontAwesome.chevron_down,
-                            color: Colors.white,
-                          ),
-                          style: GoogleFonts.poppins(
-                              fontSize: 12, color: Colors.white),
-                          items: snapshot?.data
-                              ?.map<DropdownMenuItem<String>>((Topicos value) {
-                            return DropdownMenuItem<String>(
-                              value: value.topico,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  value.topico,
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.white,
-                                    fontSize: 19,
-                                    fontWeight: FontWeight.w600,
-                                    fontStyle: FontStyle.normal,
-                                    letterSpacing: -0.63,
+                            icon: Icon(
+                              FeatherIcons.chevronDown,
+                              color: Color(0xff0E153A),
+                            ),
+                            style: GoogleFonts.poppins(
+                                fontSize: 12, color: Colors.white),
+                            items: snapshot?.data
+                                ?.map<DropdownMenuItem<String>>((Topicos value) {
+                              return DropdownMenuItem<String>(
+                                value: value.topico,
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    value.topico,
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.poppins(
+                                      color: Color(0xff0E153A),
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FontStyle.normal,
+                                      letterSpacing: -0.63,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          })?.toList()),
+                              );
+                            })?.toList()),
+                      ),
                     ),
                   );
                 }),
           ),
-          ClipOval(
+          Container(
+            height: size.height * 0.08,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(topRight: Radius.circular(8),bottomRight: Radius.circular(8)),
+              border: Border.all(
+                  color: Colors.transparent,
+                  style: BorderStyle.solid,
+                  width: 0.80),
+            ),
             child: Material(
-              color: Color(0x77ffffff),
+              color: Colors.transparent,
               elevation: 60, // button color
               child: InkWell(
                 splashColor: Colors.transparent, // inkwell color
                 child: SizedBox(
                     width: 50,
                     height: 50,
-                    child: Icon(EvilIcons.pencil,
-                        size: 45, color: Color(0xffffffff))),
+                    child: Icon(FeatherIcons.edit2,
+                        size: 25, color: Color(0xff0E153A))),
                 onTap: () {
                   EditSuggestion.dialog(context, widget.suggestionBloc,
                       widget._categories.id, widget._categories.tipo);
@@ -257,7 +270,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
                       FontAwesome.frown_o,
                       color: sug.relevancia == 0
                           ? Color(0xfffc0808)
-                          : Color(0xff898989),
+                          : Color(0xff0E153A),
                       size: 35,
                     ),
                   ),
@@ -270,7 +283,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
                       FontAwesome.meh_o,
                       color: sug.relevancia == 1
                           ? Color(0xfffcb808)
-                          : Color(0xff898989),
+                          : Color(0xff0E153A),
                       size: 35,
                     ),
                   ),
@@ -283,7 +296,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
                       FontAwesome.smile_o,
                       color: sug.relevancia == 2
                           ? Color(0xff36E37E)
-                          : Color(0xff898989),
+                          : Color(0xff0E153A),
                       size: 35,
                     ),
                   )

@@ -245,7 +245,7 @@ class _ManagerTurmaState extends State<ManagerTurma> {
           Size size = MediaQuery.of(context).size;
           return AlertDialog(
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(32.0))),
-            title: EditClassDialog.title(),
+            title: EditClassDialog.title(context),
             content: EditClassDialog(turma.horarios, turma.id, widget.bloc),
             actions: EditClassDialog.actions(context, turma.id, size, widget.bloc),
           );

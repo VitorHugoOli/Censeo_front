@@ -1,8 +1,10 @@
+import 'package:censeo/resources/CustomTextField.dart';
 import 'package:censeo/src/Professor/Aulas/bloc/professor.dart';
 import 'package:censeo/src/Professor/Aulas/models/Turma.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -30,12 +32,14 @@ class EditClassDialog extends StatefulWidget {
                 margin: EdgeInsets.only(right: 10, top: 5, bottom: 5),
                 width: 35,
                 height: 35,
-                decoration: new BoxDecoration(borderRadius: BorderRadius.circular(50), color: Color(0xffffffff)),
+                decoration: new BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Color(0xffffffff)),
                 child: Center(
                   child: Text("!",
                       style: TextStyle(
                         fontFamily: 'Poppins',
-                        color: Color(0xffff3f85),
+                        color: Color(0xff0E153A),
                         fontSize: 24,
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.normal,
@@ -49,25 +53,25 @@ class EditClassDialog extends StatefulWidget {
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
+          borderRadius: BorderRadius.circular(8.0),
         ),
         border: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
+          borderRadius: BorderRadius.circular(8.0),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
+          borderRadius: BorderRadius.circular(8.0),
         ),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
+          borderRadius: BorderRadius.circular(8.0),
         ),
         errorText: null,
         disabledBorder: InputBorder.none,
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
+          borderRadius: BorderRadius.circular(8.0),
         ),
         labelText: label,
         labelStyle: GoogleFonts.poppins(
@@ -79,18 +83,47 @@ class EditClassDialog extends StatefulWidget {
         ),
       );
 
-  static Widget title() {
-    return Text(
-      "Horários de Aula",
-      textAlign: TextAlign.center,
-      style: GoogleFonts.poppins(
-        color: Color(0xff7000ff),
-        fontWeight: FontWeight.w600,
+  static Widget title(context) {
+    return Container(
+      width: double.maxFinite,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Flexible(
+            child: Text(
+              "Horários de Aula",
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                color: Color(0xff0E153A),
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                fontStyle: FontStyle.normal,
+                letterSpacing: -0.63,
+              ),
+            ),
+          ),
+          ClipOval(
+            child: Material(
+              color: Colors.transparent,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: Icon(
+                  Feather.x,
+                  color: Colors.black,
+                  size: 22,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  static List<Widget> actions(context,int turmaId, size, Bloc bloc) {
+  static List<Widget> actions(context, int turmaId, size, Bloc bloc) {
     return <Widget>[
       new Container(
         width: size.width * 0.8,
@@ -98,29 +131,6 @@ class EditClassDialog extends StatefulWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Container(
-              width: size.width * 0.35,
-              height: size.height * 0.06,
-              child: RaisedButton(
-                color: Color(0xff7E00DE),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(76),
-                ),
-                child: Text(
-                  "Voltar",
-                  style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    fontStyle: FontStyle.normal,
-                    letterSpacing: -0.56,
-                  ),
-                ),
-              ),
-            ),
             StreamBuilder<List<ClassTime>>(
                 stream: bloc.listSchedule,
                 builder: (context, AsyncSnapshot<List<ClassTime>> snapshot) {
@@ -128,13 +138,13 @@ class EditClassDialog extends StatefulWidget {
                     width: size.width * 0.35,
                     height: size.height * 0.06,
                     child: RaisedButton(
-                      color: Color(0xffff3f85),
+                      color: Color(0xff0E153A),
                       onPressed: () async {
                         bloc.submitSchedule(turmaId, snapshot.data);
                         Navigator.of(context).pop();
                       },
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(76),
+                        borderRadius: BorderRadius.circular(6),
                       ),
                       child: Text(
                         "Confirmar",
@@ -190,7 +200,8 @@ class _EditClassDialogState extends State<EditClassDialog> {
   void initState() {
     days.forEach((day) {
       for (Horario i in widget.horarios) {
-        if (day.schedule.dia.substring(0, 3).toLowerCase() == i.dia.toLowerCase()) {
+        if (day.schedule.dia.substring(0, 3).toLowerCase() ==
+            i.dia.toLowerCase()) {
           day.controllerTime.text = DateFormat.Hm().format(i.horario);
           day.controllerRoom.text = i.sala;
           day.schedule.id = i.id;
@@ -209,77 +220,141 @@ class _EditClassDialogState extends State<EditClassDialog> {
 
   @override
   Widget build(BuildContext context) {
+    _body(Size size) {
+      buildTopico(index) {
+        return Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: size.width * 0.56,
+                height: size.height * 0.08,
+                child: TextFormField(
+                  onChanged: (value) {},
+                  initialValue: '',
+                  keyboardType: TextInputType.multiline,
+                  textAlign: TextAlign.left,
+                  style: GoogleFonts.poppins(
+                    color: Color(0xff555555),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    fontStyle: FontStyle.normal,
+                    letterSpacing: -0.735,
+                  ),
+                  decoration:
+                      CustomTextField.formDecoration("Digite a descrição"),
+                ),
+              ),
+              Material(
+                color: Colors.transparent,
+                child: Center(
+                  child: Ink(
+                    width: 40,
+                    height: 40,
+                    decoration: const ShapeDecoration(
+                      color: Colors.white,
+                      shape: CircleBorder(),
+                    ),
+                    child: IconButton(
+                      onPressed: () {},
+                      color: Colors.white,
+                      icon: Icon(
+                        FontAwesome.trash_o,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        );
+      }
+
+      return Container(
+        height: size.height * 0.5,
+        width: size.width * 0.8,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                minWidth: 0,
+                minHeight: 0,
+                maxWidth: size.width * 0.8,
+                maxHeight: size.height * 0.4,
+              ),
+              child: ListView.separated(
+                shrinkWrap: true,
+                separatorBuilder: (context, index) {
+                  return SizedBox(
+                    height: 10,
+                  );
+                },
+                itemCount: 0,
+                itemBuilder: (context, index) {
+                  return buildTopico(index);
+                },
+              ),
+            ),
+            Material(
+              color: Colors.white,
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Ink(
+                      decoration: const BoxDecoration(
+                        color: Color(0xff3D5AF1),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          FlatButton(
+                            onPressed: () {},
+                            color: Colors.transparent,
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Octicons.plus_small,
+                                  color: Colors.white,
+                                  size: 40,
+                                ),
+                                Container(
+                                  width: size.width * 0.03,
+                                ),
+                                Text(
+                                  'Adicionar Tópico',
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w300,
+                                    fontStyle: FontStyle.normal,
+                                    letterSpacing: -0.735,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height * 0.6,
       child: SingleChildScrollView(
-        child: Column(
-          children: days.map((day) {
-            return Container(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(bottom: size.height * 0.01, top: size.height * 0.02),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          day.schedule.dia,
-                          style: GoogleFonts.poppins(fontWeight: FontWeight.w700),
-                        )
-                      ],
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Container(
-                        height: size.height * 0.08,
-                        width: size.width * 0.33,
-                        child: TextFormField(
-                          controller: day.controllerTime,
-                          keyboardType: TextInputType.datetime,
-                          inputFormatters: [
-                            MaskTextInputFormatter(
-                                mask: '#@:&@',
-                                filter: {"#": RegExp(r'[0-2]'), '@': RegExp(r'[0-9]'), '&': RegExp(r'[0-5]')})
-                          ],
-                          textAlign: TextAlign.left,
-                          style: GoogleFonts.poppins(
-                            color: Color(0xff000000),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            fontStyle: FontStyle.normal,
-                            letterSpacing: -0.735,
-                          ),
-                          decoration: EditClassDialog.decoration("Horário", day.error),
-                          validator: (value) => _validatorTime(value, days.indexOf(day)),
-                        ),
-                      ),
-                      Container(
-                        height: size.height * 0.08,
-                        width: size.width * 0.33,
-                        child: TextFormField(
-                          controller: day.controllerRoom,
-                          keyboardType: TextInputType.text,
-                          textAlign: TextAlign.left,
-                          style: GoogleFonts.poppins(
-                            color: Color(0xff000000),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            fontStyle: FontStyle.normal,
-                            letterSpacing: -0.735,
-                          ),
-                          decoration: EditClassDialog.decoration("Sala", day.error),
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            );
-          }).toList(),
-        ),
+        child: _body(size),
       ),
     );
   }
