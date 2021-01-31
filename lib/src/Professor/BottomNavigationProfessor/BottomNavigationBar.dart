@@ -32,7 +32,7 @@ class _BottomNavigationProfessorState extends State<BottomNavigationProfessor> {
 
   static madeBubbleBottomBarItem(IconData icon, String title) {
     return BubbleBottomBarItem(
-      backgroundColor: Color(0xFFFF3F85),
+      backgroundColor: Color(0xFF3D5AF1),
       icon: Icon(
         icon,
         color: Color(0xFF383838),
@@ -137,7 +137,7 @@ class _BottomNavigationProfessorState extends State<BottomNavigationProfessor> {
               color: Colors.white,
               size: 25,
             ),
-            backgroundColor: Color(0xFFFF3F85),
+            backgroundColor: Color(0xFF3D5AF1),
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: BubbleBottomBar(

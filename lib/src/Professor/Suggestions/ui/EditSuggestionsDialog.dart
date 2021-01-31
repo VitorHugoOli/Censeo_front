@@ -10,9 +10,9 @@ class EditSuggestion {
         fillColor: Color(0xffe1e1e1),
         hintText: hint,
         hintStyle: GoogleFonts.poppins(
-          color: Color(0x88898989),
+          color: Colors.black54,
           fontSize: 17,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w300,
           fontStyle: FontStyle.normal,
           letterSpacing: -0.525,
         ),
@@ -21,31 +21,43 @@ class EditSuggestion {
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
+          borderRadius: BorderRadius.circular(6.0),
         ),
         border: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
+          borderRadius: BorderRadius.circular(6.0),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
+          borderRadius: BorderRadius.circular(6.0),
         ),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
+          borderRadius: BorderRadius.circular(6.0),
         ),
         errorText: null,
         disabledBorder: InputBorder.none,
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
+          borderRadius: BorderRadius.circular(8.0),
         ),
       );
 
   static Widget _title(context) {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        Text(
+          "Editar Tópicos",
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            color: Colors.black,
+            fontSize: 21,
+            fontWeight: FontWeight.w500,
+            fontStyle: FontStyle.normal,
+            letterSpacing: -0.63,
+          ),
+        ),
         Align(
           alignment: Alignment.topRight,
           child: IconButton(
@@ -55,20 +67,9 @@ class EditSuggestion {
             },
             icon: Icon(
               Feather.x,
-              color: Color(0xff7000ff),
-              size: 20,
+              color: Colors.black,
+              size: 22,
             ),
-          ),
-        ),
-        Text(
-          "Editar Tópicos",
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            color: Color(0xff7000ff),
-            fontSize: 21,
-            fontWeight: FontWeight.w500,
-            fontStyle: FontStyle.normal,
-            letterSpacing: -0.63,
           ),
         ),
       ],
@@ -80,29 +81,34 @@ class EditSuggestion {
       Container(
         width: size.width * 0.8,
         child: Center(
-          child: Container(
-            width: size.width * 0.35,
-            height: size.height * 0.06,
-            child: RaisedButton(
-              color: Color(0xffff3f85),
-              onPressed: () {
-                bloc.submitTopicos(id, type);
-                Navigator.pop(context);
-              },
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                "Pronto!",
-                style: GoogleFonts.montserrat(
-                  color: Colors.white,
-                  fontSize: 17,
-                  fontWeight: FontWeight.w500,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: -0.56,
+          child: Column(
+            children: [
+              Container(
+                width: size.width * 0.565,
+                height: size.height * 0.06,
+                child: RaisedButton(
+                  color: Color(0xff0E153A),
+                  onPressed: () {
+                    bloc.submitTopicos(id, type);
+                    Navigator.pop(context);
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    "Pronto!",
+                    style: GoogleFonts.montserrat(
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w500,
+                      fontStyle: FontStyle.normal,
+                      letterSpacing: -0.56,
+                    ),
+                  ),
                 ),
               ),
-            ),
+              Container(height: size.height * 0.045,)
+            ],
           ),
         ),
       ),
@@ -115,7 +121,8 @@ class EditSuggestion {
       builder: (BuildContext context) {
         Size size = MediaQuery.of(context).size;
         return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(9))),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(9))),
           title: _title(context),
           content: _body(size, bloc, type),
           actions: _actions(size, context, bloc, id, type),
@@ -148,6 +155,7 @@ class EditSuggestion {
                   letterSpacing: -0.735,
                 ),
                 decoration: decoration("Digite a descrição"),
+
               ),
             ),
             Material(
@@ -157,7 +165,7 @@ class EditSuggestion {
                   width: 40,
                   height: 40,
                   decoration: const ShapeDecoration(
-                    color: Color(0xffff4b56),
+                    color: Colors.white,
                     shape: CircleBorder(),
                   ),
                   child: IconButton(
@@ -165,7 +173,10 @@ class EditSuggestion {
                       bloc.removeTopicosValue(index, topico.id, type);
                     },
                     color: Colors.white,
-                    icon: Icon(FontAwesome.minus),
+                    icon: Icon(
+                      FontAwesome.trash_o,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ),
@@ -210,18 +221,48 @@ class EditSuggestion {
           Material(
             color: Colors.white,
             child: Center(
-              child: Ink(
-                decoration: const ShapeDecoration(
-                  color: Color(0xffff3f85),
-                  shape: CircleBorder(),
-                ),
-                child: IconButton(
-                  onPressed: () {
-                    bloc.addTopicosValue();
-                  },
-                  color: Colors.white,
-                  icon: Icon(FontAwesome.plus),
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Ink(
+                    decoration: const BoxDecoration(
+                      color: Color(0xff3D5AF1),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(8),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        FlatButton(
+                          onPressed: () {
+                            bloc.addTopicosValue();
+                          },
+                          color: Colors.transparent,
+                          child: Row(
+                            children: [
+                              Icon(
+                                Octicons.plus_small,
+                                color: Colors.white,
+                                size: 40,
+                              ),
+                              Container(width: size.width * 0.03,),
+                              Text(
+                                'Adicionar Tópico',
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w300,
+                                  fontStyle: FontStyle.normal,
+                                  letterSpacing: -0.735,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

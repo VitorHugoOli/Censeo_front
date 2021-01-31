@@ -306,7 +306,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
         builder: (context, snapshot) {
           if (!snapshot.hasData || (snapshot?.data?.length == 0 ?? true)) {
             return Container(
-              child: Lottie.asset('assets/empty.json'),
+              child: Lottie.asset('assets/empty.json',height: size.height * 0.35),
             );
           } else {
             return ListView.separated(

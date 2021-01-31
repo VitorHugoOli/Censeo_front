@@ -177,7 +177,7 @@ Future<dynamic> genericAlert() {
       Size size = MediaQuery.of(context).size;
       // retorna um objeto do tipo Dialog
       return AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(32.0))),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
 //        title: new Text("Você não está conectado a internet"),
         content: Container(
           height: size.height * 0.5,
@@ -187,7 +187,7 @@ Future<dynamic> genericAlert() {
                 "Humm.. algo deu errado, tente mais tarde!",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(
-                  color: Color(0xff4b2e9d),
+                  color: Color(0xff3D5AF1),
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
                   fontStyle: FontStyle.normal,
@@ -198,26 +198,26 @@ Future<dynamic> genericAlert() {
             ],
           ),
         ),
-        actionsPadding: EdgeInsets.only(right: size.width * 0.15),
+        actionsPadding: EdgeInsets.only(right: size.width * 0.177),
         actions: <Widget>[
           // define os botões na base do dialogo
           new Container(
-            width: size.width * 0.45,
+            width: size.width * 0.4,
             height: size.height * 0.06,
             child: RaisedButton(
-              color: Color(0xff7E00DE),
+              color: Color(0xff3D5AF1),
               onPressed: () {
                 Navigator.of(context).pop();
               },
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(76),
+                borderRadius: BorderRadius.circular(6),
               ),
               child: Text(
                 "Voltar",
                 style: GoogleFonts.poppins(
                   color: Colors.white,
                   fontSize: 16,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w400,
                   fontStyle: FontStyle.normal,
                   letterSpacing: -0.56,
                 ),
