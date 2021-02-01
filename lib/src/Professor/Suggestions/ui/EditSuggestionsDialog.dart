@@ -189,84 +189,91 @@ class EditSuggestion {
     return Container(
       height: size.height * 0.5,
       width: size.width * 0.8,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          StreamBuilder(
-            stream: bloc.topicosList,
-            builder: (context, snapshot) {
-              return ConstrainedBox(
-                constraints: BoxConstraints(
-                  minWidth: 0,
-                  minHeight: 0,
-                  maxWidth: size.width * 0.8,
-                  maxHeight: size.height * 0.4,
-                ),
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  separatorBuilder: (context, index) {
-                    return SizedBox(
-                      height: 10,
-                    );
-                  },
-                  itemCount: snapshot?.data?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    Topicos obj = snapshot?.data[index];
-                    return buildTopico(obj, index, snapshot);
-                  },
-                ),
-              );
-            },
-          ),
-          Material(
-            color: Colors.white,
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Ink(
-                    decoration: const BoxDecoration(
-                      color: Color(0xff3D5AF1),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(8),
-                      ),
+      child: SingleChildScrollView(
+        child: Container(
+          height: size.height * 0.5,
+          child: Column(
+
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              StreamBuilder(
+                stream: bloc.topicosList,
+                builder: (context, snapshot) {
+                  return ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minWidth: 0,
+                      minHeight: 0,
+                      maxWidth: size.width * 0.8,
+                      maxHeight: size.height * 0.4,
                     ),
-                    child: Row(
-                      children: [
-                        FlatButton(
-                          onPressed: () {
-                            bloc.addTopicosValue();
-                          },
-                          color: Colors.transparent,
-                          child: Row(
-                            children: [
-                              Icon(
-                                Octicons.plus_small,
-                                color: Colors.white,
-                                size: 40,
-                              ),
-                              Container(width: size.width * 0.03,),
-                              Text(
-                                'Adicionar Tópico',
-                                style: GoogleFonts.poppins(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w300,
-                                  fontStyle: FontStyle.normal,
-                                  letterSpacing: -0.735,
-                                ),
-                              ),
-                            ],
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      separatorBuilder: (context, index) {
+                        return SizedBox(
+                          height: 10,
+                        );
+                      },
+                      itemCount: snapshot?.data?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        Topicos obj = snapshot?.data[index];
+                        return buildTopico(obj, index, snapshot);
+                      },
+                    ),
+                  );
+                },
+              ),
+
+              Material(
+                color: Colors.white,
+                child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Ink(
+                        decoration: const BoxDecoration(
+                          color: Color(0xff3D5AF1),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(8),
                           ),
                         ),
-                      ],
-                    ),
+                        child: Row(
+                          children: [
+                            FlatButton(
+                              onPressed: () {
+                                bloc.addTopicosValue();
+                              },
+                              color: Colors.transparent,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Octicons.plus_small,
+                                    color: Colors.white,
+                                    size: 40,
+                                  ),
+                                  Container(width: size.width * 0.03,),
+                                  Text(
+                                    'Adicionar Tópico',
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w300,
+                                      fontStyle: FontStyle.normal,
+                                      letterSpacing: -0.735,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

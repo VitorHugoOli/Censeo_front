@@ -125,7 +125,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
                         alignedDropdown: true,
                         child: new DropdownButton<String>(
                             elevation: 0,
-                            dropdownColor: Color(0xff6B6B6B),
+                            dropdownColor: Color(0xffdddddd),
                             value: categories,
                             onChanged: (value) {
                               setState(() {
