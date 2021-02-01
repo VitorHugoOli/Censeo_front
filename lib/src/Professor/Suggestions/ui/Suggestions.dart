@@ -23,49 +23,12 @@ class SuggestionPage extends StatefulWidget {
   final Categories _categories;
   final Bloc suggestionBloc;
 
-  static InputDecoration decoration(hint) => InputDecoration(
-        fillColor: Color(0x77ffffff),
-        hintText: hint,
-        hintStyle: GoogleFonts.poppins(
-          color: Color(0x88ffffff),
-          fontSize: 17,
-          fontWeight: FontWeight.w600,
-          fontStyle: FontStyle.normal,
-          letterSpacing: -0.525,
-        ),
-        filled: true,
-        errorStyle: TextStyle(height: 0),
-        floatingLabelBehavior: FloatingLabelBehavior.auto,
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
-        ),
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
-        ),
-        errorText: null,
-        disabledBorder: InputBorder.none,
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
-        ),
-      );
-
   @override
   _SuggestionPageState createState() => _SuggestionPageState();
 }
 
 class _SuggestionPageState extends State<SuggestionPage> {
-  String categories;
+  String topico;
 
   Widget buildNameTitle(Size size) {
     return Column(
@@ -109,7 +72,8 @@ class _SuggestionPageState extends State<SuggestionPage> {
             height: size.height * 0.08,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(8),bottomLeft: Radius.circular(8)),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
               border: Border.all(
                   color: Colors.transparent,
                   style: BorderStyle.solid,
@@ -126,10 +90,10 @@ class _SuggestionPageState extends State<SuggestionPage> {
                         child: new DropdownButton<String>(
                             elevation: 0,
                             dropdownColor: Color(0xffdddddd),
-                            value: categories,
+                            value: topico,
                             onChanged: (value) {
                               setState(() {
-                                categories = value;
+                                topico = value;
                               });
                             },
                             hint: Text(
@@ -149,7 +113,8 @@ class _SuggestionPageState extends State<SuggestionPage> {
                             style: GoogleFonts.poppins(
                                 fontSize: 12, color: Colors.white),
                             items: snapshot?.data
-                                ?.map<DropdownMenuItem<String>>((Topicos value) {
+                                ?.map<DropdownMenuItem<String>>(
+                                    (Topicos value) {
                               return DropdownMenuItem<String>(
                                 value: value.topico,
                                 child: Align(
@@ -177,7 +142,9 @@ class _SuggestionPageState extends State<SuggestionPage> {
             height: size.height * 0.08,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.only(topRight: Radius.circular(8),bottomRight: Radius.circular(8)),
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(8),
+                  bottomRight: Radius.circular(8)),
               border: Border.all(
                   color: Colors.transparent,
                   style: BorderStyle.solid,
@@ -319,7 +286,8 @@ class _SuggestionPageState extends State<SuggestionPage> {
         builder: (context, snapshot) {
           if (!snapshot.hasData || (snapshot?.data?.length == 0 ?? true)) {
             return Container(
-              child: Lottie.asset('assets/empty.json',height: size.height * 0.35),
+              child:
+                  Lottie.asset('assets/empty.json', height: size.height * 0.35),
             );
           } else {
             return ListView.separated(
@@ -331,7 +299,8 @@ class _SuggestionPageState extends State<SuggestionPage> {
               },
               itemCount: snapshot?.data?.length ?? 0,
               itemBuilder: (context, index) {
-                return buildCardSuggestion(size, snapshot.data[index]);
+                if (topico != null && snapshot.data[index].topicoId == topico){}
+                  return buildCardSuggestion(size, snapshot.data[index]);
               },
             );
           }

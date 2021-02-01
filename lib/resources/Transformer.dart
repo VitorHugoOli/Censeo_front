@@ -5,3 +5,7 @@ String checkDisciplinaName(String sigla, String name) {
   }
   return name;
 }
+
+String Capitalize(String str) {
+  return "${str[0].toUpperCase()}${str.substring(1)}";
+}

@@ -182,12 +182,18 @@ class ClassBloc extends Object implements BaseBloc {
   final _extraController = BehaviorSubject<String>();
 
   ClassBloc(this.bloc,
-      {tema = '', description = '', link = '', type, extra = ''}) {
+      {tema = '',
+      description = '',
+      link = '',
+      type,
+      extra = '',
+      isAssincrona = false}) {
     temaChanged(tema);
     descriptionChanged(tema);
     linkChanged(link);
     typeChanged(type);
     extraChanged(extra);
+    isAssincronaChanged(isAssincrona);
     //TODO request do extra
   }
 
@@ -231,11 +237,13 @@ class ClassBloc extends Object implements BaseBloc {
   }
 
   submitEditClass({idAula, idTurma}) {
+    print(_typeController.value);
     Map body = {
       'tema': _temaController.value ?? "",
       'descricao': _descriptionController.value ?? "",
       'link': _linkController.value ?? "",
-      'tipo': _typeController.value ?? "",
+      'tipo': _typeController.value == "" ? null : _typeController.value,
+      'is_assincrona': _isAssincronaController.value ?? "",
       'extra': _extraController.value,
     };
 

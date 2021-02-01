@@ -15,6 +15,7 @@ class CreateSuggestion {
   final Bloc bloc;
   final Categories categories;
   Suggestion _suggestion;
+  final _formKey = GlobalKey<FormState>();
 
   CreateSuggestion(this.bloc, this.categories) {
     _suggestion = Suggestion();
@@ -74,8 +75,9 @@ class CreateSuggestion {
                 child: RaisedButton(
                   color: Color(0xff0E153A),
                   onPressed: () {
-                    // bloc.submitTopicos(id, type);
-                    print(_suggestion.toJson());
+                    if (_formKey.currentState.validate()) {
+                      bloc.createSuggestion(_suggestion, categories.tipo);
+                    }
                     Navigator.pop(context);
                   },
                   shape: RoundedRectangleBorder(
@@ -93,7 +95,9 @@ class CreateSuggestion {
                   ),
                 ),
               ),
-              Container(height: size.height * 0.02,)
+              Container(
+                height: size.height * 0.02,
+              )
             ],
           ),
         ),
@@ -105,7 +109,9 @@ class CreateSuggestion {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
-        Size size = MediaQuery.of(context).size;
+        Size size = MediaQuery
+            .of(context)
+            .size;
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(9))),
@@ -119,50 +125,50 @@ class CreateSuggestion {
 
   _body(Size size) {
     return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Container(
-            width: double.maxFinite,
-            decoration: BoxDecoration(
-              color: Color(0xffE1E1E1),
-              borderRadius: BorderRadius.circular(6.0),
-              border: Border.all(
-                  color: Colors.transparent,
-                  style: BorderStyle.solid,
-                  width: 0.80),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: double.maxFinite,
+              child: StreamBuilder<List<Topicos>>(
+                stream: bloc.topicosList,
+                builder: (context, snapshot) {
+                  return TopicosDropDown(snapshot.data, _suggestion);
+                },
+              ),
             ),
-            child: StreamBuilder<List<Topicos>>(
-              stream: bloc.topicosList,
-              builder: (context, snapshot) {
-                return TopicosDropDown(snapshot.data, _suggestion);
-              },
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 20),
+              child: CustomTextField(
+                _controller,
+                label: "",
+                fillColors: Color(0xffE1E1E1),
+                hintText: "Título",
+                validator: (value) =>
+                value.isEmpty ? "Entre com algum título" : null,
+                hintColor: Color(0xff555555),
+                upDate: (value) {
+                  _suggestion.titulo = value;
+                },
+              ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 20),
-            child: CustomTextField(
+            CustomTextField(
               _controller,
-              label: "",
+              label: "descricao",
+              validator: (value) =>
+              value.isEmpty ? "Entre com alguma descrição" : null,
               fillColors: Color(0xffE1E1E1),
-              hintText: "Título",
+              hintText: "Descrição",
+              hintColor: Color(0xff555555),
+              maxLines: 8,
               upDate: (value) {
-                _suggestion.titulo = value;
+                _suggestion.sugestao = value;
               },
-            ),
-          ),
-          CustomTextField(
-            _controller,
-            label: "",
-            fillColors: Color(0xffE1E1E1),
-            hintText: "Descrição",
-            maxLines: 8,
-            upDate: (value) {
-              _suggestion.titulo = value;
-            },
-
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -185,10 +191,14 @@ class _TopicosDropDownState extends State<TopicosDropDown> {
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
       child: Container(
-        margin: EdgeInsets.only(left: 10.0, right: 10.0),
-        child: new DropdownButton<Topicos>(
+        child: new DropdownButtonFormField<Topicos>(
+            decoration: CustomTextField.formDecoration(
+              "Entre com o tópico",
+              fillColors: Color(0xffE1E1E1),
+              hintColor: Color(0xff555555),
+            ),
             elevation: 0,
-            dropdownColor: Color(0xffE1E1ff),
+            dropdownColor: Color(0xffC4C4C4),
             value: topico,
             onChanged: (value) {
               setState(() {
@@ -196,23 +206,18 @@ class _TopicosDropDownState extends State<TopicosDropDown> {
                 widget.sug.topicoId = value.id;
               });
             },
-            hint: Text(
-              "Entre com o topico",
-              style: GoogleFonts.poppins(
+            validator: (value) =>
+            value == null ? "Entre com algum tópico" : null,
+            icon: Container(
+              padding: EdgeInsets.only(right: 10),
+              child: Icon(
+                FeatherIcons.chevronDown,
                 color: Color(0xff6D6D6D),
-                fontSize: 17,
-                fontWeight: FontWeight.w600,
-                fontStyle: FontStyle.normal,
-                letterSpacing: -0.525,
               ),
-            ),
-            icon: Icon(
-              FeatherIcons.chevronDown,
-              color: Color(0xff6D6D6D),
             ),
             style: GoogleFonts.poppins(fontSize: 12, color: Color(0xff6D6D6D)),
             items:
-                widget.topicos?.map<DropdownMenuItem<Topicos>>((Topicos value) {
+            widget.topicos?.map<DropdownMenuItem<Topicos>>((Topicos value) {
               return DropdownMenuItem<Topicos>(
                 value: value,
                 child: Align(
@@ -221,7 +226,7 @@ class _TopicosDropDownState extends State<TopicosDropDown> {
                     value.topico,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
-                      color: Color(0xff6D6D6D),
+                      color: Color(0xff555555),
                       fontSize: 19,
                       fontWeight: FontWeight.w500,
                       fontStyle: FontStyle.normal,

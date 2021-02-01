@@ -14,11 +14,13 @@ class Bloc extends Object implements BaseBloc {
   }
 
   final provider = ClassesProvider();
-  final _categoriesController = BehaviorSubject<Map<String, List<Categories>>>();
+  final _categoriesController =
+      BehaviorSubject<Map<String, List<Categories>>>();
   final _topicosController = BehaviorSubject<List<Topicos>>();
   final _suggestionController = BehaviorSubject<List<Suggestion>>();
 
-  Function(List<Suggestion>) get suggestionChanged => _suggestionController.sink.add;
+  Function(List<Suggestion>) get suggestionChanged =>
+      _suggestionController.sink.add;
 
   Stream<List<Suggestion>> get suggestionList => _suggestionController.stream;
 
@@ -26,14 +28,17 @@ class Bloc extends Object implements BaseBloc {
 
   Stream<List<Topicos>> get topicosList => _topicosController.stream;
 
-  Function(Map<String, List<Categories>>) get categoriesChanged => _categoriesController.sink.add;
+  Function(Map<String, List<Categories>>) get categoriesChanged =>
+      _categoriesController.sink.add;
 
-  Stream<Map<String, List<Categories>>> get categoriesList => _categoriesController.stream;
+  Stream<Map<String, List<Categories>>> get categoriesList =>
+      _categoriesController.stream;
 
   fetchCategories() async {
     Map<String, List<Categories>> categories = Map<String, List<Categories>>();
     try {
-      final Map categoriesReceived = await provider.fetchSuggestionsCategories();
+      final Map categoriesReceived =
+          await provider.fetchSuggestionsCategories();
       categories = categoriesFromJson(categoriesReceived);
     } catch (ex) {
       debugPrint("Exception Convert Object $ex");
@@ -66,10 +71,10 @@ class Bloc extends Object implements BaseBloc {
     suggestionChanged(suggestions);
   }
 
-  createSuggestion(id, Suggestion sug,String tipo) async {
+  createSuggestion(Suggestion sug, String tipo) async {
     List<Suggestion> suggestions = List<Suggestion>();
     try {
-      await provider.createSugestoes(id, sug,tipo);
+      await provider.createSugestoes(sug, tipo);
     } catch (ex) {
       debugPrint("Exception Convert Object $ex");
     }

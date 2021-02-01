@@ -65,21 +65,21 @@ class ClassesProvider {
     }
   }
 
-  createSugestoes(id, Suggestion sug, tipo) async {
+  createSugestoes(Suggestion sug, tipo) async {
     try {
       var response;
       switch (tipo) {
         case 'materia':
           response = await api.authRequest(
-              type: "POST", endpoint: "/sugestaoTurma", body: sug.toJson());
+              type: "POST", endpoint: "/sugestaoTurma/", body: sug.toJson());
           break;
         case 'curso':
           response = await api.authRequest(
-              type: "POST", endpoint: "/sugestaoCurso", body: sug.toJson());
+              type: "POST", endpoint: "/sugestaoCurso/", body: sug.toJson());
           break;
         case 'facu':
           response = await api.authRequest(
-              type: "POST", endpoint: "/sugestaoFacu", body: sug.toJson());
+              type: "POST", endpoint: "/sugestaoFacu/", body: sug.toJson());
           break;
       }
       return response['suguestoes'];

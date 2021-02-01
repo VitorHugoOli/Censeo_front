@@ -47,6 +47,7 @@ class _ManagerClassState extends State<ManagerClass> {
         description: widget._aula.tema,
         link: widget._aula.linkDocumento,
         type: widget._aula.tipoAula,
+        isAssincrona: widget._aula.isAssincrona,
         extra: widget._aula.extra[getExtra[widget._aula.tipoAula]] ?? "");
   }
 
@@ -249,13 +250,7 @@ class _ManagerClassState extends State<ManagerClass> {
                       builder: (context, snapshot) {
                         return TextFormField(
                           onChanged: (value) {
-                            if (value.isNotEmpty) {
-                              String newString = 'Ȟ' +
-                                  value; //Caracter adicionado para saber que o campo extra sofreu modificações
-                              _classBloc.extraChanged(newString);
-                            } else {
-                              _classBloc.extraChanged(value);
-                            }
+                            _classBloc.extraChanged(value);
                           },
                           controller: _extraController,
                           keyboardType: typeField[type]['type'],
@@ -281,43 +276,48 @@ class _ManagerClassState extends State<ManagerClass> {
   Widget buildFieldIsAssincrona(size) {
     return Container(
       width: size.width * 0.9,
-      child: DropdownButtonFormField(
-        value: isAssincrona,
-        dropdownColor: Colors.white38,
-        onChanged: _classBloc.isAssincronaChanged,
-        icon: Icon(
-          FeatherIcons.chevronDown,
-          color: Colors.white,
-          size: 28,
-        ),
-        decoration: CustomTextField.formDecoration(
-          "Entre com o tipo",
-          prefixIcon: Icon(
-            FeatherIcons.cloud,
-            size: 26,
-            color: Colors.white,
-          ),
-        ),
-        items: <bool>[true, false].map<DropdownMenuItem<bool>>((bool value) {
-          return DropdownMenuItem<bool>(
-            value: value,
-            child: Align(
-              alignment: Alignment.center,
-              child: Text(
-                value ? "Assincrona" : "Sincrona",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.poppins(
+      child: StreamBuilder<bool>(
+          stream: _classBloc.getIsAssincrona,
+          builder: (context, snapshot) {
+            return DropdownButtonFormField(
+              value: (snapshot.hasData) ? snapshot.data : true,
+              dropdownColor: Colors.white38,
+              onChanged: _classBloc.isAssincronaChanged,
+              icon: Icon(
+                FeatherIcons.chevronDown,
+                color: Colors.white,
+                size: 28,
+              ),
+              decoration: CustomTextField.formDecoration(
+                "Entre com o tipo",
+                prefixIcon: Icon(
+                  FeatherIcons.cloud,
+                  size: 26,
                   color: Colors.white,
-                  fontSize: 19,
-                  fontWeight: FontWeight.w600,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: -0.63,
                 ),
               ),
-            ),
-          );
-        }).toList(),
-      ),
+              items:
+                  <bool>[true, false].map<DropdownMenuItem<bool>>((bool value) {
+                return DropdownMenuItem<bool>(
+                  value: value,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      value ? "Assincrona" : "Sincrona",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 19,
+                        fontWeight: FontWeight.w600,
+                        fontStyle: FontStyle.normal,
+                        letterSpacing: -0.63,
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
+            );
+          }),
     );
   }
 

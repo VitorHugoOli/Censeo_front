@@ -46,12 +46,12 @@ class _SuggestionALunoState extends State<SuggestionAluno> {
         builder: (context, snapshot) {
           List<Suggestion> listSug = snapshot.data;
           return Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children:
-                    listSug?.map((e) => buildCardSuggestion(e))?.toList() ??
-                        <Widget>[Container()],
-              ));
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: listSug?.map((e) => buildCardSuggestion(e))?.toList() ??
+                  <Widget>[Container()],
+            ),
+          );
         },
       ),
     );
@@ -61,6 +61,7 @@ class _SuggestionALunoState extends State<SuggestionAluno> {
     print(sug.toJson());
     return Container(
       padding: EdgeInsets.all(16),
+      margin: EdgeInsets.symmetric(vertical: 10),
       decoration: new BoxDecoration(
         color: Color(0xffffffff),
         borderRadius: BorderRadius.circular(9),
@@ -82,7 +83,7 @@ class _SuggestionALunoState extends State<SuggestionAluno> {
                 ),
               ),
               Text(
-                "Dia " + DateFormat.Md('pt_BR').format(sug.data),
+                "Dia " + DateFormat('dd/MM').format(sug.data),
                 style: GoogleFonts.poppins(
                   color: Color(0xff404040),
                   fontSize: 18,

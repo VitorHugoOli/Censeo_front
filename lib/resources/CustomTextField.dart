@@ -43,6 +43,8 @@ class CustomTextField extends StatelessWidget {
   final FormFieldValidator<String> validator;
   final String initialValue;
   final Function(String) onFieldSubmitted;
+  final Color hintColor;
+  final bool hasWidgetLabel;
 
   CustomTextField(
     this.managerController, {
@@ -62,6 +64,8 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.initialValue = "",
     this.onFieldSubmitted,
+    this.hintColor,
+    this.hasWidgetLabel = false,
   });
 
   static InputDecoration formDecoration(String text,
@@ -91,7 +95,13 @@ class CustomTextField extends StatelessWidget {
             )
           : null,
       contentPadding: EdgeInsets.only(top: 0, left: 20),
-      errorStyle: TextStyle(height: 0),
+      errorStyle: GoogleFonts.poppins(
+          color: Color(0xffDB5555),
+          fontSize: 14,
+          fontWeight: FontWeight.w600,
+          fontStyle: FontStyle.normal,
+          letterSpacing: -0.525,
+          height: 1),
       floatingLabelBehavior: FloatingLabelBehavior.auto,
       focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.transparent),
@@ -109,7 +119,6 @@ class CustomTextField extends StatelessWidget {
         borderSide: BorderSide(color: Colors.transparent),
         borderRadius: BorderRadius.circular(6.0),
       ),
-      errorText: null,
       disabledBorder: InputBorder.none,
       focusedErrorBorder: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.transparent),
@@ -122,7 +131,7 @@ class CustomTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        label == ""
+        label == "" || !hasWidgetLabel
             ? Container()
             : Text(
                 label,
@@ -150,11 +159,8 @@ class CustomTextField extends StatelessWidget {
               fontStyle: FontStyle.normal,
               letterSpacing: -0.735,
             ),
-            decoration: formDecoration(
-              hintText,
-              fillColors: fillColors,
-              pass: pass,
-            ),
+            decoration: formDecoration(hintText,
+                fillColors: fillColors, pass: pass, hintColor: hintColor),
           ),
         ),
       ],
