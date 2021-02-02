@@ -13,14 +13,14 @@ class Suggestion {
       this.titulo,
       this.relevancia,
       this.data,
-      this.topicoId});
+      this.topico});
 
   int id;
   String sugestao;
   String titulo;
   dynamic relevancia;
   DateTime data;
-  int topicoId;
+  int topico;
 
   factory Suggestion.fromJson(Map<String, dynamic> json) => Suggestion(
         id: json["id"],
@@ -28,6 +28,7 @@ class Suggestion {
         titulo: json["titulo"],
         relevancia: json["relevancia"],
         data: DateTime.parse(json["data"]),
+        topico: json['topico'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -36,6 +37,6 @@ class Suggestion {
         "titulo": titulo,
         "relevancia": relevancia,
         "data": data == null ? "" : data.toIso8601String(),
-        "topico": topicoId
+        "topico": topico
       };
 }

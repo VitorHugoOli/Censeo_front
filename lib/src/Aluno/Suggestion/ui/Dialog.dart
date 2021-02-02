@@ -75,7 +75,8 @@ class CreateSuggestion {
                   color: Color(0xff0E153A),
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
-                      bloc.createSuggestion(_suggestion, categories.tipo);
+                      bloc.createSuggestion(
+                          categories.id, _suggestion, categories.tipo);
                     }
                     Navigator.pop(context);
                   },
@@ -104,13 +105,11 @@ class CreateSuggestion {
     ];
   }
 
-  dialog(context) {
-    return showDialog(
+  Future<dynamic> dialog(context) async {
+    return await showDialog(
       context: context,
       builder: (BuildContext context) {
-        Size size = MediaQuery
-            .of(context)
-            .size;
+        Size size = MediaQuery.of(context).size;
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(9))),
@@ -146,7 +145,7 @@ class CreateSuggestion {
                 fillColors: Color(0xffE1E1E1),
                 hintText: "Título",
                 validator: (value) =>
-                value.isEmpty ? "Entre com algum título" : null,
+                    value.isEmpty ? "Entre com algum título" : null,
                 hintColor: Color(0xff555555),
                 upDate: (value) {
                   _suggestion.titulo = value;
@@ -157,7 +156,7 @@ class CreateSuggestion {
               _controller,
               label: "descricao",
               validator: (value) =>
-              value.isEmpty ? "Entre com alguma descrição" : null,
+                  value.isEmpty ? "Entre com alguma descrição" : null,
               fillColors: Color(0xffE1E1E1),
               hintText: "Descrição",
               hintColor: Color(0xff555555),
@@ -202,11 +201,11 @@ class _TopicosDropDownState extends State<TopicosDropDown> {
             onChanged: (value) {
               setState(() {
                 topico = value;
-                widget.sug.topicoId = value.id;
+                widget.sug.topico = value.id;
               });
             },
             validator: (value) =>
-            value == null ? "Entre com algum tópico" : null,
+                value == null ? "Entre com algum tópico" : null,
             icon: Container(
               padding: EdgeInsets.only(right: 10),
               child: Icon(
@@ -216,7 +215,7 @@ class _TopicosDropDownState extends State<TopicosDropDown> {
             ),
             style: GoogleFonts.poppins(fontSize: 12, color: Color(0xff6D6D6D)),
             items:
-            widget.topicos?.map<DropdownMenuItem<Topicos>>((Topicos value) {
+                widget.topicos?.map<DropdownMenuItem<Topicos>>((Topicos value) {
               return DropdownMenuItem<Topicos>(
                 value: value,
                 child: Align(

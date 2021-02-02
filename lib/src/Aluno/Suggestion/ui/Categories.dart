@@ -141,38 +141,40 @@ class CategoriesPageAluno extends StatelessWidget {
           return Loader(
             loader: snapshot.hasData,
             child: snapshot.hasData
-                ? Container(
-                    width: size.width * 0.9,
-                    child: Column(
-                        children: snapshot.data
-                            .map((key, value) {
-                              final body = Column(
-                                children: [
-                                  buildSubTitle(size, key),
-                                  ListView.separated(
-                                    shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
-                                    separatorBuilder: (context, index) {
-                                      return SizedBox(
-                                        height: 10,
-                                      );
-                                    },
-                                    itemCount: value.length,
-                                    itemBuilder: (context, index) {
-                                      Categories obj = value[index];
-                                      return buildCardCategories(
-                                          size, obj, context);
-                                    },
-                                  )
-                                ],
-                              );
+                ? Center(
+                  child: Container(
+                      width: size.width * 0.9,
+                      child: Column(
+                          children: snapshot.data
+                              .map((key, value) {
+                                final body = Column(
+                                  children: [
+                                    buildSubTitle(size, key),
+                                    ListView.separated(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      separatorBuilder: (context, index) {
+                                        return SizedBox(
+                                          height: 10,
+                                        );
+                                      },
+                                      itemCount: value.length,
+                                      itemBuilder: (context, index) {
+                                        Categories obj = value[index];
+                                        return buildCardCategories(
+                                            size, obj, context);
+                                      },
+                                    )
+                                  ],
+                                );
 
-                              return MapEntry(key, body);
-                            })
-                            .values
-                            .toList()),
-                  )
+                                return MapEntry(key, body);
+                              })
+                              .values
+                              .toList()),
+                    ),
+                )
                 : Container(),
           );
         });

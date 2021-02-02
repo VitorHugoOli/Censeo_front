@@ -62,8 +62,8 @@ class _LoginState extends State<Login> {
             : null,
         filled: true,
         errorStyle: TextStyle(),
-        contentPadding: const EdgeInsets.only(bottom: 10, left: 3),
-        floatingLabelBehavior: FloatingLabelBehavior.always,
+        contentPadding: EdgeInsets.only(top: 0, left: 20),
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
           borderRadius: BorderRadius.circular(6.0),
@@ -80,19 +80,10 @@ class _LoginState extends State<Login> {
           borderSide: BorderSide(color: Colors.transparent),
           borderRadius: BorderRadius.circular(6.0),
         ),
-        errorText: null,
         disabledBorder: InputBorder.none,
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(33.0),
-        ),
-        labelText: label,
-        labelStyle: GoogleFonts.poppins(
-          color: Color(0xffffffff),
-          fontSize: 21,
-          fontWeight: FontWeight.w400,
-          fontStyle: FontStyle.normal,
-          letterSpacing: -0.735,
+          borderRadius: BorderRadius.circular(6.0),
         ),
       );
 

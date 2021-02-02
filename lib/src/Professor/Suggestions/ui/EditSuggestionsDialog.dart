@@ -137,25 +137,25 @@ class EditSuggestion {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              width: size.width * 0.46,
-              height: size.height * 0.08,
-              child: TextFormField(
-                onChanged: (value) {
-                  bloc.changeTopicosValue(value, index);
-                },
-                initialValue: topico.topico,
-                keyboardType: TextInputType.multiline,
-                textAlign: TextAlign.left,
-                style: GoogleFonts.poppins(
-                  color: Color(0xff555555),
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: -0.735,
+            Expanded(
+              child: Container(
+                height: size.height * 0.08,
+                child: TextFormField(
+                  onChanged: (value) {
+                    bloc.changeTopicosValue(value, index);
+                  },
+                  initialValue: topico.topico,
+                  keyboardType: TextInputType.multiline,
+                  textAlign: TextAlign.left,
+                  style: GoogleFonts.poppins(
+                    color: Color(0xff555555),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    fontStyle: FontStyle.normal,
+                    letterSpacing: -0.735,
+                  ),
+                  decoration: decoration("Digite a descrição"),
                 ),
-                decoration: decoration("Digite a descrição"),
-
               ),
             ),
             Material(

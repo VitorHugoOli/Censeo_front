@@ -58,7 +58,6 @@ class _SuggestionALunoState extends State<SuggestionAluno> {
   }
 
   Widget buildCardSuggestion(Suggestion sug) {
-    print(sug.toJson());
     return Container(
       padding: EdgeInsets.all(16),
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -158,10 +157,14 @@ class _SuggestionALunoState extends State<SuggestionAluno> {
                 color: Colors.white,
                 onPressed: () {
                   CreateSuggestion(widget.bloc, widget.categories)
-                      .dialog(context);
+                      .dialog(context)
+                      .then(
+                    (value) {
+                      setState(() {});
+                    },
+                  );
                 },
               ),
-
             ),
           ),
         ),

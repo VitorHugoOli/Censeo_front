@@ -71,14 +71,13 @@ class Bloc extends Object implements BaseBloc {
     suggestionChanged(suggestions);
   }
 
-  createSuggestion(Suggestion sug, String tipo) async {
-    List<Suggestion> suggestions = List<Suggestion>();
+  createSuggestion(id, Suggestion sug, String tipo) async {
     try {
       await provider.createSugestoes(sug, tipo);
     } catch (ex) {
       debugPrint("Exception Convert Object $ex");
     }
-    suggestionChanged(suggestions);
+    fetchSuggestion(id, tipo);
   }
 
   @override

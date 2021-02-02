@@ -19,7 +19,7 @@ class FinishingClass extends StatelessWidget {
 
   FinishingClass(this._aula, this._turma, this._classBloc);
 
-  List fields = [
+  static List fields = [
     {
       'label': "Sala",
       'icon': Icon(

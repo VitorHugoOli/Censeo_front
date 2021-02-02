@@ -28,7 +28,8 @@ class SuggestionPage extends StatefulWidget {
 }
 
 class _SuggestionPageState extends State<SuggestionPage> {
-  String topico;
+  Topicos topico;
+  static final all_topicos = Topicos(id: -1, topico: "Todos");
 
   Widget buildNameTitle(Size size) {
     return Column(
@@ -82,12 +83,19 @@ class _SuggestionPageState extends State<SuggestionPage> {
             child: StreamBuilder<List<Topicos>>(
                 stream: widget.suggestionBloc.topicosList,
                 builder: (context, snapshot) {
+                  List<Topicos> listTopicos = List<Topicos>();
+                  if (snapshot.hasData) {
+                    listTopicos = snapshot.data.toList();
+                    if (listTopicos.length > 0 && listTopicos.last.id != -1) {
+                      listTopicos.add(all_topicos);
+                    }
+                  }
                   return DropdownButtonHideUnderline(
                     child: Container(
                       margin: EdgeInsets.only(left: 10.0, right: 10.0),
                       child: ButtonTheme(
                         alignedDropdown: true,
-                        child: new DropdownButton<String>(
+                        child: new DropdownButton<Topicos>(
                             elevation: 0,
                             dropdownColor: Color(0xffdddddd),
                             value: topico,
@@ -112,11 +120,10 @@ class _SuggestionPageState extends State<SuggestionPage> {
                             ),
                             style: GoogleFonts.poppins(
                                 fontSize: 12, color: Colors.white),
-                            items: snapshot?.data
-                                ?.map<DropdownMenuItem<String>>(
-                                    (Topicos value) {
-                              return DropdownMenuItem<String>(
-                                value: value.topico,
+                            items: listTopicos.map<DropdownMenuItem<Topicos>>(
+                                (Topicos value) {
+                              return DropdownMenuItem<Topicos>(
+                                value: value,
                                 child: Align(
                                   alignment: Alignment.center,
                                   child: Text(
@@ -132,7 +139,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
                                   ),
                                 ),
                               );
-                            })?.toList()),
+                            }).toList()),
                       ),
                     ),
                   );
@@ -161,6 +168,9 @@ class _SuggestionPageState extends State<SuggestionPage> {
                     child: Icon(FeatherIcons.edit2,
                         size: 25, color: Color(0xff0E153A))),
                 onTap: () {
+                  setState(() {
+                    topico = null;
+                  });
                   EditSuggestion.dialog(context, widget.suggestionBloc,
                       widget._categories.id, widget._categories.tipo);
                 },
@@ -172,104 +182,82 @@ class _SuggestionPageState extends State<SuggestionPage> {
     );
   }
 
-  Widget buildCardSuggestion(Size size, Suggestion sug) {
+  Widget buildCardSuggestion(Suggestion sug) {
     return Container(
-      width: size.width * 0.8,
-      height: size.height * 0.3,
       padding: EdgeInsets.all(16),
+      margin: EdgeInsets.symmetric(vertical: 10),
       decoration: new BoxDecoration(
-          color: Color(0xffffffff), borderRadius: BorderRadius.circular(9)),
-      child: Stack(
+        color: Color(0xffffffff),
+        borderRadius: BorderRadius.circular(9),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Align(
-            alignment: Alignment.topLeft,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  sug.titulo.toString(),
-                  style: GoogleFonts.poppins(
-                    color: Color(0xff22215b),
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                    fontStyle: FontStyle.normal,
-                  ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                sug.titulo.toString(),
+                style: GoogleFonts.poppins(
+                  color: Color(0xff404040),
+                  fontSize: 24,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal,
                 ),
-                Text(
-                  "Dia " + DateFormat.Md('pt_BR').format(sug.data),
-                  style: GoogleFonts.poppins(
-                    color: Color(0xff22215b),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    fontStyle: FontStyle.normal,
-                  ),
+              ),
+              Text(
+                "Dia " + DateFormat('dd/MM').format(sug.data),
+                style: GoogleFonts.poppins(
+                  color: Color(0xff404040),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  fontStyle: FontStyle.normal,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          Align(
-            alignment: Alignment.centerLeft,
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 10),
             child: Text(
               sug.sugestao,
               style: GoogleFonts.poppins(
-                color: Color(0xff6d6d6d),
+                color: Color(0xff4F4E4E),
                 fontSize: 14,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w600,
                 fontStyle: FontStyle.normal,
                 letterSpacing: -0.49,
               ),
             ),
           ),
-          Container(
-            width: size.width * 0.4,
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      sug.relevancia = 0;
-                      setState(() {});
-                    },
-                    icon: Icon(
-                      FontAwesome.frown_o,
-                      color: sug.relevancia == 0
-                          ? Color(0xfffc0808)
-                          : Color(0xff0E153A),
-                      size: 35,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      sug.relevancia = 1;
-                      setState(() {});
-                    },
-                    icon: Icon(
-                      FontAwesome.meh_o,
-                      color: sug.relevancia == 1
-                          ? Color(0xfffcb808)
-                          : Color(0xff0E153A),
-                      size: 35,
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      sug.relevancia = 2;
-                      setState(() {});
-                    },
-                    icon: Icon(
-                      FontAwesome.smile_o,
-                      color: sug.relevancia == 2
-                          ? Color(0xff36E37E)
-                          : Color(0xff0E153A),
-                      size: 35,
-                    ),
-                  )
-                ],
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Icon(
+                FeatherIcons.frown,
+                color: sug.relevancia == 'baixa'
+                    ? Color(0xfffc0808)
+                    : Color(0xff0E153A),
+                size: 35,
               ),
-            ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 6),
+                child: Icon(
+                  FeatherIcons.meh,
+                  color: sug.relevancia == 'media'
+                      ? Color(0xfffcb808)
+                      : Color(0xff0E153A),
+                  size: 35,
+                ),
+              ),
+              Icon(
+                FeatherIcons.smile,
+                color: sug.relevancia == 'alta'
+                    ? Color(0xff36E37E)
+                    : Color(0xff0E153A),
+                size: 35,
+              ),
+            ],
           )
         ],
       ),
@@ -284,7 +272,17 @@ class _SuggestionPageState extends State<SuggestionPage> {
         initialData: List<Suggestion>(),
         stream: widget.suggestionBloc.suggestionList,
         builder: (context, snapshot) {
-          if (!snapshot.hasData || (snapshot?.data?.length == 0 ?? true)) {
+          List<Suggestion> suggestions = List<Suggestion>();
+          if (snapshot.hasData) {
+            suggestions = snapshot.data;
+            if (topico != null && topico.id != -1) {
+              suggestions = suggestions
+                  .where((element) => element.topico == topico.id)
+                  .toList();
+            }
+          }
+
+          if (suggestions.length == 0) {
             return Container(
               child:
                   Lottie.asset('assets/empty.json', height: size.height * 0.35),
@@ -292,15 +290,15 @@ class _SuggestionPageState extends State<SuggestionPage> {
           } else {
             return ListView.separated(
               shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
               separatorBuilder: (context, index) {
                 return SizedBox(
                   height: 10,
                 );
               },
-              itemCount: snapshot?.data?.length ?? 0,
+              itemCount: suggestions.length,
               itemBuilder: (context, index) {
-                if (topico != null && snapshot.data[index].topicoId == topico){}
-                  return buildCardSuggestion(size, snapshot.data[index]);
+                return buildCardSuggestion(suggestions[index]);
               },
             );
           }
@@ -337,7 +335,8 @@ class _SuggestionPageState extends State<SuggestionPage> {
         ),
         body: RefreshIndicator(
           onRefresh: () async {
-            return false;
+            return widget.suggestionBloc.fetchSuggestion(
+                widget._categories.id, widget._categories.tipo);
           },
           child: Container(
             width: size.width,
@@ -351,7 +350,6 @@ class _SuggestionPageState extends State<SuggestionPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-//                    Center(child: buildNameTitle(size)),
                       Center(child: buildFilterCategories(size, context)),
                       Center(child: buildSuggestions(size)),
                     ],

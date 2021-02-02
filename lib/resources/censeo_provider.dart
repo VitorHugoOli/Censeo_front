@@ -13,7 +13,7 @@ class CenseoApiProvider {
   static Client client = Client();
   static const _production = "https://censeo.herokuapp.com";
   static const _local = "http://10.0.2.2:8000";
-  static const _baseUrl = _production;
+  static const _baseUrl = _local;
   Map<String, String> _headers = {"Content-type": "application/json"};
 
   _sharePreference() async {

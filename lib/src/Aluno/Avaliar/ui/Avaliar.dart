@@ -72,7 +72,9 @@ class _AvaliarState extends State<Avaliar> {
                   Feather.settings,
                   color: Colors.white,
                 ),
-                onPressed: () {},
+                onPressed: () {
+
+                },
               ),
               IconButton(
                 onPressed: () {
