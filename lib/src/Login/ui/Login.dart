@@ -1,3 +1,4 @@
+import 'package:censeo/resources/loader.dart';
 import 'package:censeo/src/Aluno/BottomNavigationProfessor/BottomNavigationBar.dart';
 import 'package:censeo/src/Login/bloc/bloc.dart';
 import 'package:censeo/src/Professor/BottomNavigationProfessor/BottomNavigationBar.dart';
@@ -192,6 +193,7 @@ class _LoginState extends State<Login> {
 
     if (_formKey.currentState.validate()) {
       Map response = await loginBloc.submit(snapshot.data);
+      print(response);
 
       if (response['status']) {
         if (response['type'] == "Professor") {
@@ -343,50 +345,53 @@ class _LoginState extends State<Login> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Stack(
-          children: <Widget>[
-            SingleChildScrollView(
-              child: Container(
-                height: size.height - MediaQuery.of(context).padding.top,
-                decoration: BoxDecoration(color: Color(0xff0E153A)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    buildTitle(size),
-                    buildAlertMessageMux(size, true),
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        children: <Widget>[
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              m_e_s("Matrícula"),
-                              buildFieldLogin(size),
-                            ],
-                          ),
-                          buildAlertMessageMux(size, false),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              m_e_s("Senha"),
-                              buildFieldPassword(size),
-                              buildRescue(size),
-                            ],
-                          ),
-                          SizedBox(
-                            height: size.height * 0.065,
-                          ),
-                          buildLoginInButton(size),
-                        ],
-                      ),
-                    )
-                  ],
+        body: Loader(
+          loader: true,
+          child: Stack(
+            children: <Widget>[
+              SingleChildScrollView(
+                child: Container(
+                  height: size.height - MediaQuery.of(context).padding.top,
+                  decoration: BoxDecoration(color: Color(0xff0E153A)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      buildTitle(size),
+                      buildAlertMessageMux(size, true),
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          children: <Widget>[
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                m_e_s("Matrícula"),
+                                buildFieldLogin(size),
+                              ],
+                            ),
+                            buildAlertMessageMux(size, false),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                m_e_s("Senha"),
+                                buildFieldPassword(size),
+                                buildRescue(size),
+                              ],
+                            ),
+                            SizedBox(
+                              height: size.height * 0.065,
+                            ),
+                            buildLoginInButton(size),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

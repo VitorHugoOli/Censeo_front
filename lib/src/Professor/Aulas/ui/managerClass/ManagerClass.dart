@@ -124,7 +124,7 @@ class _ManagerClassState extends State<ManagerClass> {
               decoration: CustomTextField.formDecoration(
                 "Digite o tema da aula",
                 prefixIcon: Icon(
-                  FontAwesome.graduation_cap,
+                  FeatherIcons.type,
                   size: 28,
                   color: Colors.white,
                 ),
@@ -155,7 +155,7 @@ class _ManagerClassState extends State<ManagerClass> {
               decoration: CustomTextField.formDecoration(
                 "Digite a descrição",
                 prefixIcon: Icon(
-                  Feather.info,
+                  FeatherIcons.info,
                   size: 29,
                   color: Colors.white,
                 ),
@@ -202,7 +202,7 @@ class _ManagerClassState extends State<ManagerClass> {
         'hint': 'Quantidade de questões da prova(Opcional)',
         'type': TextInputType.number,
         'icon': Icon(
-          Feather.paperclip,
+          FeatherIcons.hash,
           color: Colors.white,
           size: 29,
         )
@@ -211,7 +211,7 @@ class _ManagerClassState extends State<ManagerClass> {
         'hint': 'Quantidade de membros por grupo(Opcional)',
         'type': TextInputType.number,
         'icon': Icon(
-          FontAwesome.group,
+          FeatherIcons.users,
           color: Colors.white,
           size: 29,
         )
@@ -332,7 +332,7 @@ class _ManagerClassState extends State<ManagerClass> {
                   ((snapshot.data?.isEmpty ?? false) || snapshot.data == 'null')
                       ? null
                       : snapshot.data,
-              dropdownColor: Colors.white38,
+              dropdownColor: Color(0xee1e1e1e),
               onChanged: _classBloc.typeChanged,
               icon: Icon(
                 FeatherIcons.chevronDown,
@@ -342,7 +342,7 @@ class _ManagerClassState extends State<ManagerClass> {
               decoration: CustomTextField.formDecoration(
                 "Entre com o tipo",
                 prefixIcon: Icon(
-                  FontAwesome.user_circle,
+                  FeatherIcons.airplay,
                   size: 26,
                   color: Colors.white,
                 ),

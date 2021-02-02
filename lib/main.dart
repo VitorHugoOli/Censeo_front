@@ -16,16 +16,16 @@ Future<void> main() async {
 }
 
 final Map<int, Color> colorCodesPrimary = {
-  50: Color.fromRGBO(112, 0, 100, .1),
-  100: Color.fromRGBO(112, 0, 100, .2),
-  200: Color.fromRGBO(112, 0, 100, .3),
-  300: Color.fromRGBO(112, 0, 100, .4),
-  400: Color.fromRGBO(112, 0, 100, .5),
-  500: Color.fromRGBO(112, 0, 100, .6),
-  600: Color.fromRGBO(112, 0, 100, .7),
-  700: Color.fromRGBO(112, 0, 100, .8),
-  800: Color.fromRGBO(112, 0, 100, .9),
-  900: Color.fromRGBO(112, 0, 100, 1),
+  50: Color.fromRGBO(14, 21, 58, .1),
+  100: Color.fromRGBO(14, 21, 58, .2),
+  200: Color.fromRGBO(14, 21, 58, .3),
+  300: Color.fromRGBO(14, 21, 58, .4),
+  400: Color.fromRGBO(14, 21, 58, .5),
+  500: Color.fromRGBO(14, 21, 58, .6),
+  600: Color.fromRGBO(14, 21, 58, .7),
+  700: Color.fromRGBO(14, 21, 58, .8),
+  800: Color.fromRGBO(14, 21, 58, .9),
+  900: Color.fromRGBO(14, 21, 58, 1),
 };
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           primarySwatch: MaterialColor(0xff7000FF, colorCodesPrimary),
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          cursorColor: Color(0xff8552DA),
+          cursorColor: Color.fromRGBO(14, 21, 58, 1),
           fontFamily: GoogleFonts.poppins().toString()),
       navigatorKey: navigatorKey,
       routes: <String, WidgetBuilder>{

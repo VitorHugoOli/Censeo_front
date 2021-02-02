@@ -1,5 +1,7 @@
+import 'package:censeo/resources/Transformer.dart';
 import 'package:censeo/src/Professor/Aulas/bloc/professor.dart';
 import 'package:censeo/src/Professor/Aulas/models/Aula.dart';
+import 'package:censeo/src/Professor/Aulas/models/Turma.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -12,13 +14,20 @@ import 'ManagerClass.dart';
 
 class FinishingClass extends StatelessWidget {
   final Aula _aula;
-  final String siglaTurma;
-  final int idTurma;
+  final Turma _turma;
   final ClassBloc _classBloc;
 
-  FinishingClass(this._aula, this.siglaTurma, this.idTurma, this._classBloc);
+  FinishingClass(this._aula, this._turma, this._classBloc);
 
-  static List fields = [
+  List fields = [
+    {
+      'label': "Sala",
+      'icon': Icon(
+        FeatherIcons.home,
+        size: 29,
+        color: Colors.black,
+      ),
+    },
     {
       'label': "Link",
       'icon': Icon(
@@ -28,7 +37,7 @@ class FinishingClass extends StatelessWidget {
       ),
     },
     {
-      'label': "Sincrona",
+      'label': "assincrona",
       'icon': Icon(
         FeatherIcons.cloud,
         size: 28,
@@ -53,210 +62,67 @@ class FinishingClass extends StatelessWidget {
     },
   ];
 
-  Widget buildNameTitle(Size size, context) {
+  chooseField(label) {
+    switch (label) {
+      case 'Sala':
+        return _aula?.sala ?? "";
+      case 'Link':
+        return _aula?.linkDocumento ?? "";
+      case 'assincrona':
+        return (_aula?.isAssincrona ?? false ? "Assincrona" : "Sincrona");
+      case 'Tipo':
+        return _aula?.tipoAula ?? "";
+      case 'Extra':
+        return _aula?.extra[_aula?.tipoAula] ?? "";
+      default:
+        return '';
+    }
+  }
+
+  Widget buildNameTitle(Size size) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Column(
           children: <Widget>[
-            Hero(
-              tag: "horario_class",
-              child: Text(
-                siglaTurma,
-                style: GoogleFonts.poppins(
-                  color: Color(0xffffffff),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: -0.77,
-                ),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 30),
-              child: Text(
-                DateFormat("dd/MM").format(_aula.horario),
-                style: GoogleFonts.poppins(
-                  color: Color(0xffffffff),
-                  fontSize: 19,
-                  fontWeight: FontWeight.w600,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: -0.49,
-                ),
+            Text(
+              _turma.disciplina.sigla,
+              style: GoogleFonts.poppins(
+                color: Color(0xffffffff),
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                fontStyle: FontStyle.normal,
+                letterSpacing: -0.77,
               ),
             ),
             Text(
-              _aula.sala.toUpperCase(),
+              _turma.codigo,
               style: GoogleFonts.poppins(
                 color: Color(0xffffffff),
-                fontSize: 19,
+                fontSize: 11,
                 fontWeight: FontWeight.w500,
                 fontStyle: FontStyle.normal,
                 letterSpacing: -0.49,
               ),
-            ),
+            )
           ],
         ),
-        IconButton(
-          icon: Icon(
-            FontAwesome.pencil,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ManagerClass(
-                    _aula, _aula.turma.codigo, _aula.turma.id, _classBloc.bloc),
-              ),
-            ).then((value) {
-              print(
-                  "Transforma em stateful e atualizar o _aula de acrodo com o vetor _classBloc.bloc.openClassList");
-            });
-          },
-        )
-      ],
-    );
-  }
-
-  Widget buildTop(Size size, context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 13.0, vertical: 10),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: 5, right: 5),
-                child: Column(
-                  children: [
-                    Text(
-                      'Tema',
-                      style: GoogleFonts.poppins(
-                        color: Color(0xff000000),
-                        fontSize: 21,
-                        fontWeight: FontWeight.w600,
-                        fontStyle: FontStyle.normal,
-                        letterSpacing: -0.49,
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 5),
-                      child: Text(
-                        'Descrição',
-                        style: GoogleFonts.poppins(
-                          color: Color(0xff000000),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          fontStyle: FontStyle.normal,
-                          letterSpacing: -0.49,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              IconButton(
-                icon: Icon(
-                  FeatherIcons.edit2,
-                  color: Colors.black,
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ManagerClass(_aula,
-                          _aula.turma.codigo, _aula.turma.id, _classBloc.bloc),
-                    ),
-                  ).then((value) {
-                    print(
-                        "Transforma em stateful e atualizar o _aula de acrodo com o vetor _classBloc.bloc.openClassList");
-                  });
-                },
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: 5, right: 5),
-                width: size.width * 0.11,
-                child: Icon(
-                  FeatherIcons.calendar,
-                  size: 28,
-                  color: Colors.black,
-                ),
-              ),
-              Container(
-                height: size.height * 0.08,
-                child: Text(
-                  DateFormat("dd/MM/yyyy").format(_aula.horario),
-                  style: GoogleFonts.poppins(
-                    color: Color(0xff000000),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    fontStyle: FontStyle.normal,
-                    letterSpacing: -0.49,
-                  ),
-                ),
-              ),
-              Container(
-                height: size.height * 0.08,
-                width: size.width * 0.11,
-                child: Icon(
-                  FeatherIcons.clock,
-                  size: 28,
-                  color: Colors.black,
-                ),
-              ),
-              Container(
-                height: size.height * 0.08,
-                child: Text(
-                  DateFormat("kk:mm").format(_aula.horario),
-                  style: GoogleFonts.poppins(
-                    color: Color(0xff000000),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    fontStyle: FontStyle.normal,
-                    letterSpacing: -0.49,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  height: size.height * 0.08,
-                  width: size.width * 0.11,
-                  child: Icon(
-                    FeatherIcons.home,
-                    size: 28,
-                    color: Colors.black,
-                  ),
-                ),
-                Text(
-                  _aula.sala.toUpperCase(),
-                  style: GoogleFonts.poppins(
-                    color: Color(0xff000000),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    fontStyle: FontStyle.normal,
-                    letterSpacing: -0.49,
-                  ),
-                ),
-              ],
+        Container(
+          width: size.width * 0.5,
+          child: Text(
+            checkDisciplinaName(_turma.codigo, _turma.disciplina.nome),
+            textAlign: TextAlign.center,
+            style: GoogleFonts.poppins(
+              color: Color(0xffffffff),
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              fontStyle: FontStyle.normal,
+              letterSpacing: -0.77,
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -264,6 +130,7 @@ class FinishingClass extends StatelessWidget {
     return Container(
       width: size.width * 0.9,
       height: size.height * 0.16,
+      margin: EdgeInsets.only(bottom: 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -296,27 +163,122 @@ class FinishingClass extends StatelessWidget {
     );
   }
 
-  chooseField(label) {
-    switch (label) {
-      case 'Tema':
-        return _aula?.tema ?? "";
-      case 'Descrição':
-        return _aula?.descricao ?? "";
-      case 'Link':
-        return _aula?.linkDocumento ?? "";
-      case 'Tipo':
-        return _aula?.tipoAula ?? "";
-      case 'Extra':
-        return _aula?.extra[_aula?.tipoAula] ?? "";
-      default:
-        return '';
-    }
+  Widget buildTop(Size size, context) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Tema',
+                  style: GoogleFonts.poppins(
+                    color: Color(0xff000000),
+                    fontSize: 21,
+                    fontWeight: FontWeight.w600,
+                    fontStyle: FontStyle.normal,
+                    letterSpacing: -0.49,
+                  ),
+                ),
+                Text(
+                  'Descrição',
+                  style: GoogleFonts.poppins(
+                    color: Color(0xff000000),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    fontStyle: FontStyle.normal,
+                    letterSpacing: -0.49,
+                  ),
+                )
+              ],
+            ),
+            IconButton(
+              icon: Icon(
+                FeatherIcons.edit2,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ManagerClass(_aula,
+                        _aula.turma.codigo, _aula.turma.id, _classBloc.bloc),
+                  ),
+                ).then((value) {
+                  print(
+                      "Transforma em stateful e atualizar o _aula de acrodo com o vetor _classBloc.bloc.openClassList");
+                });
+              },
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 25,
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  FeatherIcons.calendar,
+                  size: 28,
+                  color: Colors.black,
+                ),
+                SizedBox(
+                  width: 13,
+                ),
+                Text(
+                  DateFormat("dd/MM/yyyy").format(_aula.horario),
+                  style: GoogleFonts.poppins(
+                    color: Color(0xff000000),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal,
+                    letterSpacing: -0.36,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              width: 30,
+            ),
+            Row(
+              children: [
+                Icon(
+                  FeatherIcons.clock,
+                  size: 28,
+                  color: Colors.black,
+                ),
+                SizedBox(
+                  width: 13,
+                ),
+                Text(
+                  DateFormat("kk:mm").format(_aula.horario),
+                  style: GoogleFonts.poppins(
+                    color: Color(0xff000000),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal,
+                    letterSpacing: -0.36,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
   }
 
   Widget buildDetailsClass(Size size, context) {
     return Container(
       margin: EdgeInsets.only(top: 15),
-      height: size.height * 0.7,
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       width: size.width * 0.9,
       decoration: BoxDecoration(
         color: Color(0xffffffff),
@@ -325,52 +287,34 @@ class FinishingClass extends StatelessWidget {
       child: Column(
         children: [
           buildTop(size, context),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+          SizedBox(height: 20),
+          Wrap(
+            runSpacing: 20,
+            // mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: fields.map((e) {
               String field = chooseField(e['label']);
-              return Container(
-                margin: EdgeInsets.only(left: 10),
-                width: size.width * 0.9,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: size.height * 0.05,
-                      decoration: BoxDecoration(color: Colors.transparent),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                            width: size.width * 0.11,
-                            child: e['icon'],
-                          ),
-                        ],
-                      ),
+              if (field == "") {
+                return Container();
+              }
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  e['icon'],
+                  SizedBox(
+                    width: 13,
+                  ),
+                  Text(
+                    Capitalize(field),
+                    style: GoogleFonts.poppins(
+                      color: Color(0xff000000),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                      letterSpacing: -0.36,
                     ),
-                    Container(
-                      margin: EdgeInsets.only(left: 5),
-                      height: size.height * 0.08,
-                      width: size.width * 0.4,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            e['label'],
-                            style: GoogleFonts.poppins(
-                              color: Color(0xff000000),
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FontStyle.normal,
-                              letterSpacing: -0.525,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                  )
+                ],
               );
             }).toList(),
           ),
@@ -391,18 +335,30 @@ class FinishingClass extends StatelessWidget {
       backgroundColor: Color(0xff0E153A),
       body: Container(
         padding: EdgeInsets.only(left: 5, right: 5, top: 0),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              buildNameTitle(size, context),
-              buildDetailsClass(size, context),
-              SizedBox(
-                height: size.height * 0.02,
+        child: LayoutBuilder(
+          builder: (context, constraints) => SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraints.maxHeight),
+              child: IntrinsicHeight(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Column(
+                      children: [
+                        buildNameTitle(size),
+                        SizedBox(height: 20,),
+                        buildDetailsClass(size, context),
+                      ],
+                    ),
+                    Expanded(
+                        child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: buildButtonsEnd(size, context)))
+                  ],
+                ),
               ),
-              buildButtonsEnd(size, context)
-            ],
+            ),
           ),
         ),
       ),

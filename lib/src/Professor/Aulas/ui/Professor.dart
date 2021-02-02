@@ -161,41 +161,40 @@ class _ProfessorState extends State<Professor> {
                   turma.codigo,
                   textAlign: TextAlign.left,
                   style: GoogleFonts.poppins(
-                    color: Color(0xffffffff),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
-                    fontStyle: FontStyle.normal,
-                    letterSpacing: 0.2,
-                    height: 1
-                  ),
+                      color: Color(0xffffffff),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      fontStyle: FontStyle.normal,
+                      letterSpacing: 0.2,
+                      height: 1),
                 ),
-               SizedBox(height: size.height * 0.01),
+                SizedBox(height: size.height * 0.01),
                 Text(turma.disciplina.sigla,
                     textAlign: TextAlign.left,
                     style: GoogleFonts.poppins(
-                      color: Color(0xffffffff),
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      fontStyle: FontStyle.normal,
-                      letterSpacing: -0.385,
-                      height: 1
-                    ))
+                        color: Color(0xffffffff),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                        fontStyle: FontStyle.normal,
+                        letterSpacing: -0.385,
+                        height: 1))
               ],
             ),
             Container(
               width: size.width * 0.6,
-              padding: EdgeInsets.only(left: 20,),
+              padding: EdgeInsets.only(
+                left: 20,
+              ),
               child: Text(
                 turma.disciplina.nome,
                 textAlign: TextAlign.start,
                 style: GoogleFonts.poppins(
-                  color: Color(0xffffffff),
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: -0.56,
-                  height: 1
-                ),
+                    color: Color(0xffffffff),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                    fontStyle: FontStyle.normal,
+                    letterSpacing: -0.56,
+                    height: 1),
               ),
             )
           ],
@@ -397,8 +396,8 @@ class _ProfessorState extends State<Professor> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => FinishingClass(
-                item, item.turma.codigo, item.turma.id, ClassBloc(bloc)),
+            builder: (context) =>
+                FinishingClass(item, item.turma, ClassBloc(bloc)),
           ),
         );
       },
@@ -456,7 +455,7 @@ class _ProfessorState extends State<Professor> {
                   constraints: BoxConstraints.expand(),
                   padding: EdgeInsets.only(left: 5, right: 5, top: 25),
                   decoration: BoxDecoration(
-                      color: Color(0xff0E153A),
+                    color: Color(0xff0E153A),
                   ),
                   child: SingleChildScrollView(
                     child: Column(

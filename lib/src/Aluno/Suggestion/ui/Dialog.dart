@@ -29,17 +29,16 @@ class CreateSuggestion {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Flexible(
-            child: Center(
-              child: Text(
-                "Editar Tópicos",
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  color: Color(0xff0E153A),
-                  fontSize: 21,
-                  fontWeight: FontWeight.w500,
-                  fontStyle: FontStyle.normal,
-                  letterSpacing: -0.63,
-                ),
+            child: Text(
+              "Editar Tópicos",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                color: Color(0xff0E153A),
+                fontSize: 21,
+                fontWeight: FontWeight.w500,
+                fontStyle: FontStyle.normal,
+                letterSpacing: -0.63,
               ),
             ),
           ),
