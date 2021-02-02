@@ -91,7 +91,7 @@ class FinishingClass extends StatelessWidget {
               _aula.sala.toUpperCase(),
               style: GoogleFonts.poppins(
                 color: Color(0xffffffff),
-                fontSize: 16,
+                fontSize: 19,
                 fontWeight: FontWeight.w500,
                 fontStyle: FontStyle.normal,
                 letterSpacing: -0.49,
@@ -192,7 +192,7 @@ class FinishingClass extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 5, right: 5),
+                height: size.height * 0.08,
                 child: Text(
                   DateFormat("dd/MM/yyyy").format(_aula.horario),
                   style: GoogleFonts.poppins(
@@ -205,7 +205,7 @@ class FinishingClass extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 5, right: 5),
+                height: size.height * 0.08,
                 width: size.width * 0.11,
                 child: Icon(
                   FeatherIcons.clock,
@@ -214,7 +214,7 @@ class FinishingClass extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 5, right: 5),
+                height: size.height * 0.08,
                 child: Text(
                   DateFormat("kk:mm").format(_aula.horario),
                   style: GoogleFonts.poppins(
@@ -229,13 +229,12 @@ class FinishingClass extends StatelessWidget {
             ],
           ),
           Container(
-            margin: EdgeInsets.only(top: 5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  height: size.height * 0.05,
+                  height: size.height * 0.08,
                   width: size.width * 0.11,
                   child: Icon(
                     FeatherIcons.home,
@@ -247,7 +246,7 @@ class FinishingClass extends StatelessWidget {
                   _aula.sala.toUpperCase(),
                   style: GoogleFonts.poppins(
                     color: Color(0xff000000),
-                    fontSize: 16,
+                    fontSize: 18,
                     fontWeight: FontWeight.w500,
                     fontStyle: FontStyle.normal,
                     letterSpacing: -0.49,
@@ -349,33 +348,26 @@ class FinishingClass extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: size.width * 0.4,
-                          child: Text(
+                    Container(
+                      margin: EdgeInsets.only(left: 5),
+                      height: size.height * 0.08,
+                      width: size.width * 0.4,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
                             e['label'],
                             style: GoogleFonts.poppins(
                               color: Color(0xff000000),
-                              fontSize: 16,
+                              fontSize: 18,
                               fontWeight: FontWeight.w500,
                               fontStyle: FontStyle.normal,
                               letterSpacing: -0.525,
                             ),
                           ),
-                        ),
-                        Text(
-                          field,
-                          style: GoogleFonts.poppins(
-                            color: Color(0xff616161),
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            fontStyle: FontStyle.normal,
-                            letterSpacing: -0.525,
-                          ),
-                        )
-                      ],
+                        ],
+                      ),
                     )
                   ],
                 ),
