@@ -161,6 +161,7 @@ class _SuggestionALunoState extends State<SuggestionAluno> {
                       .dialog(context);
                 },
               ),
+
             ),
           ),
         ),
