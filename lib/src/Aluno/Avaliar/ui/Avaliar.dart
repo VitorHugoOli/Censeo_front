@@ -12,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../main.dart';
 import 'Perguntas.dart';
+import 'Settings.dart';
 
 class Avaliar extends StatefulWidget {
   final ValueChanged<Widget> onPush;
@@ -73,7 +74,9 @@ class _AvaliarState extends State<Avaliar> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => Settings()
+                  ));
                 },
               ),
               IconButton(
