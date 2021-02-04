@@ -238,7 +238,7 @@ class _LoginState extends State<Login> {
 
   Widget buildRescue(size) {
     return RaisedButton(
-      color: Color(0xff0E153A),
+      color: Colors.transparent,
       elevation: 0,
       padding: EdgeInsets.all(0),
       onPressed: () {},
@@ -343,42 +343,54 @@ class _LoginState extends State<Login> {
               SingleChildScrollView(
                 child: Container(
                   height: size.height - MediaQuery.of(context).padding.top,
-                  decoration: BoxDecoration(color: Color(0xff0E153A)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      buildTitle(size),
-                      buildAlertMessageMux(size, true),
-                      Form(
-                        key: _formKey,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                m_e_s("Matrícula"),
-                                buildFieldLogin(size),
-                              ],
-                            ),
-                            buildAlertMessageMux(size, false),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                m_e_s("Senha"),
-                                buildFieldPassword(size),
-                                buildRescue(size),
-                              ],
-                            ),
-                            SizedBox(
-                              height: size.height * 0.065,
-                            ),
-                            buildLoginInButton(size),
-                          ],
-                        ),
-                      )
-                    ],
+                  decoration: BoxDecoration(
+                    color: Color(0xff0E153A),
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [Color(0x4A3D5AF1), Color(0x003D5AF1)],
+                          tileMode: TileMode.clamp,
+                          stops: [0, 1]),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        buildTitle(size),
+                        buildAlertMessageMux(size, true),
+                        Form(
+                          key: _formKey,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  m_e_s("Matrícula"),
+                                  buildFieldLogin(size),
+                                ],
+                              ),
+                              buildAlertMessageMux(size, false),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  m_e_s("Senha"),
+                                  buildFieldPassword(size),
+                                  buildRescue(size),
+                                ],
+                              ),
+                              SizedBox(
+                                height: size.height * 0.065,
+                              ),
+                              buildLoginInButton(size),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
