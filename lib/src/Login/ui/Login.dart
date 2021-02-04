@@ -156,7 +156,6 @@ class _LoginState extends State<Login> {
         builder: (context, snapshot) {
           return Container(
             width: size.width * 0.75,
-            height: size.height * 0.08,
             child: TextFormField(
               onChanged: loginBloc.passwordChanged,
               keyboardType: TextInputType.text,
@@ -241,6 +240,7 @@ class _LoginState extends State<Login> {
     return RaisedButton(
       color: Color(0xff0E153A),
       elevation: 0,
+      padding: EdgeInsets.all(0),
       onPressed: () {},
       child: Text(
         "Resgatar Senha",
@@ -353,6 +353,7 @@ class _LoginState extends State<Login> {
                       Form(
                         key: _formKey,
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

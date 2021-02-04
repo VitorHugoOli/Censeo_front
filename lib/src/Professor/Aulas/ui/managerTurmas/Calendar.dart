@@ -7,7 +7,8 @@ import 'package:censeo/src/Professor/Aulas/ui/managerTurmas/CreateClassDialog.da
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
+    show CalendarCarousel;
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -58,7 +59,8 @@ class _CalendarState extends State<Calendar> {
   calendarChange(DateTime date) {
     this.setState(() {
       var month = DateFormat.MMMM('pt-BR').format(date);
-      dropdownValue = month.substring(0, 1).toUpperCase() + month.substring(1, 3);
+      dropdownValue =
+          month.substring(0, 1).toUpperCase() + month.substring(1, 3);
       _targetDateTime = date;
       _currentDate = date;
     });
@@ -70,10 +72,12 @@ class _CalendarState extends State<Calendar> {
       builder: (BuildContext context) {
         Size size = MediaQuery.of(context).size;
         return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(6.0))),
-          title: CreateClassDialog.title(size,context),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(6.0))),
+          title: CreateClassDialog.title(size, context),
           content: CreateClassDialog(date, widget.bloc),
-          actions: CreateClassDialog.actions(context, size, date, widget.bloc, widget.turma.id),
+          actions: CreateClassDialog.actions(
+              context, size, date, widget.bloc, widget.turma.id),
         );
       },
     );
@@ -85,7 +89,8 @@ class _CalendarState extends State<Calendar> {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ManagerClass(widget.aulas[date], widget.turma.codigo, widget.turma.id, widget.bloc)),
+            builder: (context) => ManagerClass(widget.aulas[date],
+                widget.turma.codigo, widget.turma.id, widget.bloc)),
       );
     } else {
       dialogCreateClass(date);
@@ -131,20 +136,45 @@ class _CalendarState extends State<Calendar> {
       );
     }
 
-    return (bool isSelectable, int index, bool isSelectedDay, bool isToday, bool isPrevMonthDay, TextStyle textStyle,
-        bool isNextMonthDay, bool isThisMonthDay, DateTime day) {
+    return (bool isSelectable,
+        int index,
+        bool isSelectedDay,
+        bool isToday,
+        bool isPrevMonthDay,
+        TextStyle textStyle,
+        bool isNextMonthDay,
+        bool isThisMonthDay,
+        DateTime day) {
       if (widget?.aulas?.containsKey(day) ?? false) {
-        return widgetDay(colorRadius: color[widget.aulas[day].tipoAula], colorText: Colors.white, day: day, shape: BoxShape.circle);
+        return widgetDay(
+            colorRadius: color[widget.aulas[day].tipoAula],
+            colorText: Colors.white,
+            day: day,
+            shape: BoxShape.circle);
       }
 
       if (isNextMonthDay || isPrevMonthDay) {
-        return widgetDay(colorRadius: Colors.transparent, colorText: Color.fromRGBO(34, 33, 91, 0.3), day: day);
+        return widgetDay(
+            colorRadius: Colors.transparent,
+            colorText: Color.fromRGBO(34, 33, 91, 0.3),
+            day: day);
       } else if (isSelectedDay) {
-        return widgetDay(colorRadius: Color(0xff28313B), colorText: Colors.white, day: day, shape: BoxShape.circle);
+        return widgetDay(
+            colorRadius: Color(0xff28313B),
+            colorText: Colors.white,
+            day: day,
+            shape: BoxShape.circle);
       } else if (isToday) {
-        return widgetDay(colorRadius: Color(0xff58f7af), colorText: Colors.white, day: day, shape: BoxShape.circle);
+        return widgetDay(
+            colorRadius: Color(0xff58f7af),
+            colorText: Colors.white,
+            day: day,
+            shape: BoxShape.circle);
       } else {
-        return widgetDay(colorRadius: Colors.transparent, colorText: Color(0xff28313B), day: day);
+        return widgetDay(
+            colorRadius: Colors.transparent,
+            colorText: Color(0xff28313B),
+            day: day);
       }
     };
   }
@@ -186,7 +216,8 @@ class _CalendarState extends State<Calendar> {
           onChanged: (String newValue) {
             setState(() {
               dropdownValue = newValue;
-              calendarChange(DateTime(today.year, monthList.indexOf(newValue) + 1, 1));
+              calendarChange(
+                  DateTime(today.year, monthList.indexOf(newValue) + 1, 1));
             });
           },
           items: monthList.map<DropdownMenuItemCustom<String>>((String value) {
@@ -207,6 +238,7 @@ class _CalendarState extends State<Calendar> {
     /// Example with custom icon
     _calendarCarousel = CalendarCarousel(
       locale: 'pt_BR',
+      pageScrollPhysics: NeverScrollableScrollPhysics(),
       selectedDayButtonColor: Colors.transparent,
       selectedDayBorderColor: Colors.transparent,
       todayBorderColor: Colors.transparent,

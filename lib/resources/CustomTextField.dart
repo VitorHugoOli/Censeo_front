@@ -45,6 +45,7 @@ class CustomTextField extends StatelessWidget {
   final Function(String) onFieldSubmitted;
   final Color hintColor;
   final bool hasWidgetLabel;
+  Icon prefixIcon;
 
   CustomTextField(
     this.managerController, {
@@ -54,8 +55,8 @@ class CustomTextField extends StatelessWidget {
     this.upDate,
     this.width,
     this.readOnly = false,
-    this.fillColors = Colors.white,
-    this.colorFont = Colors.black,
+    this.fillColors = const Color(0x78ffffff),
+    this.colorFont = Colors.white,
     this.colorLabel = const Color(0xff515151),
     this.pass = false,
     this.maxLines = 1,
@@ -64,8 +65,9 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.initialValue = "",
     this.onFieldSubmitted,
-    this.hintColor,
+    this.hintColor = const Color(0x99ffffff),
     this.hasWidgetLabel = false,
+    this.prefixIcon,
   });
 
   static InputDecoration formDecoration(String text,
@@ -129,7 +131,7 @@ class CustomTextField extends StatelessWidget {
 
   Widget automaticInput() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         label == "" || !hasWidgetLabel
             ? Container()
@@ -153,14 +155,15 @@ class CustomTextField extends StatelessWidget {
             onTap: onTap,
             validator: validator,
             style: GoogleFonts.poppins(
-              color: Color(0xff555555),
-              fontSize: 18,
+              color: colorFont,
+              fontSize: 19,
               fontWeight: FontWeight.w500,
               fontStyle: FontStyle.normal,
               letterSpacing: -0.735,
             ),
             decoration: formDecoration(hintText,
-                fillColors: fillColors, pass: pass, hintColor: hintColor),
+                fillColors: fillColors, pass: pass, hintColor: hintColor,
+                prefixIcon: prefixIcon),
           ),
         ),
       ],

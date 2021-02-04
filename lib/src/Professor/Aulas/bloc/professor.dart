@@ -18,7 +18,7 @@ class Bloc extends Object implements BaseBloc {
   final _openClassController = BehaviorSubject<List<Aula>>();
   final _alunosController = PublishSubject<List<Alunos>>();
   final _classCalendarController = PublishSubject<Map<DateTime, Aula>>();
-  final _listScheduleController = BehaviorSubject<List<ClassTime>>();
+  final _listScheduleController = BehaviorSubject<List<SchedulerClass>>();
   final _horarioController = BehaviorSubject<String>();
   final _roomController = BehaviorSubject<String>();
 
@@ -41,10 +41,11 @@ class Bloc extends Object implements BaseBloc {
 
   Stream<List<Alunos>> get getAlunos => _alunosController.stream;
 
-  Function(List<ClassTime>) get listScheduleChanged =>
+  Function(List<SchedulerClass>) get listScheduleChanged =>
       _listScheduleController.sink.add;
 
-  Stream<List<ClassTime>> get listSchedule => _listScheduleController.stream;
+  Stream<List<SchedulerClass>> get listSchedule =>
+      _listScheduleController.stream;
 
   Function(String) get horarioChanged => _horarioController.sink.add;
 
@@ -111,31 +112,51 @@ class Bloc extends Object implements BaseBloc {
     await fetchAlunos(id);
   }
 
-  Future<dynamic> submitSchedule(int id, List<ClassTime> data) async {
-    List<Map> schedules = data.map((e) {
-      e.schedule.sala = e.controllerRoom.text;
-      if (e.controllerTime.text.contains(":")) {
-        List<String> hours = e.controllerTime.text.split(":");
-        DateTime now = DateTime.now();
-        e.schedule.horario = new DateTime(now.year, now.month, now.day,
-            int.parse(hours[0]), int.parse(hours[1]));
-        return e.schedule.toJson();
-      } else if (e.schedule.id != null) {
-        e.schedule.horario = null;
-        return e.schedule.toJson();
-      }
-    }).toList()
-      ..removeWhere((element) => element == null);
+  addSchedule() {
+    List<SchedulerClass> listClass = _listScheduleController.value;
+    if (listClass == null) {
+      listClass = <SchedulerClass>[SchedulerClass()];
+    }
+    listClass.add(SchedulerClass());
+    _listScheduleController.sink.add(listClass);
+  }
+
+  removeSchedule(index) {
+    List<SchedulerClass> listClass = _listScheduleController.value;
+    if (listClass != null) {
+      listClass.removeAt(index);
+    }
+    _listScheduleController.sink.add(listClass);
+  }
+
+  Future<dynamic> submitSchedule(int id, List<SchedulerClass> data) async {
+    _listScheduleController.value.forEach((element) {
+      print(element.dia);
+    });
+    // List<Map> schedules = data.map((e) {
+    //   e.schedule.sala = e.controllerRoom.text;
+    //   if (e.controllerTime.text.contains(":")) {
+    //     List<String> hours = e.controllerTime.text.split(":");
+    //     DateTime now = DateTime.now();
+    //     e.schedule.horario = new DateTime(now.year, now.month, now.day,
+    //         int.parse(hours[0]), int.parse(hours[1]));
+    //     return e.schedule.toJson();
+    //   } else if (e.schedule.id != null) {
+    //     e.schedule.horario = null;
+    //     return e.schedule.toJson();
+    //   }
+    // }).toList()
+    //   ..removeWhere((element) => element == null);
 
     Map body = {
       "idTurma": id,
-      "schedules": schedules,
+      // "schedules": schedules,
     };
 
-    await provider.putClassSchedule(body);
+    // await provider.putClassSchedule(body);
 
-    fetchTurmas();
-    fetchClassCalendar(id);
+    // fetchTurmas();
+    // fetchClassCalendar(id);
   }
 
   submitCreateClass(int id, DateTime date) async {
@@ -180,6 +201,7 @@ class ClassBloc extends Object implements BaseBloc {
   final _typeController = BehaviorSubject<String>();
   final _isAssincronaController = BehaviorSubject<bool>();
   final _extraController = BehaviorSubject<String>();
+  final _endTimeController = BehaviorSubject<DateTime>();
 
   ClassBloc(this.bloc,
       {tema = '',
@@ -187,14 +209,15 @@ class ClassBloc extends Object implements BaseBloc {
       link = '',
       type,
       extra = '',
-      isAssincrona = false}) {
+      isAssincrona = false,
+      endtime}) {
     temaChanged(tema);
     descriptionChanged(tema);
     linkChanged(link);
     typeChanged(type);
     extraChanged(extra);
     isAssincronaChanged(isAssincrona);
-    //TODO request do extra
+    endTimeChanged(endtime);
   }
 
   Stream<String> get getExtra => _extraController.stream;
@@ -208,6 +231,10 @@ class ClassBloc extends Object implements BaseBloc {
   Stream<bool> get getIsAssincrona => _isAssincronaController.stream;
 
   Function(bool) get isAssincronaChanged => _isAssincronaController.sink.add;
+
+  Stream<DateTime> get getEndTime => _endTimeController.stream;
+
+  Function(DateTime) get endTimeChanged => _endTimeController.sink.add;
 
   Stream<String> get getLink => _linkController.stream;
 
@@ -245,6 +272,7 @@ class ClassBloc extends Object implements BaseBloc {
       'tipo': _typeController.value == "" ? null : _typeController.value,
       'is_assincrona': _isAssincronaController.value ?? "",
       'extra': _extraController.value,
+      'end_time': _endTimeController.value.toIso8601String(),
     };
 
     bloc.provider.putEditClass(idAula, body);

@@ -25,7 +25,8 @@ class Aula {
       this.linkDocumento,
       this.extra,
       this.turma,
-      this.isAssincrona});
+      this.isAssincrona,
+      this.endTime});
 
   int id;
   DateTime horario;
@@ -37,6 +38,7 @@ class Aula {
   Turma turma;
   Map extra;
   bool isAssincrona;
+  DateTime endTime;
 
   factory Aula.fromJson(Map<String, dynamic> json) => Aula(
         id: json["id"],
@@ -51,6 +53,7 @@ class Aula {
         turma:
             json.containsKey("turma") ? Turma.fromJson(json["turma"]) : Turma(),
         isAssincrona: json["is_assincrona"],
+        endTime: json["end_time"] == null ? null : DateTime.parse(json["end_time"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -62,7 +65,8 @@ class Aula {
         "descricao": descricao == null ? null : descricao,
         "link_documento": linkDocumento == null ? null : linkDocumento,
         "turma": turma.toJson(),
-        "is_assincrona": isAssincrona
+        "is_assincrona": isAssincrona,
+        "end_time": endTime
       };
 
   static Map<DateTime, Aula> toDateTime(List<Aula> aulas) {

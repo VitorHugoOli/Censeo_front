@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
       ],
       initialRoute: initRoutes[type],
       theme: ThemeData(
-          primarySwatch: MaterialColor(0xff7000FF, colorCodesPrimary),
+          primarySwatch: MaterialColor(0xff0E153A, colorCodesPrimary),
           visualDensity: VisualDensity.adaptivePlatformDensity,
           cursorColor: Color.fromRGBO(14, 21, 58, 1),
           fontFamily: GoogleFonts.poppins().toString()),

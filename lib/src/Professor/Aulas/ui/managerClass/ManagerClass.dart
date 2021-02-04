@@ -31,6 +31,7 @@ class _ManagerClassState extends State<ManagerClass> {
   TextEditingController _linkController = TextEditingController(text: "");
   TextEditingController _extraController = TextEditingController(text: "");
   bool isAssincrona = false;
+  ManagerController _controller = ManagerController();
 
   @override
   void initState() {
@@ -48,7 +49,8 @@ class _ManagerClassState extends State<ManagerClass> {
         link: widget._aula.linkDocumento,
         type: widget._aula.tipoAula,
         isAssincrona: widget._aula.isAssincrona,
-        extra: widget._aula.extra[getExtra[widget._aula.tipoAula]] ?? "");
+        extra: widget._aula.extra[getExtra[widget._aula.tipoAula]] ?? "",
+        endtime: widget._aula.endTime);
   }
 
   static const getExtra = {
@@ -282,7 +284,12 @@ class _ManagerClassState extends State<ManagerClass> {
             return DropdownButtonFormField(
               value: (snapshot.hasData) ? snapshot.data : true,
               dropdownColor: Colors.white38,
-              onChanged: _classBloc.isAssincronaChanged,
+              onChanged: (value) {
+                _classBloc.isAssincronaChanged(value);
+                setState(() {
+                  isAssincrona = value;
+                });
+              },
               icon: Icon(
                 FeatherIcons.chevronDown,
                 color: Colors.white,
@@ -441,6 +448,22 @@ class _ManagerClassState extends State<ManagerClass> {
     );
   }
 
+  activeCalendar() async {
+    await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now().subtract(Duration(days: 720)),
+      lastDate: DateTime.now().add(
+        (Duration(days: 720)),
+      ),
+    ).then((value) {
+      _classBloc.endTimeChanged(value);
+      _controller.controllers['Data de termino'].text =
+          DateFormat('dd/MM/yyyy').format(value);
+      return;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -473,6 +496,43 @@ class _ManagerClassState extends State<ManagerClass> {
                             buildFieldDescription(size),
                             buildFieldLink(size),
                             buildFieldIsAssincrona(size),
+                            isAssincrona
+                                ? Center(
+                                    child: GestureDetector(
+                                      onTap: () async {
+                                        activeCalendar();
+                                      },
+                                      child: CustomTextField(
+                                        _controller,
+                                        label: "Data de termino",
+                                        hintText: "30/11/2020",
+                                        textInputType: TextInputType.datetime,
+                                        onTap: () => activeCalendar(),
+                                        readOnly: true,
+                                        upDate: (value) {
+                                          // treino.endDate = value;
+                                        },
+                                        initialValue: (widget._aula.endTime ==
+                                                null)
+                                            ? null
+                                            : DateFormat('dd/MM/yyyy')
+                                                .format(widget._aula.endTime),
+                                        width: size.width * 0.9,
+                                        validator: (value) {
+                                          if (value.length == 0) {
+                                            return "Entre com alguma data";
+                                          }
+                                          return null;
+                                        },
+                                        prefixIcon: Icon(
+                                          Feather.calendar,
+                                          color: Colors.white,
+                                          size: 26,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : Container(),
                             buildFieldType(size),
                             buildFieldExtra(size),
                           ],
@@ -490,3 +550,4 @@ class _ManagerClassState extends State<ManagerClass> {
     );
   }
 }
+
