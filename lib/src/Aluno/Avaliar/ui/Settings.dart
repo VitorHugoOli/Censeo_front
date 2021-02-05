@@ -99,7 +99,7 @@ class _SettingsState extends State<Settings> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
-              children: [buildDS(size, context)],
+              children: [buildDS(size, context)],//
             )
           ],
         )),
