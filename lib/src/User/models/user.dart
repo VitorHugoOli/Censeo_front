@@ -28,7 +28,7 @@ class User {
   String username;
   String email;
   String perfilPhoto;
-  dynamic firstTime;
+  bool firstTime;
   String type;
   String token;
   int typeId;
@@ -58,4 +58,12 @@ class User {
         "token": token,
         "typeId": typeId,
       };
+
+  Map<String, dynamic> toJsonPersonalData() => {
+        "id": id,
+        "nome": nome,
+        "username": username,
+        "email": email,
+      };
+
 }

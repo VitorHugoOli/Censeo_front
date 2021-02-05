@@ -29,7 +29,7 @@ class CustomTextField extends StatelessWidget {
   @required
   final TextInputType textInputType;
   @required
-  final Function upDate;
+  final Function(String) upDate;
   final double width;
   final bool readOnly;
   final Color fillColors;
@@ -57,7 +57,7 @@ class CustomTextField extends StatelessWidget {
     this.readOnly = false,
     this.fillColors = const Color(0x78ffffff),
     this.colorFont = Colors.white,
-    this.colorLabel = const Color(0xff515151),
+    this.colorLabel = const Color(0xffffffff),
     this.pass = false,
     this.maxLines = 1,
     this.onTap,
@@ -69,6 +69,7 @@ class CustomTextField extends StatelessWidget {
     this.hasWidgetLabel = false,
     this.prefixIcon,
   });
+  bool showPassString = false;
 
   static InputDecoration formDecoration(String text,
       {fillColors = const Color(0x78ffffff),
@@ -87,15 +88,16 @@ class CustomTextField extends StatelessWidget {
         letterSpacing: -0.525,
       ),
       prefixIcon: prefixIcon,
-      suffixIcon: pass ?? false
-          ? GestureDetector(
-              onTap: () {},
-              child: Icon(
-                FeatherIcons.eye,
-                color: Color(0xffB0B0B0),
-              ),
-            )
-          : null,
+      // suffixIcon: pass ?? false
+      //     ? GestureDetector(
+      //         onTap: () {
+      //         },
+      //         child: Icon(
+      //           FeatherIcons.eye,
+      //           color: Color(0xffB0B0B0),
+      //         ),
+      //       )
+      //     : null,
       contentPadding: EdgeInsets.only(top: 0, left: 20),
       errorStyle: GoogleFonts.poppins(
           color: Color(0xffDB5555),
@@ -135,10 +137,18 @@ class CustomTextField extends StatelessWidget {
       children: [
         label == "" || !hasWidgetLabel
             ? Container()
-            : Text(
-                label,
-                style: TextStyle(
-                    fontSize: 23, color: colorLabel, fontFamily: 'Nats'),
+            : Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    textAlign: TextAlign.start,
+                    style: GoogleFonts.poppins(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: colorLabel),
+                  ),
+                ],
               ),
         Container(
           width: width,
@@ -154,6 +164,7 @@ class CustomTextField extends StatelessWidget {
             textAlign: textAlign,
             onTap: onTap,
             validator: validator,
+            obscureText: pass,
             style: GoogleFonts.poppins(
               color: colorFont,
               fontSize: 19,
@@ -162,7 +173,9 @@ class CustomTextField extends StatelessWidget {
               letterSpacing: -0.735,
             ),
             decoration: formDecoration(hintText,
-                fillColors: fillColors, pass: pass, hintColor: hintColor,
+                fillColors: fillColors,
+                pass: pass,
+                hintColor: hintColor,
                 prefixIcon: prefixIcon),
           ),
         ),

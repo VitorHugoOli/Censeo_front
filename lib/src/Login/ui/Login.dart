@@ -1,6 +1,7 @@
 import 'package:censeo/resources/loader.dart';
 import 'package:censeo/src/Aluno/BottomNavigationProfessor/BottomNavigationBar.dart';
 import 'package:censeo/src/Login/bloc/bloc.dart';
+import 'package:censeo/src/Login/ui/personalData.dart';
 import 'package:censeo/src/Professor/BottomNavigationProfessor/BottomNavigationBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -183,18 +184,31 @@ class _LoginState extends State<Login> {
 
     if (_formKey.currentState.validate()) {
       Map response = await loginBloc.submit(snapshot.data);
-      print(response);
 
       if (response['status']) {
+
+        if (response['user'].firstTime == true) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PersonalDataPage(response['user']),
+            ),
+          );
+          return;
+        }
+
         if (response['type'] == "Professor") {
           Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => BottomNavigationProfessor()));
+            context,
+            MaterialPageRoute(
+              builder: (context) => BottomNavigationProfessor(),
+            ),
+          );
         } else {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => BottomNavigationAluno()));
         }
+
         return;
       } else {
         setState(() {
