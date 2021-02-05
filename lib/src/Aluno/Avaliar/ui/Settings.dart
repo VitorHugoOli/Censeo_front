@@ -8,9 +8,11 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  
+  
   Widget buildDS(Size size, context) {
     return Container(
-      margin: EdgeInsets.only(top: 15),
+      margin: EdgeInsets.only(top: 15, left: 10),
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       width: size.width * 0.9,
       decoration: BoxDecoration(
@@ -42,7 +44,7 @@ class _SettingsState extends State<Settings> {
             ],
           ),
           Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 30),
               child: Divider(
                 color: Color(0xffD0D0D0),
                 height: 4,
@@ -68,6 +70,33 @@ class _SettingsState extends State<Settings> {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget buildAvatar(Size size, context) {
+    return Container(
+      margin: EdgeInsets.only(top: 15, left: 10),
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      width: size.width * 0.9,
+      decoration: BoxDecoration(
+        color: Color(0xffffffff),
+        borderRadius: BorderRadius.circular(9),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Avatares',
+              style: GoogleFonts.poppins(
+                color: Color(0xff000000),
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                fontStyle: FontStyle.normal,
+                letterSpacing: -0.77,
+              )),
+
+          ],
       ),
     );
   }
@@ -99,7 +128,7 @@ class _SettingsState extends State<Settings> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
-              children: [buildDS(size, context)],//
+              children: [buildDS(size, context),buildAvatar(size, context)],//
             )
           ],
         )),
