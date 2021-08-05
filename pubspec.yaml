@@ -44,9 +44,7 @@ flutter:
     - assets/serverDown.json
     - assets/empty.json
     - assets/noAuth.json
-    - assets/loader.flr
     - assets/loader.json
-    - assets/loader_2.json
     - assets/Avatar.png
 
 
