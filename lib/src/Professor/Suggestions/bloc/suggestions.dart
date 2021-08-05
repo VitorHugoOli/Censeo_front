@@ -47,7 +47,7 @@ class Bloc extends Object implements BaseBloc {
   }
 
   fetchTopicos(id, String type) async {
-    List<Topicos> topicos = List<Topicos>();
+    List<Topicos> topicos = <Topicos>[];
     try {
       List categoriesReceived;
       categoriesReceived = await provider.fetchTopicos(id, type);
@@ -59,7 +59,7 @@ class Bloc extends Object implements BaseBloc {
   }
 
   fetchSuggestion(id, String type) async {
-    List<Suggestion> suggestions = List<Suggestion>();
+    List<Suggestion> suggestions = <Suggestion>[];
     try {
       List categoriesReceived;
       categoriesReceived = await provider.fetchSugestoes(id, type);

@@ -83,7 +83,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
             child: StreamBuilder<List<Topicos>>(
                 stream: widget.suggestionBloc.topicosList,
                 builder: (context, snapshot) {
-                  List<Topicos> listTopicos = List<Topicos>();
+                  List<Topicos> listTopicos = <Topicos>[];
                   if (snapshot.hasData) {
                     listTopicos = snapshot.data.toList();
                     if (listTopicos.length > 0 && listTopicos.last.id != -1) {
@@ -269,10 +269,10 @@ class _SuggestionPageState extends State<SuggestionPage> {
       width: size.width * 0.9,
       margin: EdgeInsets.only(top: 20),
       child: StreamBuilder<List<Suggestion>>(
-        initialData: List<Suggestion>(),
+        initialData: <Suggestion>[],
         stream: widget.suggestionBloc.suggestionList,
         builder: (context, snapshot) {
-          List<Suggestion> suggestions = List<Suggestion>();
+          List<Suggestion> suggestions = <Suggestion>[];
           if (snapshot.hasData) {
             suggestions = snapshot.data;
             if (topico != null && topico.id != -1) {

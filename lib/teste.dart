@@ -42,8 +42,10 @@ class _CounterState extends State<Counter> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                FlatButton(
-                  color: Colors.red,
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.red
+                  ),
                   onPressed: () {
                     setState(() {
                       number--;

@@ -16,7 +16,7 @@ class Bloc extends Object implements BaseBloc {
   final provider = ClassesProvider();
   final _categoriesController =
       BehaviorSubject<Map<String, List<Categories>>>();
-  final _topicosController = BehaviorSubject<List<Topicos>>();
+  final topicosController = BehaviorSubject<List<Topicos>>();
   final _suggestionController = BehaviorSubject<List<Suggestion>>();
 
   Function(List<Suggestion>) get suggestionChanged =>
@@ -24,9 +24,9 @@ class Bloc extends Object implements BaseBloc {
 
   Stream<List<Suggestion>> get suggestionList => _suggestionController.stream;
 
-  Function(List<Topicos>) get topicosChanged => _topicosController.sink.add;
+  Function(List<Topicos>) get topicosChanged => topicosController.sink.add;
 
-  Stream<List<Topicos>> get topicosList => _topicosController.stream;
+  Stream<List<Topicos>> get topicosList => topicosController.stream;
 
   Function(Map<String, List<Categories>>) get categoriesChanged =>
       _categoriesController.sink.add;
@@ -47,7 +47,7 @@ class Bloc extends Object implements BaseBloc {
   }
 
   fetchTopicos(id, String type) async {
-    List<Topicos> topicos = List<Topicos>();
+    List<Topicos> topicos = <Topicos>[];
     try {
       List categoriesReceived;
       categoriesReceived = await provider.fetchTopicos(id, type);
@@ -59,7 +59,7 @@ class Bloc extends Object implements BaseBloc {
   }
 
   fetchSuggestion(id, String type) async {
-    List<Suggestion> suggestions = List<Suggestion>();
+    List<Suggestion> suggestions = <Suggestion>[];
     try {
       List categoriesReceived;
       categoriesReceived = await provider.fetchSugestoes(id, type);
@@ -83,7 +83,7 @@ class Bloc extends Object implements BaseBloc {
   @override
   void dispose() {
     _categoriesController?.close();
-    _topicosController?.close();
+    topicosController?.close();
     _suggestionController?.close();
   }
 }

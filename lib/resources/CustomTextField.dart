@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ManagerController {
@@ -20,7 +19,7 @@ class ManagerController {
   }
 }
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final ManagerController managerController;
   @required
   final String label;
@@ -45,13 +44,14 @@ class CustomTextField extends StatelessWidget {
   final Function(String) onFieldSubmitted;
   final Color hintColor;
   final bool hasWidgetLabel;
-  Icon prefixIcon;
+  final Widget prefixIcon;
+  final Widget suffixIcon;
 
   CustomTextField(
     this.managerController, {
     this.label,
     this.hintText,
-    this.textInputType,
+    this.textInputType = TextInputType.text,
     this.upDate,
     this.width,
     this.readOnly = false,
@@ -68,14 +68,18 @@ class CustomTextField extends StatelessWidget {
     this.hintColor = const Color(0x99ffffff),
     this.hasWidgetLabel = false,
     this.prefixIcon,
+    this.suffixIcon,
   });
-  bool showPassString = false;
 
-  static InputDecoration formDecoration(String text,
-      {fillColors = const Color(0x78ffffff),
-      bool pass = false,
-      Icon prefixIcon,
-      hintColor = const Color(0x99ffffff)}) {
+
+  static InputDecoration formDecoration(
+    String text, {
+    fillColors = const Color(0x78ffffff),
+    bool pass = false,
+    Widget prefixIcon,
+    Widget suffixIcon,
+    hintColor = const Color(0x99ffffff),
+  }) {
     return InputDecoration(
       fillColor: fillColors,
       filled: true,
@@ -88,16 +92,7 @@ class CustomTextField extends StatelessWidget {
         letterSpacing: -0.525,
       ),
       prefixIcon: prefixIcon,
-      // suffixIcon: pass ?? false
-      //     ? GestureDetector(
-      //         onTap: () {
-      //         },
-      //         child: Icon(
-      //           FeatherIcons.eye,
-      //           color: Color(0xffB0B0B0),
-      //         ),
-      //       )
-      //     : null,
+      suffixIcon: suffixIcon,
       contentPadding: EdgeInsets.only(top: 0, left: 20),
       errorStyle: GoogleFonts.poppins(
           color: Color(0xffDB5555),
@@ -131,52 +126,60 @@ class CustomTextField extends StatelessWidget {
     );
   }
 
+  @override
+  _CustomTextFieldState createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  bool showPassString = false;
+
   Widget automaticInput() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        label == "" || !hasWidgetLabel
+        widget.label == "" || !widget.hasWidgetLabel
             ? Container()
             : Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    label,
+                    widget.label,
                     textAlign: TextAlign.start,
                     style: GoogleFonts.poppins(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
-                        color: colorLabel),
+                        color: widget.colorLabel),
                   ),
                 ],
               ),
         Container(
-          width: width,
+          width: widget.width,
           child: TextFormField(
-            controller: managerController.managerControllers(label,
-                initValue: initialValue),
+            controller: widget.managerController.managerControllers(widget.label,
+                initValue: widget.initialValue),
             onFieldSubmitted:
-                onFieldSubmitted == null ? (value) {} : onFieldSubmitted,
-            keyboardType: TextInputType.text,
-            readOnly: readOnly,
-            onChanged: upDate,
-            maxLines: maxLines,
-            textAlign: textAlign,
-            onTap: onTap,
-            validator: validator,
-            obscureText: pass,
+                widget.onFieldSubmitted == null ? (value) {} : widget.onFieldSubmitted,
+            keyboardType: widget.textInputType,
+            readOnly: widget.readOnly,
+            onChanged: widget.upDate,
+            maxLines: widget.maxLines,
+            textAlign: widget.textAlign,
+            onTap: widget.onTap,
+            validator: widget.validator,
+            obscureText: widget.pass,
             style: GoogleFonts.poppins(
-              color: colorFont,
+              color: widget.colorFont,
               fontSize: 19,
               fontWeight: FontWeight.w500,
               fontStyle: FontStyle.normal,
               letterSpacing: -0.735,
             ),
-            decoration: formDecoration(hintText,
-                fillColors: fillColors,
-                pass: pass,
-                hintColor: hintColor,
-                prefixIcon: prefixIcon),
+            decoration: CustomTextField.formDecoration(widget.hintText,
+                fillColors: widget.fillColors,
+                pass: widget.pass,
+                hintColor: widget.hintColor,
+                prefixIcon: widget.prefixIcon,
+                suffixIcon: widget.suffixIcon),
           ),
         ),
       ],

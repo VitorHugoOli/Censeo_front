@@ -148,7 +148,7 @@ class _CreateClassDialogState extends State<CreateClassDialog> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                Capitalize(DateFormat('EEEE', 'pt_br').format(widget.date)),
+                capitalize(DateFormat('EEEE', 'pt_br').format(widget.date)),
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w600,
                     color: Color(0xff0E153A),
@@ -171,29 +171,47 @@ class _CreateClassDialogState extends State<CreateClassDialog> {
             children: <Widget>[
               Container(
                   width: size.width * 0.7,
-                  child: TextFormField(
-                    onChanged: widget.bloc.horarioChanged,
-                    controller: controllerTime,
-                    keyboardType: TextInputType.datetime,
-                    inputFormatters: [
-                      MaskTextInputFormatter(mask: '#@:&@', filter: {
-                        "#": RegExp(r'[0-2]'),
-                        '@': RegExp(r'[0-9]'),
-                        '&': RegExp(r'[0-5]')
-                      })
+                  child: Stack(
+                    fit: StackFit.passthrough,
+                    children: [
+                      TextFormField(
+                        readOnly: true,
+                        onChanged: widget.bloc.horarioChanged,
+                        controller: controllerTime,
+                        keyboardType: TextInputType.datetime,
+                        inputFormatters: [
+                          MaskTextInputFormatter(mask: '#@:&@', filter: {
+                            "#": RegExp(r'[0-2]'),
+                            '@': RegExp(r'[0-9]'),
+                            '&': RegExp(r'[0-5]')
+                          })
+                        ],
+                        textAlign: TextAlign.left,
+                        style: GoogleFonts.poppins(
+                          color: Color(0xff000000),
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.normal,
+                          letterSpacing: -0.735,
+                        ),
+                        decoration: CustomTextField.formDecoration("Horário",
+                            fillColors: Color(0x78C2C2C2),
+                            hintColor: Color(0xff696969)),
+                        validator: (value) => _validatorTime(value),
+                      ),
+                      FlatButton(
+                        onPressed: () async {
+                          TimeOfDay selectedTime = await showTimePicker(
+                            initialTime: TimeOfDay.now(),
+                            context: context,
+                          );
+                          controllerTime.text = selectedTime.format(context);
+                          widget.bloc
+                              .horarioChanged(selectedTime.format(context));
+                        },
+                        child: null,
+                      ),
                     ],
-                    textAlign: TextAlign.left,
-                    style: GoogleFonts.poppins(
-                      color: Color(0xff000000),
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                      letterSpacing: -0.735,
-                    ),
-                    decoration: CustomTextField.formDecoration("Horário",
-                        fillColors: Color(0x78C2C2C2),
-                        hintColor: Color(0xff696969)),
-                    validator: (value) => _validatorTime(value),
                   )),
               Container(
                 padding: EdgeInsets.only(top: 15),

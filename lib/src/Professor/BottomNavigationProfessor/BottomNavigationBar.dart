@@ -1,18 +1,21 @@
 import 'dart:ui';
 
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
+import 'package:censeo/main.dart';
 import 'package:censeo/resources/professorIcons.dart';
 import 'package:censeo/src/Professor/BottomNavigationProfessor/TabNavigatorProfessor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 enum TabItem { aulas, dados, sugestoes }
 
 class BottomNavigationProfessor extends StatefulWidget {
   @override
-  _BottomNavigationProfessorState createState() => _BottomNavigationProfessorState();
+  _BottomNavigationProfessorState createState() =>
+      _BottomNavigationProfessorState();
 }
 
 class _BottomNavigationProfessorState extends State<BottomNavigationProfessor> {
@@ -57,8 +60,8 @@ class _BottomNavigationProfessorState extends State<BottomNavigationProfessor> {
   static final List<BubbleBottomBarItem> barItens = <BubbleBottomBarItem>[
     madeBubbleBottomBarItem(ProfessorIcons.chalkboard, "Aulas"),
     madeBubbleBottomBarItem(ProfessorIcons.chalkboard, "Aulas"),
-    madeBubbleBottomBarItem(ProfessorIcons.chart, "Dados"),
-    madeBubbleBottomBarItem(ProfessorIcons.chat, "Sugestões"),
+    madeBubbleBottomBarItem(FeatherIcons.barChart, "Dados"),
+    madeBubbleBottomBarItem(FeatherIcons.messageSquare, "Sugestões"),
   ];
 
   static final mapPag = {
@@ -104,7 +107,8 @@ class _BottomNavigationProfessorState extends State<BottomNavigationProfessor> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        final isFirstRouteInCurrentTab = !await _navigatorKeys[_currentTab].currentState.maybePop();
+        final isFirstRouteInCurrentTab =
+            !await _navigatorKeys[_currentTab].currentState.maybePop();
 
         if (isFirstRouteInCurrentTab) {
           // if not on the 'main' tab
@@ -125,21 +129,25 @@ class _BottomNavigationProfessorState extends State<BottomNavigationProfessor> {
             _buildOffstageNavigator(TabItem.dados),
             _buildOffstageNavigator(TabItem.sugestoes),
           ]),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              setState(() {
-                _selectTab(TabItem.aulas);
-                currentIndex = 1;
-              });
-            },
-            child: Icon(
-              ProfessorIcons.chalkboard,
-              color: Colors.white,
-              size: 25,
+          floatingActionButton: Visibility(
+            visible: MediaQuery.of(navigatorKey.currentContext).viewInsets.bottom == 0,
+            child: FloatingActionButton(
+              onPressed: () {
+                setState(() {
+                  _selectTab(TabItem.aulas);
+                  currentIndex = 1;
+                });
+              },
+              child: Icon(
+                ProfessorIcons.chalkboard,
+                color: Colors.white,
+                size: 25,
+              ),
+              backgroundColor: Color(0xFF3D5AF1),
             ),
-            backgroundColor: Color(0xFF3D5AF1),
           ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: BubbleBottomBar(
               opacity: 1,
               fabLocation: BubbleBottomBarFabLocation.center,

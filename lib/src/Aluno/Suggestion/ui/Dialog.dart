@@ -18,7 +18,7 @@ class CreateSuggestion {
   final _formKey = GlobalKey<FormState>();
 
   CreateSuggestion(this.bloc, this.categories) {
-    _suggestion = Suggestion();
+    _suggestion = Suggestion(titulo: "", sugestao: "");
     bloc.fetchTopicos(categories.id, categories.tipo);
   }
 
@@ -72,7 +72,11 @@ class CreateSuggestion {
                 width: size.width * 0.35,
                 height: size.height * 0.05,
                 child: RaisedButton(
-                  color: Color(0xff0E153A),
+                  color: _suggestion.topico != null &&
+                          _suggestion.titulo.isNotEmpty &&
+                          _suggestion.sugestao.isNotEmpty
+                      ? Color(0xff0E153A)
+                      : Color(0x770E153A),
                   onPressed: () {
                     if (_formKey.currentState.validate()) {
                       bloc.createSuggestion(
@@ -143,6 +147,7 @@ class CreateSuggestion {
                 _controller,
                 label: "",
                 fillColors: Color(0xffE1E1E1),
+                colorFont: Color(0xff000000),
                 hintText: "Título",
                 validator: (value) =>
                     value.isEmpty ? "Entre com algum título" : null,
@@ -158,6 +163,7 @@ class CreateSuggestion {
               validator: (value) =>
                   value.isEmpty ? "Entre com alguma descrição" : null,
               fillColors: Color(0xffE1E1E1),
+              colorFont: Color(0xff000000),
               hintText: "Descrição",
               hintColor: Color(0xff555555),
               maxLines: 8,

@@ -1,23 +1,13 @@
-import 'dart:ffi';
-
+import 'package:censeo/resources/CustomDropDown.dart';
 import 'package:censeo/resources/CustomTextField.dart';
 import 'package:censeo/src/Professor/Aulas/bloc/professor.dart';
 import 'package:censeo/src/Professor/Aulas/models/Turma.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-
-class SchedulerClass {
-  String dia;
-  TimeOfDay time;
-  String Sala;
-  bool isAssincrona;
-}
 
 class EditClassDialog extends StatefulWidget {
   final List<Horario> horarios;
@@ -74,18 +64,18 @@ class EditClassDialog extends StatefulWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            StreamBuilder<List<SchedulerClass>>(
+            StreamBuilder<List<Horario>>(
                 stream: bloc.listSchedule,
-                builder:
-                    (context, AsyncSnapshot<List<SchedulerClass>> snapshot) {
+                builder: (context, AsyncSnapshot<List<Horario>> snapshot) {
                   return Container(
                     width: size.width * 0.45,
                     height: size.height * 0.06,
                     child: RaisedButton(
                       color: Color(0xff0E153A),
                       onPressed: () async {
-                        bloc.submitSchedule(turmaId, snapshot.data);
-                        // Navigator.of(context).pop();
+                        if (bloc.formKey.currentState.validate())
+                          bloc.submitSchedule(turmaId);
+                        Navigator.of(context).pop();
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(6),
@@ -115,116 +105,235 @@ class EditClassDialog extends StatefulWidget {
 
 class _EditClassDialogState extends State<EditClassDialog> {
   ManagerController _controller = ManagerController();
-
-  String _validatorTime(String value) {
-    final reg = RegExp(r'^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$');
-
-    if (reg.hasMatch(value)) {
-      setState(() {
-        // days[index].error = true;
-//        messages = "Entre com um email valido.";
-      });
-      return "";
-    } else {
-      setState(() {
-        // days[index].error = false;
-      });
-      return null;
-    }
-  }
+  DateTime date = DateTime.now();
+  final _formKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
-    Widget buildTopico(SchedulerClass aula, index, size) {
-      return Container(
-        width: double.maxFinite,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-                child: Column(
+  void initState() {
+    widget.bloc.listScheduleChanged(widget.horarios);
+    widget.bloc.formKey = _formKey;
+    super.initState();
+  }
+
+  Widget buildTopico(Horario aula, index, size) {
+    return Container(
+      width: double.maxFinite,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Column(
               children: [
-                SchedulerDropDown(aula),
+                CustomDropDown<String>(
+                  title: "Dia da aula",
+                  validator: (value) =>
+                      value == null ? "Entre com algum dia valido" : null,
+                  upDate: (value) {
+                    setState(() {
+                      aula.dia = value;
+                    });
+                  },
+                  initValue: dayBdToNormalDay(aula.dia),
+                  items: [
+                    'Segunda',
+                    'Terca',
+                    'Quarta',
+                    'Quinta',
+                    'Sexta',
+                    'Sabado'
+                  ],
+                ),
                 SizedBox(
                   height: 10,
                 ),
                 Row(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Future<TimeOfDay> selectedTime24Hour = showTimePicker(
-                          context: context,
-                          initialTime: TimeOfDay(hour: 10, minute: 47),
-                          builder: (BuildContext context, Widget child) {
-                            return MediaQuery(
-                              data: MediaQuery.of(context)
-                                  .copyWith(alwaysUse24HourFormat: true),
-                              child: child,
-                            );
-                          },
-                        );
-                        // _controller.controllers['"Horario" + index.toString()']
-                        //     .text = selectedTime24Hour.toString();
-                        // aula.time = selectedTime24Hour;
-                        },
-                      child: CustomTextField(
-                        _controller,
-                        label: "Horario" + index.toString(),
-                        validator: _validatorTime,
-                        fillColors: Color(0xffE1E1E1),
-                        hintColor: Color(0xff555555),
-                        readOnly: true,
-                        colorFont: Theme.of(context).colorScheme.primary,
-                        width: 100,
+                    Expanded(
+                      child: Stack(
+                        fit: StackFit.passthrough,
+                        children: [
+                          CustomTextField(
+                            _controller,
+                            label: "Inicio" + index.toString(),
+                            hintText: "Inicio",
+                            fillColors: Color(0xffE1E1E1),
+                            hintColor: Color(0xff555555),
+                            readOnly: true,
+                            validator: (value) => value.isEmpty
+                                ? "Entre com "
+                                    "horario"
+                                : null,
+                            initialValue: aula.horario != null
+                                ? DateFormat("HH:MM").format(aula.horario)
+                                : null,
+                            colorFont: Theme.of(context).colorScheme.primary,
+                          ),
+                          FlatButton(
+                            onPressed: () async {
+                              TimeOfDay selectedTime = await showTimePicker(
+                                initialTime: TimeOfDay.now(),
+                                context: context,
+                              );
+                              _controller
+                                  .controllers['Inicio${index.toString()}']
+                                  .text = selectedTime.format(context);
+                              aula.horario = DateTime(
+                                  date.year,
+                                  date.month,
+                                  date.day,
+                                  selectedTime.hour,
+                                  selectedTime.minute);
+                            },
+                            child: null,
+                          ),
+                        ],
                       ),
                     ),
-                    CustomTextField(
-                      _controller,
-                      label: "Sala" + index.toString(),
-                      upDate: (value) {
-                        aula.Sala = value;
-                      },
-                      fillColors: Color(0xffE1E1E1),
-                      hintColor: Color(0xff555555),
-                      colorFont: Theme.of(context).colorScheme.primary,
-                      width: 100,
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: CustomTextField(
+                        _controller,
+                        label: "Sala" + index.toString(),
+                        upDate: (value) {
+                          aula.sala = value;
+                        },
+                        hintText: "Sala",
+                        initialValue: aula.sala,
+                        fillColors: Color(0xffE1E1E1),
+                        hintColor: Color(0xff555555),
+                        colorFont: Theme.of(context).colorScheme.primary,
+                      ),
                     )
                   ],
-                )
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                CustomDropDown<bool>(
+                  title: "Tipo de aula",
+                  validator: (value) =>
+                      value == null ? "Entre com o tipo da aula" : null,
+                  upDate: (value) {
+                    setState(
+                      () {
+                        aula.isAssincrona = value;
+                      },
+                    );
+                  },
+                  items: [true, false],
+                  initValue: aula.isAssincrona,
+                  valueSelect: (value) => value ? "Assincrona" : "Sincrona",
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                aula?.isAssincrona ?? false
+                    ? CustomTextField(
+                        _controller,
+                        label: "Dias para termino" + index.toString(),
+                        hintText: "Dias para termino",
+                        fillColors: Color(0xffE1E1E1),
+                        hintColor: Color(0xff555555),
+                        textInputType: TextInputType.number,
+                        suffixIcon: Tooltip(
+                          message: "Quantidade de dias que o "
+                              "aluno terá para avaliar a aula.",
+                          child: Icon(
+                            Feather.info,
+                            color: Colors.black,
+                          ),
+                        ),
+                        upDate: (value) => aula.dayToEnd = int.parse(value),
+                        validator: (value) => value.isEmpty
+                            ? "Entre com "
+                                "horario"
+                            : null,
+                        initialValue: aula.dayToEnd != null
+                            ? aula.dayToEnd.toString()
+                            : null,
+                        colorFont: Theme.of(context).colorScheme.primary,
+                      )
+                    : Container()
               ],
-            )),
-            Material(
-              color: Colors.transparent,
-              child: Center(
-                child: Ink(
-                  width: 40,
-                  height: 40,
-                  decoration: const ShapeDecoration(
-                    color: Colors.white,
-                    shape: CircleBorder(),
-                  ),
-                  child: IconButton(
-                    onPressed: () {
-                      widget.bloc.removeSchedule(index);
-                    },
-                    color: Colors.white,
-                    icon: Icon(
-                      FontAwesome.trash_o,
-                      color: Colors.black,
-                    ),
+            ),
+          ),
+          Material(
+            color: Colors.transparent,
+            child: Center(
+              child: Ink(
+                width: 40,
+                height: 40,
+                decoration: const ShapeDecoration(
+                  color: Colors.white,
+                  shape: CircleBorder(),
+                ),
+                child: IconButton(
+                  onPressed: () {
+                    widget.bloc.removeSchedule(index);
+                  },
+                  color: Colors.white,
+                  icon: Icon(
+                    FontAwesome.trash_o,
+                    color: Colors.black,
                   ),
                 ),
               ),
-            )
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget button() {
+    return Container(
+      decoration: const BoxDecoration(
+        color: Color(0xff3D5AF1),
+        borderRadius: BorderRadius.all(
+          Radius.circular(8),
+        ),
+      ),
+      child: FlatButton(
+        onPressed: () {
+          widget.bloc.addSchedule();
+          setState(() {});
+        },
+        color: Colors.transparent,
+        child: Row(
+          children: [
+            Icon(
+              Octicons.plus_small,
+              color: Colors.white,
+              size: 40,
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Text(
+              'Adicionar Novo Horario',
+              style: GoogleFonts.poppins(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w300,
+                fontStyle: FontStyle.normal,
+                letterSpacing: -0.735,
+              ),
+            ),
           ],
         ),
-      );
-    }
+      ),
+    );
+  }
 
-    Widget _body(Size size) {
-      return Container(
-        height: size.height * 0.5,
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return SingleChildScrollView(
+      child: Container(
+        height: size.height * 0.6,
         width: double.maxFinite,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -234,145 +343,59 @@ class _EditClassDialogState extends State<EditClassDialog> {
                 minWidth: 0,
                 minHeight: 0,
                 maxWidth: size.width * 0.8,
-                maxHeight: size.height * 0.4,
+                maxHeight: size.height * 0.5,
               ),
-              child: StreamBuilder<List<SchedulerClass>>(
+              child: StreamBuilder<List<Horario>>(
                   stream: widget.bloc.listSchedule,
                   builder: (context, snapshot) {
-                    List<SchedulerClass> listClass = List<SchedulerClass>();
+                    List<Horario> listClass = <Horario>[];
                     if (snapshot.hasData && snapshot.data != null) {
                       listClass = snapshot.data;
                     }
-                    return ListView.separated(
-                      shrinkWrap: true,
-                      separatorBuilder: (context, index) {
-                        return SizedBox(
-                          height: 10,
-                        );
-                      },
-                      itemCount: listClass.length,
-                      itemBuilder: (context, index) {
-                        return buildTopico(listClass[index], index, size);
-                      },
+                    return Form(
+                      key: _formKey,
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        padding: EdgeInsets.only(top: 10, bottom: 10),
+                        separatorBuilder: (context, index) {
+                          return Container(
+                            padding: EdgeInsets.only(right: 20, left: 10),
+                            child: Divider(
+                              color: Color(0xff808080),
+                              height: 25,
+                            ),
+                          );
+                        },
+                        itemCount: listClass.length,
+                        itemBuilder: (context, index) {
+                          return buildTopico(listClass[index], index, size);
+                        },
+                      ),
                     );
                   }),
             ),
-            Material(
-              color: Colors.white,
-              child: Ink(
-                decoration: const BoxDecoration(
-                  color: Color(0xff3D5AF1),
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(8),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    FlatButton(
-                      onPressed: () {
-                        widget.bloc.addSchedule();
-                        setState(() {});
-                      },
-                      color: Colors.transparent,
-                      child: Row(
-                        children: [
-                          Icon(
-                            Octicons.plus_small,
-                            color: Colors.white,
-                            size: 40,
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            'Adicionar Novo Horario',
-                            style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w300,
-                              fontStyle: FontStyle.normal,
-                              letterSpacing: -0.735,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            button()
           ],
         ),
-      );
-    }
-
-    Size size = MediaQuery.of(context).size;
-    return Container(
-      child: SingleChildScrollView(
-        child: _body(size),
       ),
     );
   }
 }
 
-class SchedulerDropDown extends StatefulWidget {
-  final SchedulerClass schClass;
-
-  SchedulerDropDown(this.schClass);
-
-  @override
-  _SchedulerDropDownState createState() => _SchedulerDropDownState();
-}
-
-class _SchedulerDropDownState extends State<SchedulerDropDown> {
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButtonHideUnderline(
-      child: Container(
-        child: new DropdownButtonFormField<String>(
-            decoration: CustomTextField.formDecoration(
-              "Entre com o tópico",
-              fillColors: Color(0xffE1E1E1),
-              hintColor: Color(0xff555555),
-            ),
-            elevation: 0,
-            dropdownColor: Color(0xffC4C4C4),
-            value: null,
-            onChanged: (value) {
-              setState(() {
-                widget.schClass.dia = value;
-              });
-            },
-            validator: (value) =>
-                value == null ? "Entre com algum tópico" : null,
-            icon: Container(
-              padding: EdgeInsets.only(right: 10),
-              child: Icon(
-                FeatherIcons.chevronDown,
-                color: Color(0xff6D6D6D),
-              ),
-            ),
-            style: GoogleFonts.poppins(fontSize: 12, color: Color(0xff6D6D6D)),
-            items: ['SEG', 'ter'].map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    value,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                      color: Color(0xff555555),
-                      fontSize: 19,
-                      fontWeight: FontWeight.w500,
-                      fontStyle: FontStyle.normal,
-                      letterSpacing: -0.35,
-                    ),
-                  ),
-                ),
-              );
-            })?.toList()),
-      ),
-    );
+String dayBdToNormalDay(day) {
+  switch (day) {
+    case "SEG":
+      return "Segunda";
+    case "TER":
+      return "Terca";
+    case "QUA":
+      return "Quarta";
+    case "QUI":
+      return "Quinta";
+    case "SEX":
+      return "Sexta";
+    case "SAB":
+      return "Sabado";
   }
+  return null;
 }

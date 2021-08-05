@@ -1,83 +1,88 @@
 import 'package:censeo/resources/censeo_provider.dart';
 import 'package:censeo/resources/globalAlerts.dart';
-import 'package:flutter/services.dart';
 
 class ClassesProvider {
   final api = CenseoApiProvider();
 
   putDeleteClass(id) async {
     try {
-      var response = await api.authRequest(type: "DELETE", endpoint: "/aulas/$id/");
+      var response =
+          await api.authRequest(type: "DELETE", endpoint: "/aulas/$id/");
       if (!response['status']) {
         genericAlert();
-        throw('');
+        throw ('');
       }
     } catch (e) {
       print(">>> Algum erro $e, file: ");
       genericAlert();
-      throw(e);
+      throw (e);
     }
   }
 
-  putEditClass(id, body) async {
+  Future putEditClass(id, body) async {
     try {
-      var response = await api.authRequest(type: "PUT", endpoint: "/aulas/$id/", body: body);
+      var response = await api.authRequest(
+          type: "PUT", endpoint: "/aulas/$id/", body: body);
       if (!response['status']) {
         genericAlert();
-        throw('');
+        throw ('');
       }
     } catch (e) {
       print(">>> Algum erro $e, file: ");
       genericAlert();
-      throw(e);
+      throw (e);
     }
   }
 
   putCreateClass(body) async {
     try {
-      var response = await api.authRequest(type: "POST", endpoint: "/aulas/", body: body);
+      var response =
+          await api.authRequest(type: "POST", endpoint: "/aulas/", body: body);
       if (!response['status']) {
         genericAlert();
-        throw('');
+        throw ('');
       }
     } catch (e) {
       print(">>> Algum erro $e, file: ");
       genericAlert();
-      throw(e);
+      throw (e);
     }
   }
 
   putClassSchedule(body) async {
     try {
-      var response = await api.authRequest(type: "POST", endpoint: "/schedule/", body: body);
+      var response = await api.authRequest(
+          type: "POST", endpoint: "/schedule/", body: body);
       if (!response['status']) {
         genericAlert();
-        throw('');
+        throw ('');
       }
     } catch (e) {
       print(">>> Algum erro $e, file: ");
       genericAlert();
-      throw(e);
+      throw (e);
     }
   }
 
   putEndClass(body) async {
     try {
-      var response = await api.authRequest(type: "PUT", endpoint: "/endClass/", body: body);
+      var response = await api.authRequest(
+          type: "PUT", endpoint: "/endClass/", body: body);
       if (!response['status']) {
         genericAlert();
-        throw('');
+        throw ('');
       }
     } catch (e) {
       print(">>> Algum erro $e, file: ");
       genericAlert();
-      throw(e);
+      throw (e);
     }
   }
 
   fetchAulasForTurmas(id) async {
     try {
-      var response = await api.authRequest(type: "GET", endpoint: "/aulasTurma/$id");
+      var response =
+          await api.authRequest(type: "GET", endpoint: "/aulasTurma/$id");
       return response['aulas'];
     } catch (e) {
       print(">>> Algum erro $e");
@@ -86,7 +91,8 @@ class ClassesProvider {
 
   fetchOpenClass() async {
     try {
-      var response = await api.withoutAuthRequest(type: "GET", endpoint: "/aulas_abertas/");
+      var response = await api.withoutAuthRequest(
+          type: "GET", endpoint: "/aulas_abertas/");
       return response['aulas'];
     } catch (e) {
       print(">>> Algum erro $e, file: ");
@@ -105,7 +111,8 @@ class ClassesProvider {
 
   fetchAlunosPerTurma(id) async {
     try {
-      var response = await api.authRequest(type: "GET", endpoint: "/turmas/$id/alunos");
+      var response =
+          await api.authRequest(type: "GET", endpoint: "/turmas/$id/alunos");
       return response['alunos'];
     } catch (e) {
       print(">>> Algum erro $e");

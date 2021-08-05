@@ -12,7 +12,7 @@ import 'package:intl/intl.dart';
 
 import 'ManagerClass.dart';
 
-class FinishingClass extends StatelessWidget {
+class FinishingClass extends StatefulWidget {
   final Aula _aula;
   final Turma _turma;
   final ClassBloc _classBloc;
@@ -62,18 +62,25 @@ class FinishingClass extends StatelessWidget {
     },
   ];
 
+  @override
+  _FinishingClassState createState() => _FinishingClassState();
+}
+
+class _FinishingClassState extends State<FinishingClass> {
   chooseField(label) {
     switch (label) {
       case 'Sala':
-        return _aula?.sala ?? "";
+        return widget._aula?.sala ?? "";
       case 'Link':
-        return _aula?.linkDocumento ?? "";
+        return widget._aula?.linkDocumento ?? "";
       case 'assincrona':
-        return (_aula?.isAssincrona ?? false ? "Assincrona" : "Sincrona");
+        return (widget._aula?.isAssincrona ?? false
+            ? "Assincrona"
+            : "Sincrona");
       case 'Tipo':
-        return _aula?.tipoAula ?? "";
+        return widget._aula?.tipoAula ?? "";
       case 'Extra':
-        return _aula?.extra[_aula?.tipoAula] ?? "";
+        return widget._aula?.extra[widget._aula?.tipoAula] ?? "";
       default:
         return '';
     }
@@ -87,7 +94,7 @@ class FinishingClass extends StatelessWidget {
         Column(
           children: <Widget>[
             Text(
-              _turma.disciplina.sigla,
+              widget._turma.disciplina.sigla,
               style: GoogleFonts.poppins(
                 color: Color(0xffffffff),
                 fontSize: 18,
@@ -97,7 +104,7 @@ class FinishingClass extends StatelessWidget {
               ),
             ),
             Text(
-              _turma.codigo,
+              widget._turma.codigo,
               style: GoogleFonts.poppins(
                 color: Color(0xffffffff),
                 fontSize: 11,
@@ -111,7 +118,8 @@ class FinishingClass extends StatelessWidget {
         Container(
           width: size.width * 0.5,
           child: Text(
-            checkDisciplinaName(_turma.codigo, _turma.disciplina.nome),
+            checkDisciplinaName(
+                widget._turma.codigo, widget._turma.disciplina.nome),
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
               color: Color(0xffffffff),
@@ -139,7 +147,7 @@ class FinishingClass extends StatelessWidget {
             height: size.height * 0.06,
             child: RaisedButton(
               onPressed: () {
-                _classBloc.endClass(idAula: _aula.id);
+                widget._classBloc.endClass(idAula: widget._aula.id);
                 Navigator.pop(context);
               },
               color: Color(0xff3D5AF1),
@@ -175,9 +183,14 @@ class FinishingClass extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Tema',
+                  widget._aula.tema != null && widget._aula.tema.isNotEmpty
+                      ? widget._aula.tema
+                      : "Adicione um tema",
                   style: GoogleFonts.poppins(
-                    color: Color(0xff000000),
+                    color: widget._aula.tema != null &&
+                            widget._aula.tema.isNotEmpty
+                        ? Color(0xff000000)
+                        : Color(0x99000000),
                     fontSize: 21,
                     fontWeight: FontWeight.w600,
                     fontStyle: FontStyle.normal,
@@ -185,9 +198,15 @@ class FinishingClass extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Descrição',
+                  widget._aula.descricao != null &&
+                          widget._aula.descricao.isNotEmpty
+                      ? widget._aula.descricao
+                      : "Sem descrição",
                   style: GoogleFonts.poppins(
-                    color: Color(0xff000000),
+                    color: widget._aula.descricao != null &&
+                            widget._aula.descricao.isNotEmpty
+                        ? Color(0xff000000)
+                        : Color(0x99000000),
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     fontStyle: FontStyle.normal,
@@ -205,12 +224,14 @@ class FinishingClass extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ManagerClass(_aula,
-                        _aula.turma.codigo, _aula.turma.id, _classBloc.bloc),
+                    builder: (context) => ManagerClass(
+                        widget._aula,
+                        widget._aula.turma.codigo,
+                        widget._aula.turma.id,
+                        widget._classBloc.bloc),
                   ),
                 ).then((value) {
-                  print(
-                      "Transforma em stateful e atualizar o _aula de acrodo com o vetor _classBloc.bloc.openClassList");
+                  setState(() {});
                 });
               },
             ),
@@ -233,7 +254,7 @@ class FinishingClass extends StatelessWidget {
                   width: 13,
                 ),
                 Text(
-                  DateFormat("dd/MM/yyyy").format(_aula.horario),
+                  DateFormat("dd/MM/yyyy").format(widget._aula.horario),
                   style: GoogleFonts.poppins(
                     color: Color(0xff000000),
                     fontSize: 16,
@@ -258,7 +279,7 @@ class FinishingClass extends StatelessWidget {
                   width: 13,
                 ),
                 Text(
-                  DateFormat("kk:mm").format(_aula.horario),
+                  DateFormat("kk:mm").format(widget._aula.horario),
                   style: GoogleFonts.poppins(
                     color: Color(0xff000000),
                     fontSize: 16,
@@ -289,13 +310,11 @@ class FinishingClass extends StatelessWidget {
           buildTop(size, context),
           SizedBox(height: 20),
           Wrap(
-            runSpacing: 20,
+            runSpacing: 15,
             // mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: fields.map((e) {
+            children: FinishingClass.fields.map((e) {
               String field = chooseField(e['label']);
-              if (field == "") {
-                return Container();
-              }
+              if (field == "") return null;
               return Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -305,7 +324,7 @@ class FinishingClass extends StatelessWidget {
                     width: 13,
                   ),
                   Text(
-                    Capitalize(field),
+                    capitalize(field),
                     style: GoogleFonts.poppins(
                       color: Color(0xff000000),
                       fontSize: 16,
@@ -316,8 +335,10 @@ class FinishingClass extends StatelessWidget {
                   )
                 ],
               );
-            }).toList(),
+            }).toList()
+              ..removeWhere((element) => element == null),
           ),
+          SizedBox(height: 10),
         ],
       ),
     );
@@ -347,7 +368,9 @@ class FinishingClass extends StatelessWidget {
                     Column(
                       children: [
                         buildNameTitle(size),
-                        SizedBox(height: 20,),
+                        SizedBox(
+                          height: 20,
+                        ),
                         buildDetailsClass(size, context),
                       ],
                     ),

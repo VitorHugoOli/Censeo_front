@@ -1,5 +1,4 @@
-import 'dart:math';
-
+import 'package:censeo/resources/Avatar.dart';
 import 'package:censeo/resources/Transformer.dart';
 import 'package:censeo/resources/loader.dart';
 import 'package:censeo/src/Professor/Aulas/bloc/professor.dart';
@@ -14,6 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import 'Calendar.dart';
+import 'DialogViewAlunos.dart';
 
 class ManagerTurma extends StatefulWidget {
   final Turma _turma;
@@ -32,7 +32,6 @@ class _ManagerTurmaState extends State<ManagerTurma> {
   void initState() {
     super.initState();
   }
-
 
   Widget buildNameTitle(Size size) {
     return Row(
@@ -66,7 +65,8 @@ class _ManagerTurmaState extends State<ManagerTurma> {
         Container(
           width: size.width * 0.5,
           child: Text(
-            checkDisciplinaName(widget._turma.codigo, widget._turma.disciplina.nome),
+            checkDisciplinaName(
+                widget._turma.codigo, widget._turma.disciplina.nome),
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
               color: Color(0xffffffff),
@@ -90,14 +90,6 @@ class _ManagerTurmaState extends State<ManagerTurma> {
       FontAwesome.user_secret,
       FontAwesome.user_times
     ];
-    Widget radomIcon() {
-      final _random = new Random();
-      IconData element = userIcons[_random.nextInt(userIcons.length)];
-      return Icon(
-        element,
-        size: 55,
-      );
-    }
 
     Function title = () {
       return Container(
@@ -129,7 +121,7 @@ class _ManagerTurmaState extends State<ManagerTurma> {
                 List<Alunos> data = snapshot.data ?? [];
 
                 data?.sort((a, b) {
-                  return a.xp.compareTo(b.xp);
+                  return b.xp.compareTo(a.xp);
                 });
 
                 if (data.length > 3) {
@@ -143,8 +135,11 @@ class _ManagerTurmaState extends State<ManagerTurma> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                radomIcon(),
-                                Text(e.user.nome,
+                                Avatar(
+                                  e.perfilPhoto,
+                                  heightPhoto: 70,
+                                ),
+                                Text(e.user.nome ?? "",
                                     style: GoogleFonts.poppins(
                                       color: Color(0xff28313b),
                                       fontSize: 18,
@@ -182,22 +177,34 @@ class _ManagerTurmaState extends State<ManagerTurma> {
       return Container(
         height: size.height * 0.07,
         width: size.width * 0.8,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            GestureDetector(
-              child: Text("Ver Mais",
-                  style: GoogleFonts.poppins(
-                    color: Color(0xff28313b),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    fontStyle: FontStyle.normal,
-                    letterSpacing: -0.63,
-                  )),
-            ),
-          ],
-        ),
+        child: StreamBuilder<List<Alunos>>(
+            stream: widget.bloc.getAlunos,
+            builder: (context, snapshot) {
+              List<Alunos> list = <Alunos>[];
+              if (snapshot.hasData) {
+                list.addAll(snapshot.data);
+              }
+
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      ViewAlunos(list).dialog(context);
+                    },
+                    child: Text("Ver Mais",
+                        style: GoogleFonts.poppins(
+                          color: Color(0xff28313b),
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          fontStyle: FontStyle.normal,
+                          letterSpacing: -0.63,
+                        )),
+                  ),
+                ],
+              );
+            }),
       );
     };
 
@@ -244,11 +251,12 @@ class _ManagerTurmaState extends State<ManagerTurma> {
         builder: (BuildContext context) {
           Size size = MediaQuery.of(context).size;
           return AlertDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all
-              (Radius.circular(8.0))),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
             title: EditClassDialog.title(context),
             content: EditClassDialog(turma.horarios, turma.id, widget.bloc),
-            actions: EditClassDialog.actions(context, turma.id, size, widget.bloc),
+            actions:
+                EditClassDialog.actions(context, turma.id, size, widget.bloc),
           );
         },
       );
@@ -278,7 +286,8 @@ class _ManagerTurmaState extends State<ManagerTurma> {
                   width: 50,
                   height: 50,
                   decoration: new BoxDecoration(
-                      color: hasDate ? Color(0xff0E153A) : Color(0xff727272), borderRadius: BorderRadius.circular(9)),
+                      color: hasDate ? Color(0xff0E153A) : Color(0xff727272),
+                      borderRadius: BorderRadius.circular(9)),
                   child: Center(
                     child: Text(
                       days,

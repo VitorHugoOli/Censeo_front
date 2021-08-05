@@ -1,6 +1,5 @@
 import 'package:censeo/resources/loader.dart';
 import 'package:censeo/src/Professor/Suggestions/models/Categories.dart';
-import 'package:censeo/src/Professor/Suggestions/ui/Suggestions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -119,14 +118,17 @@ class CategoriesPageAluno extends StatelessWidget {
             ),
             Container(
               width: size.width * 0.55,
-              child: Text(categories.nome,
-                  style: GoogleFonts.poppins(
-                    color: Color(0xffffffff),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    fontStyle: FontStyle.normal,
-                    letterSpacing: -0.56,
-                  )),
+              child: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(categories.nome,
+                    style: GoogleFonts.poppins(
+                      color: Color(0xffffffff),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      fontStyle: FontStyle.normal,
+                      letterSpacing: -0.56,
+                    )),
+              ),
             )
           ],
         ),

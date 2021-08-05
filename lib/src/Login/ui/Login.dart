@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Login extends StatefulWidget {
@@ -186,7 +185,6 @@ class _LoginState extends State<Login> {
       Map response = await loginBloc.submit(snapshot.data);
 
       if (response['status']) {
-
         if (response['user'].firstTime == true) {
           Navigator.pushReplacement(
             context,

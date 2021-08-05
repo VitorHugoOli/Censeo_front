@@ -13,7 +13,6 @@ import 'package:intl/intl.dart';
 
 import '../../../../main.dart';
 import 'managerClass/FinishingClass.dart';
-import 'managerClass/ManagerClass.dart';
 import 'managerTurmas/ManagerTurma.dart';
 
 class Professor extends StatefulWidget {
@@ -29,6 +28,7 @@ class _ProfessorState extends State<Professor> {
   final Bloc bloc = Bloc();
   static List<String> days = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
   final ScrollController _scrollController = ScrollController();
+  bool loader = false;
 
   @override
   void initState() {
@@ -399,7 +399,9 @@ class _ProfessorState extends State<Professor> {
             builder: (context) =>
                 FinishingClass(item, item.turma, ClassBloc(bloc)),
           ),
-        );
+        ).then((value) async {
+          await bloc.fetchDataProf();
+        });
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 15),
@@ -450,7 +452,8 @@ class _ProfessorState extends State<Professor> {
             future: bloc.fetchDataProf(),
             builder: (context, snapshot) {
               return Loader(
-                loader: (snapshot.connectionState == ConnectionState.done),
+                loader: (snapshot.connectionState == ConnectionState.done) ||
+                    loader,
                 child: Container(
                   constraints: BoxConstraints.expand(),
                   padding: EdgeInsets.only(left: 5, right: 5, top: 25),

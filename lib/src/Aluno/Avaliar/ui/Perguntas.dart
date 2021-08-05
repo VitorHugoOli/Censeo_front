@@ -52,6 +52,7 @@ class _PerguntasState extends State<Perguntas> {
   final TextEditingController _abertaController =
       TextEditingController(text: "");
   int currentIndex = 0;
+  bool selected = false;
 
   Widget buildNameTitle(Size size) {
     return Column(
@@ -128,39 +129,55 @@ class _PerguntasState extends State<Perguntas> {
     );
   }
 
-  final List qualificativas = [
+  List qualificativas = [
     {
       'label': "Perfeita",
+      'color_bar': Color(0xff90EC6F),
+      'selected': false,
       'icon': Icon(
         FontAwesome5.laugh,
+        color: Color(0x99000000),
         size: 28,
       )
     },
     {
       'label': "Boa",
+      'color_bar': Color(0xffECE76F),
+      'selected': false,
       'icon': Icon(
         FontAwesome5.grin,
+        color: Color(0x99000000),
         size: 28,
       )
     },
     {
       'label': "Regular",
+      'color_bar': Color(0xffFFD029),
+      'selected': false,
       'icon': Icon(
         FontAwesome5.meh,
+        color: Color(0x99000000),
         size: 28,
       )
     },
     {
       'label': "Ruim",
+      'color_bar': Color(0xffFF9029),
+      'selected': false,
       'icon': Icon(
         FontAwesome5.frown,
+        color: Color(0x99000000),
         size: 28,
       )
     },
     {
       'label': "Pessima",
+      'color_bar': Color(0xffFF2950),
+      'color_icon': "0000",
+      'selected': false,
       'icon': Icon(
         FontAwesome5.angry,
+        color: Color(0x99000000),
         size: 28,
       )
     }
@@ -170,16 +187,20 @@ class _PerguntasState extends State<Perguntas> {
       {@required Size size,
       @required Widget child,
       @required width,
+      Color activeColor,
       @required Function onClick}) {
+    print(activeColor);
     return GestureDetector(
       onTap: onClick,
-      child: Container(
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 200),
+        curve: Curves.easeIn,
         margin: EdgeInsets.only(top: 10),
         width: width,
         height: size.height * 0.08,
         padding: EdgeInsets.only(left: 12, right: 12),
         decoration: BoxDecoration(
-          color: Color(0xffffffff),
+          color: (activeColor != null) ? activeColor : Color(0xffffffff),
           borderRadius: BorderRadius.circular(9),
         ),
         child: child,
@@ -233,9 +254,16 @@ class _PerguntasState extends State<Perguntas> {
           children: qualificativas.map((value) {
             return frameButton(
               onClick: () {
-                submitResposta(
-                    avaliacao, value['label'].toLowerCase(), 'qualificativa');
+                setState(() {
+                  value['selected'] = true;
+                });
+                Future.delayed(const Duration(milliseconds: 500), () {
+                  value['selected'] = false;
+                  submitResposta(
+                      avaliacao, value['label'].toLowerCase(), 'qualificativa');
+                });
               },
+              activeColor: value['selected'] ? value['color_bar'] : null,
               size: size,
               width: size.width * 0.9,
               child: Row(
@@ -247,7 +275,7 @@ class _PerguntasState extends State<Perguntas> {
                     child: Text(
                       value['label'],
                       style: GoogleFonts.poppins(
-                        color: Color(0xff494949),
+                        color: Color(0x99000000),
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
                         fontStyle: FontStyle.normal,

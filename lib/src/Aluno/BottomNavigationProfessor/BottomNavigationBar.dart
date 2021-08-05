@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
+import 'package:censeo/main.dart';
 import 'package:censeo/resources/professorIcons.dart';
 import 'package:censeo/src/Aluno/BottomNavigationProfessor/TabNavigatorAluno.dart';
 import 'package:flutter/cupertino.dart';
@@ -60,7 +61,7 @@ class _BottomNavigationAlunoState extends State<BottomNavigationAluno> {
     madeBubbleBottomBarItem(Feather.star, "Avaliar"),
     madeBubbleBottomBarItem(Feather.star, "Avaliar"),
     madeBubbleBottomBarItem(FeatherIcons.barChart, "Rank"),
-    madeBubbleBottomBarItem(FeatherIcons.messageSquare, "Sugestões"),
+    madeBubbleBottomBarItem(FeatherIcons.trendingUp, "Sugestões"),
   ];
 
   static final mapPag = {
@@ -106,7 +107,8 @@ class _BottomNavigationAlunoState extends State<BottomNavigationAluno> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        final isFirstRouteInCurrentTab = !await _navigatorKeys[_currentTab].currentState.maybePop();
+        final isFirstRouteInCurrentTab =
+            !await _navigatorKeys[_currentTab].currentState.maybePop();
 
         if (isFirstRouteInCurrentTab) {
           // if not on the 'main' tab
@@ -127,21 +129,27 @@ class _BottomNavigationAlunoState extends State<BottomNavigationAluno> {
             _buildOffstageNavigator(TabItem.rank),
             _buildOffstageNavigator(TabItem.sugestoes),
           ]),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              setState(() {
-                _selectTab(TabItem.avaliar);
-                currentIndex = 1;
-              });
-            },
-            child: Icon(
-              Feather.star,
-              color: Colors.white,
-              size: 25,
+          floatingActionButton: Visibility(
+            visible:
+                MediaQuery.of(navigatorKey.currentContext).viewInsets.bottom ==
+                    0,
+            child: FloatingActionButton(
+              onPressed: () {
+                setState(() {
+                  _selectTab(TabItem.avaliar);
+                  currentIndex = 1;
+                });
+              },
+              child: Icon(
+                Feather.star,
+                color: Colors.white,
+                size: 25,
+              ),
+              backgroundColor: Color(0xFF3D5AF1),
             ),
-            backgroundColor: Color(0xFF3D5AF1),
           ),
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: BubbleBottomBar(
               opacity: 1,
               fabLocation: BubbleBottomBarFabLocation.center,

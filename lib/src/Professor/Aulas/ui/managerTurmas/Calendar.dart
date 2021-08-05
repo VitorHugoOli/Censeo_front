@@ -12,6 +12,7 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 
 import 'dropDown.dart';
 
@@ -120,9 +121,9 @@ class _CalendarState extends State<Calendar> {
 
       return Container(
         decoration: decoration,
-        margin: const EdgeInsets.all(1),
-        width: 50,
-        height: 50,
+        // margin: const EdgeInsets.all(1),
+        width: 80,
+        height: 80,
         child: Center(
           child: Text(
             '${day.day}',
@@ -146,6 +147,9 @@ class _CalendarState extends State<Calendar> {
         bool isThisMonthDay,
         DateTime day) {
       if (widget?.aulas?.containsKey(day) ?? false) {
+        if (day.day==28) {
+          Logger().i(widget.aulas[day].toJson());
+        }
         return widgetDay(
             colorRadius: color[widget.aulas[day].tipoAula],
             colorText: Colors.white,

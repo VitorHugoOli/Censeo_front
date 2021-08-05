@@ -32,17 +32,19 @@ class _ManagerClassState extends State<ManagerClass> {
   TextEditingController _extraController = TextEditingController(text: "");
   bool isAssincrona = false;
   ManagerController _controller = ManagerController();
+  Aula aulaEdit;
 
   @override
   void initState() {
     super.initState();
-    print(widget._aula.toJson());
+    aulaEdit = Aula.fromJson(widget._aula.toJson());
     _temaController.text = widget._aula.tema;
     _descriptionController.text = widget._aula.descricao;
     _linkController.text = widget._aula.linkDocumento;
     _extraController.text =
         widget._aula.extra[getExtra[widget._aula.tipoAula]] ?? "";
 
+    isAssincrona = widget._aula.isAssincrona;
     _classBloc = ClassBloc(widget.bloc,
         tema: widget._aula.tema,
         description: widget._aula.tema,
@@ -81,7 +83,7 @@ class _ManagerClassState extends State<ManagerClass> {
         Container(
           margin: EdgeInsets.symmetric(horizontal: 30),
           child: Text(
-            DateFormat.Md("pt_BR").format(widget._aula.horario),
+            DateFormat("dd/MM").format(widget._aula.horario),
             style: GoogleFonts.poppins(
               color: Color(0xffffffff),
               fontSize: 19,
@@ -112,7 +114,10 @@ class _ManagerClassState extends State<ManagerClass> {
           return Container(
             width: size.width * 0.9,
             child: TextFormField(
-              onChanged: _classBloc.temaChanged,
+              onChanged: (value) {
+                aulaEdit.tema = value;
+                return _classBloc.temaChanged(value);
+              },
               controller: _temaController,
               keyboardType: TextInputType.text,
               textAlign: TextAlign.left,
@@ -143,7 +148,10 @@ class _ManagerClassState extends State<ManagerClass> {
           return Container(
             width: size.width * 0.9,
             child: TextFormField(
-              onChanged: _classBloc.descriptionChanged,
+              onChanged: (value) {
+                aulaEdit.descricao = value;
+                return _classBloc.descriptionChanged(value);
+              },
               controller: _descriptionController,
               keyboardType: TextInputType.multiline,
               textAlign: TextAlign.left,
@@ -174,7 +182,10 @@ class _ManagerClassState extends State<ManagerClass> {
           return Container(
             width: size.width * 0.9,
             child: TextFormField(
-              onChanged: _classBloc.linkChanged,
+              onChanged: (value) {
+                aulaEdit.linkDocumento = value;
+                return _classBloc.linkChanged(value);
+              },
               controller: _linkController,
               keyboardType: TextInputType.multiline,
               textAlign: TextAlign.left,
@@ -283,8 +294,9 @@ class _ManagerClassState extends State<ManagerClass> {
           builder: (context, snapshot) {
             return DropdownButtonFormField(
               value: (snapshot.hasData) ? snapshot.data : true,
-              dropdownColor: Colors.white38,
+              dropdownColor: Color(0xee1e1e1e),
               onChanged: (value) {
+                aulaEdit.isAssincrona = value;
                 _classBloc.isAssincronaChanged(value);
                 setState(() {
                   isAssincrona = value;
@@ -302,6 +314,10 @@ class _ManagerClassState extends State<ManagerClass> {
                   size: 26,
                   color: Colors.white,
                 ),
+              ),
+              style: GoogleFonts.poppins(
+                fontSize: 12,
+                color: Color(0xff0E153A),
               ),
               items:
                   <bool>[true, false].map<DropdownMenuItem<bool>>((bool value) {
@@ -340,7 +356,10 @@ class _ManagerClassState extends State<ManagerClass> {
                       ? null
                       : snapshot.data,
               dropdownColor: Color(0xee1e1e1e),
-              onChanged: _classBloc.typeChanged,
+              onChanged: (value) {
+                aulaEdit.tipoAula = value;
+                return _classBloc.typeChanged(value);
+              },
               icon: Icon(
                 FeatherIcons.chevronDown,
                 color: Colors.white,
@@ -379,10 +398,17 @@ class _ManagerClassState extends State<ManagerClass> {
         });
   }
 
-  submitClassEdit() {
+  Future submitClassEdit() async {
     if (_formKey.currentState.validate()) {
-      _classBloc.submitEditClass(
-          idAula: widget._aula.id, idTurma: widget.idTurma);
+      await _classBloc
+          .submitEditClass(idAula: widget._aula.id, idTurma: widget.idTurma)
+          .then((value) {
+        widget._aula.tema = aulaEdit.tema;
+        widget._aula.descricao = aulaEdit.descricao;
+        widget._aula.linkDocumento = aulaEdit.linkDocumento;
+        widget._aula.isAssincrona = aulaEdit.isAssincrona;
+        widget._aula.tipoAula = aulaEdit.tipoAula;
+      });
     }
   }
 
@@ -397,12 +423,12 @@ class _ManagerClassState extends State<ManagerClass> {
             width: size.width * 0.40,
             child: RaisedButton(
               color: Colors.white,
-              onPressed: () {
+              onPressed: () async {
                 _classBloc.submitDeleteClass(
                   idAula: widget._aula.id,
                   idTurma: widget.idTurma,
                 );
-                submitClassEdit();
+                await submitClassEdit();
                 Navigator.of(context).pop();
               },
               shape: RoundedRectangleBorder(
@@ -424,8 +450,8 @@ class _ManagerClassState extends State<ManagerClass> {
             width: size.width * 0.40,
             child: RaisedButton(
               color: Color(0xff3D5AF1),
-              onPressed: () {
-                submitClassEdit();
+              onPressed: () async {
+                await submitClassEdit();
                 Navigator.pop(context);
               },
               shape: RoundedRectangleBorder(
@@ -468,86 +494,83 @@ class _ManagerClassState extends State<ManagerClass> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
+    List<Widget> list = <Widget>[
+      buildFieldTema(size),
+      buildFieldDescription(size),
+      buildFieldLink(size),
+      buildFieldIsAssincrona(size),
+    ];
+
+    if (isAssincrona) {
+      list.add(Container(
+        width: size.width * 0.9,
+        child: GestureDetector(
+          onTap: () async {
+            activeCalendar();
+          },
+          child: CustomTextField(
+            _controller,
+            label: "Data de termino",
+            hintText: "30/11/2020",
+            textInputType: TextInputType.datetime,
+            onTap: () => activeCalendar(),
+            readOnly: true,
+            upDate: (value) {
+              // treino.endDate = value;
+            },
+            initialValue: (widget._aula.endTime == null)
+                ? null
+                : DateFormat('dd/MM/yyyy').format(widget._aula.endTime),
+            width: size.width * 0.9,
+            validator: (value) {
+              if (value.length == 0) {
+                return "Entre com alguma data";
+              }
+              return null;
+            },
+            prefixIcon: Icon(
+              Feather.calendar,
+              color: Colors.white,
+              size: 26,
+            ),
+          ),
+        ),
+      ));
+    }
+
+    list.addAll(<Widget>[buildFieldType(size), buildFieldExtra(size)]);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
       backgroundColor: Color(0xff0E153A),
-      body: Container(
-        padding: EdgeInsets.only(left: 5, right: 5, top: 0),
-        child: LayoutBuilder(
-          builder: (context, constraints) => SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints(minHeight: constraints.maxHeight),
-              child: IntrinsicHeight(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    buildNameTitle(size),
-                    Expanded(
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            buildFieldTema(size),
-                            buildFieldDescription(size),
-                            buildFieldLink(size),
-                            buildFieldIsAssincrona(size),
-                            isAssincrona
-                                ? Center(
-                                    child: GestureDetector(
-                                      onTap: () async {
-                                        activeCalendar();
-                                      },
-                                      child: CustomTextField(
-                                        _controller,
-                                        label: "Data de termino",
-                                        hintText: "30/11/2020",
-                                        textInputType: TextInputType.datetime,
-                                        onTap: () => activeCalendar(),
-                                        readOnly: true,
-                                        upDate: (value) {
-                                          // treino.endDate = value;
-                                        },
-                                        initialValue: (widget._aula.endTime ==
-                                                null)
-                                            ? null
-                                            : DateFormat('dd/MM/yyyy')
-                                                .format(widget._aula.endTime),
-                                        width: size.width * 0.9,
-                                        validator: (value) {
-                                          if (value.length == 0) {
-                                            return "Entre com alguma data";
-                                          }
-                                          return null;
-                                        },
-                                        prefixIcon: Icon(
-                                          Feather.calendar,
-                                          color: Colors.white,
-                                          size: 26,
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                : Container(),
-                            buildFieldType(size),
-                            buildFieldExtra(size),
-                          ],
-                        ),
-                      ),
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(bottom: 90),
+          height: MediaQuery.of(context).size.height * 0.9,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            children: [
+              buildNameTitle(size),
+              Expanded(
+                child: Form(
+                  key: _formKey,
+                  child: Center(
+                    child: Wrap(
+                      runSpacing: 15,
+                      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: list,
                     ),
-                    buildButtonsEdit(size)
-                  ],
+                  ),
                 ),
               ),
-            ),
+              buildButtonsEdit(size)
+            ],
           ),
         ),
       ),
     );
   }
 }
-

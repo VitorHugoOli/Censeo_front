@@ -37,7 +37,7 @@ class BlocAluno extends Object implements BaseBloc {
   Stream<String> get rankList => _rankController.stream;
 
   fetchOpenClass() async {
-    List<Aula> aulas = List<Aula>();
+    List<Aula> aulas = <Aula>[];
     try {
       final List openClass = await provider.fetchOpenClass();
       aulas = aulaFromJson(openClass);

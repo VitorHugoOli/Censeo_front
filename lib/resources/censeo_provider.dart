@@ -12,13 +12,14 @@ import '../main.dart';
 class CenseoApiProvider {
   static Client client = Client();
   static const _production = "https://censeo.herokuapp.com";
-  static const _local = "http://10.0.2.2:8000";
-  static const _baseUrl = _local;
+  static const _localEmulator = "http://10.0.2.2:8000";
+  static const _local = "http://192.168.1.10:8000";
+  static const _baseUrl = _production;
   Map<String, String> _headers = {"Content-type": "application/json"};
 
   _sharePreference() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var token = await prefs.get('token');
+    var token = prefs.get('token');
     if (token == null) {
       throw DontHaveToken;
     } else {
@@ -45,10 +46,10 @@ class CenseoApiProvider {
         throw ("No Connect");
       }
       final request = {
-        'GET': () async => await client.get(finalUrl, headers: _headers),
-        'POST': () async => await client.post(finalUrl, headers: _headers, body: json.encode(body)),
-        'PUT': () async => await client.put(finalUrl, headers: _headers, body: json.encode(body)),
-        'DELETE': () async => await client.delete(finalUrl, headers: _headers),
+        'GET': () async => await client.get(Uri.parse(finalUrl), headers: _headers),
+        'POST': () async => await client.post(Uri.parse(finalUrl), headers: _headers, body: json.encode(body)),
+        'PUT': () async => await client.put(Uri.parse(finalUrl), headers: _headers, body: json.encode(body)),
+        'DELETE': () async => await client.delete(Uri.parse(finalUrl), headers: _headers),
       };
 
       final req = await request[type]();

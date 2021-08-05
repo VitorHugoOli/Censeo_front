@@ -1,6 +1,5 @@
 import 'package:censeo/src/Aluno/BottomNavigationProfessor/BottomNavigationBar.dart';
 import 'package:censeo/src/Login/ui/Login.dart';
-import 'package:censeo/src/Login/ui/personalData.dart';
 import 'package:censeo/src/Professor/BottomNavigationProfessor/BottomNavigationBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

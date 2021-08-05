@@ -3,10 +3,10 @@ import 'dart:convert';
 
 import 'package:censeo/src/Professor/Aulas/models/Aula.dart';
 import 'package:censeo/src/Professor/Aulas/models/Turma.dart';
-import 'package:censeo/src/Professor/Aulas/ui/managerTurmas/EditClassDialog.dart';
 import 'package:censeo/src/User/models/alunos.dart';
 import 'package:censeo/src/User/models/user.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:logger/logger.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,9 +18,10 @@ class Bloc extends Object implements BaseBloc {
   final _openClassController = BehaviorSubject<List<Aula>>();
   final _alunosController = PublishSubject<List<Alunos>>();
   final _classCalendarController = PublishSubject<Map<DateTime, Aula>>();
-  final _listScheduleController = BehaviorSubject<List<SchedulerClass>>();
   final _horarioController = BehaviorSubject<String>();
   final _roomController = BehaviorSubject<String>();
+  final _listScheduleController = BehaviorSubject<List<Horario>>();
+  GlobalKey<FormState> formKey;
 
   Function(TurmaProfessor) get turmaChanged => _turmaController.sink.add;
 
@@ -41,11 +42,10 @@ class Bloc extends Object implements BaseBloc {
 
   Stream<List<Alunos>> get getAlunos => _alunosController.stream;
 
-  Function(List<SchedulerClass>) get listScheduleChanged =>
+  Function(List<Horario>) get listScheduleChanged =>
       _listScheduleController.sink.add;
 
-  Stream<List<SchedulerClass>> get listSchedule =>
-      _listScheduleController.stream;
+  Stream<List<Horario>> get listSchedule => _listScheduleController.stream;
 
   Function(String) get horarioChanged => _horarioController.sink.add;
 
@@ -62,16 +62,18 @@ class Bloc extends Object implements BaseBloc {
 
   fetchTurmas() async {
     final response = await provider.fetchTurmas();
-    turmaChanged(turmaProfessorFromJson(response));
+    TurmaProfessor turma = turmaProfessorFromJson(response);
+    turmaChanged(turma);
+    return turma;
   }
 
   fetchOpenClass() async {
-    List<Aula> aulas = List<Aula>();
+    List<Aula> aulas = <Aula>[];
     try {
       final List openClass = await provider.fetchOpenClass();
       aulas = aulaFromJson(openClass);
-    } catch (ex) {
-      print(ex);
+    } catch (ex,stack) {
+      Logger().e("Houve um error",ex,stack);
     }
     openClassChanged(aulas);
   }
@@ -86,23 +88,19 @@ class Bloc extends Object implements BaseBloc {
     try {
       final List aulasReceive = await provider.fetchAulasForTurmas(id);
       aulas = aulaToDateTime(aulaFromJson(aulasReceive));
-    } catch (ex) {
-      debugPrint("---");
-      debugPrint("Exception Convert Object $ex");
+    } catch (ex,stack) {
+      Logger().e("Exception Convert Object",ex,stack);
     }
     _classCalendarController.sink.add(aulas);
   }
 
   fetchAlunos(id) async {
-    List<Alunos> alunos = List<Alunos>();
+    List<Alunos> alunos = <Alunos>[];
     try {
       final List openClass = await provider.fetchAlunosPerTurma(id);
-      print(openClass);
       alunos = alunosFromJson(openClass);
     } catch (ex, stacktrace) {
-      debugPrint(">>>");
-      print(stacktrace);
-      debugPrint("Exception Convert Object $ex");
+      Logger().e("Exception Convert Object",ex,stacktrace);
     }
     _alunosController.sink.add(alunos);
   }
@@ -113,50 +111,37 @@ class Bloc extends Object implements BaseBloc {
   }
 
   addSchedule() {
-    List<SchedulerClass> listClass = _listScheduleController.value;
+    List<Horario> listClass = _listScheduleController.value;
     if (listClass == null) {
-      listClass = <SchedulerClass>[SchedulerClass()];
+      listClass = <Horario>[Horario()];
     }
-    listClass.add(SchedulerClass());
+    listClass.add(Horario());
     _listScheduleController.sink.add(listClass);
   }
 
   removeSchedule(index) {
-    List<SchedulerClass> listClass = _listScheduleController.value;
+    List<Horario> listClass = _listScheduleController.value;
     if (listClass != null) {
       listClass.removeAt(index);
     }
     _listScheduleController.sink.add(listClass);
   }
 
-  Future<dynamic> submitSchedule(int id, List<SchedulerClass> data) async {
-    _listScheduleController.value.forEach((element) {
-      print(element.dia);
-    });
-    // List<Map> schedules = data.map((e) {
-    //   e.schedule.sala = e.controllerRoom.text;
-    //   if (e.controllerTime.text.contains(":")) {
-    //     List<String> hours = e.controllerTime.text.split(":");
-    //     DateTime now = DateTime.now();
-    //     e.schedule.horario = new DateTime(now.year, now.month, now.day,
-    //         int.parse(hours[0]), int.parse(hours[1]));
-    //     return e.schedule.toJson();
-    //   } else if (e.schedule.id != null) {
-    //     e.schedule.horario = null;
-    //     return e.schedule.toJson();
-    //   }
-    // }).toList()
-    //   ..removeWhere((element) => element == null);
+  Future<dynamic> submitSchedule(int id) async {
+    List<Map> list =
+        List<Map>.from(_listScheduleController.value.map((e) => e.toJson()));
 
     Map body = {
       "idTurma": id,
-      // "schedules": schedules,
+      "schedules": list,
     };
 
-    // await provider.putClassSchedule(body);
+    await provider.putClassSchedule(body);
 
-    // fetchTurmas();
-    // fetchClassCalendar(id);
+    TurmaProfessor turmas = await fetchTurmas();
+    _listScheduleController
+        .add(turmas.turmas.firstWhere((element) => element.id == id).horarios);
+    fetchClassCalendar(id);
   }
 
   submitCreateClass(int id, DateTime date) async {
@@ -263,8 +248,7 @@ class ClassBloc extends Object implements BaseBloc {
     bloc.fetchClassCalendar(idTurma);
   }
 
-  submitEditClass({idAula, idTurma}) {
-    print(_typeController.value);
+  Future submitEditClass({idAula, idTurma}) async {
     Map body = {
       'tema': _temaController.value ?? "",
       'descricao': _descriptionController.value ?? "",
@@ -272,10 +256,10 @@ class ClassBloc extends Object implements BaseBloc {
       'tipo': _typeController.value == "" ? null : _typeController.value,
       'is_assincrona': _isAssincronaController.value ?? "",
       'extra': _extraController.value,
-      'end_time': _endTimeController.value.toIso8601String(),
+      'end_time': _endTimeController?.value?.toIso8601String() ?? null,
     };
 
-    bloc.provider.putEditClass(idAula, body);
+    await bloc.provider.putEditClass(idAula, body);
     bloc.fetchClassCalendar(idTurma);
     bloc.fetchOpenClass();
   }

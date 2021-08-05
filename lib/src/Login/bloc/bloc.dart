@@ -24,7 +24,11 @@ class Bloc extends Object implements BaseBloc {
   Future<dynamic> submit(Map data) async {
     final provider = LoginProvider();
     Map credentials = await provider.fetchLogin(data);
-    User user = User.fromJson(credentials['user']);
+    User user = User();
+    if (credentials['status'] == true) {
+      user = User.fromJson(credentials['user']);
+    }
+
     return {
       "status": credentials["status"],
       "message": credentials["error"] ?? "",
@@ -53,7 +57,8 @@ class BlocLogin extends Object implements BaseBloc {
   }
 
   Future<dynamic> submitPersonalData(User user) async {
-    Map credentials = await provider.updateUser(user.id,user.toJsonPersonalData());
+    Map credentials =
+        await provider.updateUser(user.id, user.toJsonPersonalData());
     if (credentials['status'] == true) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('user', jsonEncode(credentials['user']));
@@ -66,7 +71,8 @@ class BlocLogin extends Object implements BaseBloc {
 
   Future<dynamic> submitPass(String pass) async {
     int id = _userController.value.id;
-    Map credentials = await provider.updateUser(id, {'pass': pass});
+    Map credentials =
+        await provider.updateUser(id, {'pass': pass, 'first_time': false});
 
     if (credentials['status'] == true) {
       SharedPreferences prefs = await SharedPreferences.getInstance();

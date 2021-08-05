@@ -170,7 +170,7 @@ Future<dynamic> alertNoAuth() {
   );
 }
 
-Future<dynamic> genericAlert() {
+genericAlert() {
   showDialog(
     context: navigatorKey.currentState.overlay.context,
     builder: (BuildContext context) {

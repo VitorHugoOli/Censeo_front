@@ -114,14 +114,17 @@ class CategoriesPage extends StatelessWidget {
             ),
             Container(
               width: size.width * 0.55,
-              child: Text(categories.nome,
-                  style: GoogleFonts.poppins(
-                    color: Color(0xffffffff),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    fontStyle: FontStyle.normal,
-                    letterSpacing: -0.56,
-                  )),
+              child: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: Text(categories.nome,
+                    style: GoogleFonts.poppins(
+                      color: Color(0xffffffff),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      fontStyle: FontStyle.normal,
+                      letterSpacing: -0.56,
+                    )),
+              ),
             )
           ],
         ),

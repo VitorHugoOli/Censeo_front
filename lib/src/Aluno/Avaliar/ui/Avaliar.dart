@@ -9,6 +9,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../main.dart';
 import 'Perguntas.dart';
@@ -74,9 +75,12 @@ class _AvaliarState extends State<Avaliar> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => Settings()
-                  ));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Settings(user: snapshot.data,bloc: bloc),
+                    ),
+                  );
                 },
               ),
               IconButton(
@@ -195,8 +199,7 @@ class _AvaliarState extends State<Avaliar> {
 
     Widget body() {
       return Container(
-        height: size.height * 0.1,
-        width: 250,
+        width: size.width * 0.62,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -237,7 +240,6 @@ class _AvaliarState extends State<Avaliar> {
           color: Color(0xff3D5AF1),
           onPressed: () async {
             bool response = await bloc.createAvaliacao(aula.id);
-            print(response);
             if (response) {
               Navigator.push(
                 context,
