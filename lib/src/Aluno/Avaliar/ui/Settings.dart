@@ -98,6 +98,33 @@ class _SettingsState extends State<Settings> {
     );
   }
 
+  Widget buildAvatar(Size size, context) {
+    return Container(
+      margin: EdgeInsets.only(top: 15, left: 10),
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      width: size.width * 0.9,
+      decoration: BoxDecoration(
+        color: Color(0xffffffff),
+        borderRadius: BorderRadius.circular(9),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('Avatares',
+              style: GoogleFonts.poppins(
+                color: Color(0xff000000),
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                fontStyle: FontStyle.normal,
+                letterSpacing: -0.77,
+              )),
+
+          ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -121,12 +148,15 @@ class _SettingsState extends State<Settings> {
         alignment: Alignment.topCenter,
         padding: EdgeInsets.only(left: 5, right: 5, top: 0),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [buildDS(size, context)],
-          ),
-        ),
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              children: [buildDS(size, context),buildAvatar(size, context)],//
+            )
+          ],
+        )),
       ),
     );
   }
