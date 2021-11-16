@@ -25,7 +25,7 @@ class LoginProvider {
     }
   }
 
-  updateUser(id,body) async {
+  updateUser(id, body) async {
     try {
       var response = await api.authRequest(
           type: "PUT", endpoint: "/user/${id}/", body: body);
@@ -39,7 +39,4 @@ class LoginProvider {
       return {"status": false, "message": "Error interno no app"};
     }
   }
-
-
-
 }

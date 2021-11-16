@@ -19,7 +19,7 @@ class BottomNavigationProfessor extends StatefulWidget {
 }
 
 class _BottomNavigationProfessorState extends State<BottomNavigationProfessor> {
-  int currentIndex;
+  late int currentIndex;
   TabItem _currentTab = TabItem.aulas;
   Map<TabItem, GlobalKey<NavigatorState>> _navigatorKeys = {
     TabItem.aulas: GlobalKey<NavigatorState>(),
@@ -71,17 +71,17 @@ class _BottomNavigationProfessorState extends State<BottomNavigationProfessor> {
     3: TabItem.sugestoes,
   };
 
-  void changePage(int i) {
+  void changePage(int? i) {
     setState(() {
-      _selectTab(mapPag[i]);
-      currentIndex = i;
+      _selectTab(mapPag[i]!);
+      currentIndex = i ?? 0;
     });
   }
 
   void _selectTab(TabItem tabItem) {
     if (tabItem == _currentTab) {
       // pop to first route
-      _navigatorKeys[tabItem].currentState.popUntil((route) => route.isFirst);
+      _navigatorKeys[tabItem]?.currentState?.popUntil((route) => route.isFirst);
     } else {
       setState(() => _currentTab = tabItem);
     }
@@ -97,7 +97,7 @@ class _BottomNavigationProfessorState extends State<BottomNavigationProfessor> {
     return Offstage(
       offstage: _currentTab != tabItem,
       child: TabNavigator(
-        navigatorKey: _navigatorKeys[tabItem],
+        navigatorKey: _navigatorKeys[tabItem]!,
         navigator: itemToNavigator[tabItem],
       ),
     );
@@ -108,7 +108,7 @@ class _BottomNavigationProfessorState extends State<BottomNavigationProfessor> {
     return WillPopScope(
       onWillPop: () async {
         final isFirstRouteInCurrentTab =
-            !await _navigatorKeys[_currentTab].currentState.maybePop();
+            !await _navigatorKeys[_currentTab]!.currentState!.maybePop();
 
         if (isFirstRouteInCurrentTab) {
           // if not on the 'main' tab
@@ -130,7 +130,9 @@ class _BottomNavigationProfessorState extends State<BottomNavigationProfessor> {
             _buildOffstageNavigator(TabItem.sugestoes),
           ]),
           floatingActionButton: Visibility(
-            visible: MediaQuery.of(navigatorKey.currentContext).viewInsets.bottom == 0,
+            visible:
+                MediaQuery.of(navigatorKey.currentContext!).viewInsets.bottom ==
+                    0,
             child: FloatingActionButton(
               onPressed: () {
                 setState(() {

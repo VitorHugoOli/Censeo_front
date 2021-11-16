@@ -2,7 +2,8 @@ import 'package:censeo/resources/Avatar.dart';
 import 'package:censeo/src/User/models/alunos.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 class ViewAlunos {
@@ -35,7 +36,7 @@ class ViewAlunos {
               color: Colors.transparent,
               child: Center(
                 child: IconButton(
-                  icon: Icon(Feather.x),
+                  icon: Icon(FeatherIcons.x),
                   color: Color(0xff0E153A),
                   onPressed: () {
                     Navigator.pop(context);
@@ -66,23 +67,22 @@ class ViewAlunos {
   }
 
   _body(Size size) {
-
-    return Container(
-      height: 500,
-      width: 100,
-      child: SingleChildScrollView(
+    return SingleChildScrollView(
+      child: Center(
         child: Wrap(
-          spacing: 8,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: 20,
           children: alunos
               .map((e) => Container(
                     child: Column(
+                      mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Avatar(
                           e.perfilPhoto,
                           heightPhoto: 70,
                         ),
-                        Text(e.user.nome ?? "-",
+                        Text(e.user!.nome ?? "-",
                             style: GoogleFonts.poppins(
                               color: Color(0xff28313b),
                               fontSize: 18,
@@ -98,7 +98,7 @@ class ViewAlunos {
                               fontStyle: FontStyle.normal,
                               letterSpacing: -0.42,
                             )),
-                        Text(e.user.matricula,
+                        Text(e.user!.matricula!,
                             style: GoogleFonts.poppins(
                               color: Color(0xff787878),
                               fontSize: 16,

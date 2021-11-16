@@ -1,9 +1,6 @@
 import 'package:censeo/resources/CustomTextField.dart';
-import 'package:censeo/resources/ScrollColumnExpandable.dart';
 import 'package:censeo/resources/loader.dart';
-import 'package:censeo/src/Aluno/BottomNavigationProfessor/BottomNavigationBar.dart';
 import 'package:censeo/src/Login/bloc/bloc.dart';
-import 'package:censeo/src/Professor/BottomNavigationProfessor/BottomNavigationBar.dart';
 import 'package:censeo/src/User/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,9 +18,9 @@ class _PasswordPageEditState extends State<PasswordPageEdit> {
   ManagerController _controller = ManagerController();
   final _formKey = GlobalKey<FormState>();
   bool isLoad = false;
-  String pass;
-  String passConfirm;
-  BlocLogin blocLogin;
+  late String pass;
+  late String passConfirm;
+  late BlocLogin blocLogin;
 
   @override
   void initState() {
@@ -77,7 +74,7 @@ class _PasswordPageEditState extends State<PasswordPageEdit> {
                           upDate: (value) => pass = value,
                           pass: true,
                           validator: (value) {
-                            if (value.isEmpty) {
+                            if (value!.isEmpty) {
                               return "Entre com uma senha";
                             }
                             return null;
@@ -90,7 +87,7 @@ class _PasswordPageEditState extends State<PasswordPageEdit> {
                         upDate: (value) => passConfirm = value,
                         pass: true,
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value!.isEmpty) {
                             return "Confirme a senha a cima";
                           } else if (pass != passConfirm) {
                             return "As Senhas não são compativeis";
@@ -108,7 +105,7 @@ class _PasswordPageEditState extends State<PasswordPageEdit> {
                               borderRadius: new BorderRadius.circular(6.0),
                             ),
                             onPressed: () async {
-                              if (_formKey.currentState.validate()) {
+                              if (_formKey.currentState!.validate()) {
                                 setState(() {
                                   isLoad = true;
                                 });

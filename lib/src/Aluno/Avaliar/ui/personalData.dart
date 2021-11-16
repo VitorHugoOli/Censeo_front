@@ -1,11 +1,9 @@
 import 'dart:convert';
 
 import 'package:censeo/resources/CustomTextField.dart';
-import 'package:censeo/resources/ScrollColumnExpandable.dart';
 import 'package:censeo/resources/loader.dart';
 import 'package:censeo/src/Aluno/Avaliar/bloc/aluno.dart';
 import 'package:censeo/src/Login/bloc/bloc.dart';
-import 'package:censeo/src/Login/ui/password.dart';
 import 'package:censeo/src/User/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,7 +13,6 @@ class PersonalDataPageEdit extends StatefulWidget {
   final User user;
   final BlocAluno bloc;
 
-
   PersonalDataPageEdit(this.user, this.bloc);
 
   @override
@@ -24,7 +21,7 @@ class PersonalDataPageEdit extends StatefulWidget {
 
 class _PersonalDataPageEditState extends State<PersonalDataPageEdit> {
   ManagerController _controller = ManagerController();
-  BlocLogin _blocLogin;
+  late BlocLogin _blocLogin;
   final _formKey = GlobalKey<FormState>();
   bool isLoad = false;
 
@@ -82,7 +79,7 @@ class _PersonalDataPageEditState extends State<PersonalDataPageEdit> {
                         hasWidgetLabel: true,
                         upDate: (value) => widget.user.nome = value,
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value!.isEmpty) {
                             return "Entre com um nome";
                           }
                           return null;
@@ -99,10 +96,10 @@ class _PersonalDataPageEditState extends State<PersonalDataPageEdit> {
                         _controller,
                         label: "Email",
                         hasWidgetLabel: true,
-                        initialValue: widget.user.email,
+                        initialValue: widget.user.email!,
                         upDate: (value) => widget.user.email = value,
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value!.isEmpty) {
                             return "Entre com um email";
                           }
                           return null;
@@ -117,7 +114,7 @@ class _PersonalDataPageEditState extends State<PersonalDataPageEdit> {
                               borderRadius: new BorderRadius.circular(6.0),
                             ),
                             onPressed: () async {
-                              if (_formKey.currentState.validate()) {
+                              if (_formKey.currentState!.validate()) {
                                 setState(() {
                                   isLoad = true;
                                 });
@@ -127,8 +124,10 @@ class _PersonalDataPageEditState extends State<PersonalDataPageEdit> {
                                   isLoad = false;
                                 });
                                 if (response == true) {
-                                  var prefs = await SharedPreferences.getInstance();
-                                  await prefs.setString('user', jsonEncode(widget.user.toJson()));
+                                  var prefs =
+                                      await SharedPreferences.getInstance();
+                                  await prefs.setString(
+                                      'user', jsonEncode(widget.user.toJson()));
                                   Navigator.pop(context);
                                 } else {
                                   final snackBar = SnackBar(

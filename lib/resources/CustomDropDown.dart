@@ -5,17 +5,17 @@ import 'package:google_fonts/google_fonts.dart';
 import 'CustomTextField.dart';
 
 class CustomDropDown<T> extends StatelessWidget {
-  final Function(T) upDate;
-  final Function(T) validator;
+  final Function(T?)? upDate;
+  final String?  Function(T?)? validator;
   final initValue;
   final String title;
   final List<T> items;
-  final String Function(T value) valueSelect;
+  final String Function(T value)? valueSelect;
 
   CustomDropDown({this.upDate,
     this.validator,
     this.initValue,
-    this.title,
+    required this.title,
     this.items = const [],
     this.valueSelect});
 
@@ -48,7 +48,7 @@ class CustomDropDown<T> extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
-                    valueSelect != null ? valueSelect(value) : value.toString(),
+                    valueSelect != null ? valueSelect!(value) : value.toString(),
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
                       color: Color(0xff0E153A),
@@ -60,7 +60,7 @@ class CustomDropDown<T> extends StatelessWidget {
                   ),
                 ),
               );
-            })?.toList()),
+            }).toList()),
       ),
     );
   }

@@ -1,7 +1,6 @@
 import 'package:censeo/src/Aluno/Avaliar/bloc/aluno.dart';
 import 'package:censeo/src/Aluno/Avaliar/ui/password.dart';
 import 'package:censeo/src/Aluno/Avaliar/ui/personalData.dart';
-import 'package:censeo/src/Login/ui/personalData.dart';
 import 'package:censeo/src/User/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +11,8 @@ class Settings extends StatefulWidget {
   final User user;
   final BlocAluno bloc;
 
-  const Settings({Key key, this.user, this.bloc}) : super(key: key);
+  const Settings({Key? key, required this.user, required this.bloc})
+      : super(key: key);
 
   @override
   _SettingsState createState() => _SettingsState();
@@ -119,8 +119,7 @@ class _SettingsState extends State<Settings> {
                 fontStyle: FontStyle.normal,
                 letterSpacing: -0.77,
               )),
-
-          ],
+        ],
       ),
     );
   }
@@ -153,7 +152,7 @@ class _SettingsState extends State<Settings> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Column(
-              children: [buildDS(size, context),buildAvatar(size, context)],//
+              children: [buildDS(size, context), buildAvatar(size, context)], //
             )
           ],
         )),

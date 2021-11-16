@@ -6,7 +6,7 @@ class Loader extends StatelessWidget {
   final bool loader;
   final bool preChild;
 
-  Loader({@required this.child, @required this.loader,this.preChild=true});
+  Loader({required this.child, required this.loader,this.preChild=true});
 
   @override
   Widget build(BuildContext context) {

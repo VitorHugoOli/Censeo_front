@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
@@ -16,8 +16,8 @@ import 'EditSuggestionsDialog.dart';
 
 class SuggestionPage extends StatefulWidget {
   SuggestionPage(this._categories, this.suggestionBloc) {
-    suggestionBloc.fetchTopicos(_categories.id, _categories.tipo);
-    suggestionBloc.fetchSuggestion(_categories.id, _categories.tipo);
+    suggestionBloc.fetchTopicos(_categories.id, _categories.tipo!);
+    suggestionBloc.fetchSuggestion(_categories.id, _categories.tipo!);
   }
 
   final Categories _categories;
@@ -28,7 +28,7 @@ class SuggestionPage extends StatefulWidget {
 }
 
 class _SuggestionPageState extends State<SuggestionPage> {
-  Topicos topico;
+  Topicos? topico;
   static final all_topicos = Topicos(id: -1, topico: "Todos");
 
   Widget buildNameTitle(Size size) {
@@ -38,7 +38,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
           child: IconButton(
             onPressed: () {},
             icon: Icon(
-              Feather.arrow_left,
+              FeatherIcons.arrowLeft,
               color: Colors.white,
               size: 30,
             ),
@@ -47,7 +47,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
         Container(
           margin: EdgeInsets.only(bottom: 40),
           child: Text(
-            "Sugestões " + widget._categories.sigla,
+            "Sugestões " + widget._categories.sigla!,
             style: GoogleFonts.poppins(
               color: Color(0xffffffff),
               fontSize: 24,
@@ -85,7 +85,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
                 builder: (context, snapshot) {
                   List<Topicos> listTopicos = <Topicos>[];
                   if (snapshot.hasData) {
-                    listTopicos = snapshot.data.toList();
+                    listTopicos = snapshot.data!.toList();
                     if (listTopicos.length > 0 && listTopicos.last.id != -1) {
                       listTopicos.add(all_topicos);
                     }
@@ -127,7 +127,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
                                 child: Align(
                                   alignment: Alignment.center,
                                   child: Text(
-                                    value.topico,
+                                    value.topico??"",
                                     textAlign: TextAlign.center,
                                     style: GoogleFonts.poppins(
                                       color: Color(0xff0E153A),
@@ -207,7 +207,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
                 ),
               ),
               Text(
-                "Dia " + DateFormat('dd/MM').format(sug.data),
+                "Dia " + DateFormat('dd/MM').format(sug.data!),
                 style: GoogleFonts.poppins(
                   color: Color(0xff404040),
                   fontSize: 18,
@@ -220,7 +220,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
           Container(
             margin: EdgeInsets.symmetric(vertical: 10),
             child: Text(
-              sug.sugestao,
+              sug.sugestao ?? "",
               style: GoogleFonts.poppins(
                 color: Color(0xff4F4E4E),
                 fontSize: 14,
@@ -274,10 +274,10 @@ class _SuggestionPageState extends State<SuggestionPage> {
         builder: (context, snapshot) {
           List<Suggestion> suggestions = <Suggestion>[];
           if (snapshot.hasData) {
-            suggestions = snapshot.data;
-            if (topico != null && topico.id != -1) {
+            suggestions = snapshot.data!;
+            if (topico != null && topico!.id != -1) {
               suggestions = suggestions
-                  .where((element) => element.topico == topico.id)
+                  .where((element) => element.topico == topico!.id)
                   .toList();
             }
           }
@@ -320,7 +320,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
           title: Center(
             widthFactor: 1.5,
             child: Text(
-              "Sugestões " + widget._categories.sigla,
+              "Sugestões " + widget._categories.sigla!,
               style: GoogleFonts.poppins(
                 color: Color(0xffffffff),
                 fontSize: 24,
@@ -336,7 +336,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
         body: RefreshIndicator(
           onRefresh: () async {
             return widget.suggestionBloc.fetchSuggestion(
-                widget._categories.id, widget._categories.tipo);
+                widget._categories.id, widget._categories.tipo!);
           },
           child: Container(
             width: size.width,

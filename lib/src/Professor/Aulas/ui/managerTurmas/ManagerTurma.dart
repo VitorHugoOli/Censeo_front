@@ -8,7 +8,6 @@ import 'package:censeo/src/Professor/Aulas/ui/managerTurmas/EditClassDialog.dart
 import 'package:censeo/src/User/models/alunos.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -41,7 +40,7 @@ class _ManagerTurmaState extends State<ManagerTurma> {
         Column(
           children: <Widget>[
             Text(
-              widget._turma.disciplina.sigla,
+              widget._turma.disciplina?.sigla ?? "",
               style: GoogleFonts.poppins(
                 color: Color(0xffffffff),
                 fontSize: 18,
@@ -51,7 +50,7 @@ class _ManagerTurmaState extends State<ManagerTurma> {
               ),
             ),
             Text(
-              widget._turma.codigo,
+              widget._turma.codigo ?? "",
               style: GoogleFonts.poppins(
                 color: Color(0xffffffff),
                 fontSize: 11,
@@ -66,7 +65,7 @@ class _ManagerTurmaState extends State<ManagerTurma> {
           width: size.width * 0.5,
           child: Text(
             checkDisciplinaName(
-                widget._turma.codigo, widget._turma.disciplina.nome),
+                widget._turma.codigo!, widget._turma.disciplina!.nome!),
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
               color: Color(0xffffffff),
@@ -82,15 +81,6 @@ class _ManagerTurmaState extends State<ManagerTurma> {
   }
 
   Widget buildAlunos(size) {
-    const userIcons = [
-      FontAwesome.user_circle,
-      FontAwesome.user_circle_o,
-      FontAwesome.user,
-      FontAwesome.user_md,
-      FontAwesome.user_secret,
-      FontAwesome.user_times
-    ];
-
     Function title = () {
       return Container(
         height: size.height * 0.06,
@@ -117,15 +107,16 @@ class _ManagerTurmaState extends State<ManagerTurma> {
         child: Center(
           child: StreamBuilder<List<Alunos>>(
               stream: widget.bloc.getAlunos,
+              initialData: [],
               builder: (context, AsyncSnapshot<List<Alunos>> snapshot) {
                 List<Alunos> data = snapshot.data ?? [];
 
-                data?.sort((a, b) {
-                  return b.xp.compareTo(a.xp);
+                data.sort((a, b) {
+                  return b.xp!.compareTo(a.xp!);
                 });
 
                 if (data.length > 3) {
-                  data = snapshot.data.sublist(0, 3);
+                  data = snapshot.data!.sublist(0, 3);
                 }
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -139,7 +130,7 @@ class _ManagerTurmaState extends State<ManagerTurma> {
                                   e.perfilPhoto,
                                   heightPhoto: 70,
                                 ),
-                                Text(e.user.nome ?? "",
+                                Text(e.user?.nome ?? "",
                                     style: GoogleFonts.poppins(
                                       color: Color(0xff28313b),
                                       fontSize: 18,
@@ -155,7 +146,7 @@ class _ManagerTurmaState extends State<ManagerTurma> {
                                       fontStyle: FontStyle.normal,
                                       letterSpacing: -0.42,
                                     )),
-                                Text(e.user.matricula,
+                                Text(e.user?.matricula ?? "",
                                     style: GoogleFonts.poppins(
                                       color: Color(0xff787878),
                                       fontSize: 16,
@@ -182,7 +173,7 @@ class _ManagerTurmaState extends State<ManagerTurma> {
             builder: (context, snapshot) {
               List<Alunos> list = <Alunos>[];
               if (snapshot.hasData) {
-                list.addAll(snapshot.data);
+                list.addAll(snapshot.data!);
               }
 
               return Row(
@@ -234,9 +225,10 @@ class _ManagerTurmaState extends State<ManagerTurma> {
       ),
       child: StreamBuilder<Map<DateTime, Aula>>(
           stream: widget.bloc.getDaysCalender,
+          initialData: {},
           builder: (context, AsyncSnapshot<Map<DateTime, Aula>> snapshot) {
             return Calendar(
-              aulas: snapshot.data,
+              aulas: snapshot.data ?? {},
               bloc: widget.bloc,
               turma: widget._turma,
             );
@@ -254,9 +246,9 @@ class _ManagerTurmaState extends State<ManagerTurma> {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(8.0))),
             title: EditClassDialog.title(context),
-            content: EditClassDialog(turma.horarios, turma.id, widget.bloc),
+            content: EditClassDialog(turma.horarios!, turma.id!, widget.bloc),
             actions:
-                EditClassDialog.actions(context, turma.id, size, widget.bloc),
+                EditClassDialog.actions(context, turma.id!, size, widget.bloc),
           );
         },
       );
@@ -270,11 +262,11 @@ class _ManagerTurmaState extends State<ManagerTurma> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: days.map((days) {
-            Horario date;
+            late Horario date;
             new DateFormat.yMMMd().format(new DateTime.now());
             bool hasDate = false;
-            turma?.horarios?.forEach((element) {
-              if (element.dia.toLowerCase() == days.toLowerCase()) {
+            turma.horarios?.forEach((element) {
+              if (element.dia!.toLowerCase() == days.toLowerCase()) {
                 date = element;
                 hasDate = true;
               }
@@ -304,7 +296,9 @@ class _ManagerTurmaState extends State<ManagerTurma> {
                 SizedBox(height: 5),
                 hasDate
                     ? Text(
-                        DateFormat.Hm().format(date?.horario),
+                        date.horario != null
+                            ? DateFormat.Hm().format(date.horario!)
+                            : "",
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           color: Color(0xff383838),
@@ -380,7 +374,7 @@ class _ManagerTurmaState extends State<ManagerTurma> {
           builder: (context, AsyncSnapshot<TurmaProfessor> snapshot) {
             Turma thisTurma = Turma();
             if (snapshot.hasData) {
-              snapshot?.data?.turmas?.forEach((element) {
+              snapshot.data?.turmas?.forEach((element) {
                 if (element.id == widget._turma.id) {
                   thisTurma = element;
                 }

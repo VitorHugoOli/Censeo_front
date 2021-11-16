@@ -5,17 +5,17 @@ class ScrollColumnExpandable extends StatelessWidget {
   final CrossAxisAlignment crossAxisAlignment;
   final MainAxisAlignment mainAxisAlignment;
   final VerticalDirection verticalDirection;
-  final TextDirection textDirection;
-  final TextBaseline textBaseline;
+  final TextDirection? textDirection;
+  final TextBaseline? textBaseline;
   final EdgeInsetsGeometry padding;
 
   const ScrollColumnExpandable({
-    Key key,
-    this.children,
-    CrossAxisAlignment crossAxisAlignment,
-    MainAxisAlignment mainAxisAlignment,
-    VerticalDirection verticalDirection,
-    EdgeInsetsGeometry padding,
+    Key? key,
+    required this.children,
+    CrossAxisAlignment? crossAxisAlignment,
+    MainAxisAlignment? mainAxisAlignment,
+    VerticalDirection? verticalDirection,
+    EdgeInsetsGeometry? padding,
     this.textDirection,
     this.textBaseline,
   })  : crossAxisAlignment = crossAxisAlignment ?? CrossAxisAlignment.center,

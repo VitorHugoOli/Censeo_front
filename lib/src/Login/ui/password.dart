@@ -1,5 +1,4 @@
 import 'package:censeo/resources/CustomTextField.dart';
-import 'package:censeo/resources/ScrollColumnExpandable.dart';
 import 'package:censeo/resources/loader.dart';
 import 'package:censeo/src/Aluno/BottomNavigationProfessor/BottomNavigationBar.dart';
 import 'package:censeo/src/Login/bloc/bloc.dart';
@@ -21,8 +20,8 @@ class _PasswordPageState extends State<PasswordPage> {
   ManagerController _controller = ManagerController();
   final _formKey = GlobalKey<FormState>();
   bool isLoad = false;
-  String pass;
-  String passConfirm;
+  late String pass;
+  late String passConfirm;
 
   @override
   void initState() {
@@ -41,7 +40,8 @@ class _PasswordPageState extends State<PasswordPage> {
               key: _formKey,
               child: SingleChildScrollView(
                 child: Container(
-height: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.vertical,
+                  height: MediaQuery.of(context).size.height -
+                      MediaQuery.of(context).padding.vertical,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                         begin: Alignment.topCenter,
@@ -71,19 +71,17 @@ height: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.vert
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      CustomTextField(
-                        _controller,
-                        label: "Nova Senha",
-                        hasWidgetLabel: true,
-                        upDate: (value) => pass = value,
-                        pass: true,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return "Entre com uma senha";
-                          }
-                          return null;
-                        }
-                      ),
+                      CustomTextField(_controller,
+                          label: "Nova Senha",
+                          hasWidgetLabel: true,
+                          upDate: (value) => pass = value,
+                          pass: true,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Entre com uma senha";
+                            }
+                            return null;
+                          }),
                       CustomTextField(
                         _controller,
                         label: "Confirme a senha",
@@ -91,7 +89,7 @@ height: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.vert
                         upDate: (value) => passConfirm = value,
                         pass: true,
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value!.isEmpty) {
                             return "Confirme a senha a cima";
                           } else if (pass != passConfirm) {
                             return "As Senhas não são compativeis";
@@ -108,7 +106,7 @@ height: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.vert
                               borderRadius: new BorderRadius.circular(6.0),
                             ),
                             onPressed: () async {
-                              if (_formKey.currentState.validate()) {
+                              if (_formKey.currentState!.validate()) {
                                 setState(() {
                                   isLoad = true;
                                 });

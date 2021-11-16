@@ -5,7 +5,9 @@ import 'package:censeo/src/Professor/Aulas/models/Turma.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -44,7 +46,7 @@ class EditClassDialog extends StatefulWidget {
                   Navigator.of(context).pop();
                 },
                 icon: Icon(
-                  Feather.x,
+                  FeatherIcons.x,
                   color: Colors.black,
                   size: 22,
                 ),
@@ -73,7 +75,7 @@ class EditClassDialog extends StatefulWidget {
                     child: RaisedButton(
                       color: Color(0xff0E153A),
                       onPressed: () async {
-                        if (bloc.formKey.currentState.validate())
+                        if (bloc.formKey.currentState!.validate())
                           bloc.submitSchedule(turmaId);
                         Navigator.of(context).pop();
                       },
@@ -131,7 +133,7 @@ class _EditClassDialogState extends State<EditClassDialog> {
                       value == null ? "Entre com algum dia valido" : null,
                   upDate: (value) {
                     setState(() {
-                      aula.dia = value;
+                      aula.dia = value!;
                     });
                   },
                   initValue: dayBdToNormalDay(aula.dia),
@@ -160,32 +162,36 @@ class _EditClassDialogState extends State<EditClassDialog> {
                             fillColors: Color(0xffE1E1E1),
                             hintColor: Color(0xff555555),
                             readOnly: true,
-                            validator: (value) => value.isEmpty
+                            validator: (value) => value!.isEmpty
                                 ? "Entre com "
                                     "horario"
                                 : null,
                             initialValue: aula.horario != null
-                                ? DateFormat("HH:MM").format(aula.horario)
+                                ? DateFormat("HH:MM").format(aula.horario!)
                                 : null,
                             colorFont: Theme.of(context).colorScheme.primary,
                           ),
-                          FlatButton(
+                          TextButton(
                             onPressed: () async {
-                              TimeOfDay selectedTime = await showTimePicker(
+                              TimeOfDay? selectedTime = await showTimePicker(
                                 initialTime: TimeOfDay.now(),
                                 context: context,
                               );
-                              _controller
-                                  .controllers['Inicio${index.toString()}']
-                                  .text = selectedTime.format(context);
-                              aula.horario = DateTime(
-                                  date.year,
-                                  date.month,
-                                  date.day,
-                                  selectedTime.hour,
-                                  selectedTime.minute);
+
+                              if (selectedTime != null) {
+                                _controller
+                                    .controllers['Inicio${index.toString()}']!
+                                    .text = selectedTime.format(context);
+
+                                aula.horario = DateTime(
+                                    date.year,
+                                    date.month,
+                                    date.day,
+                                    selectedTime.hour,
+                                    selectedTime.minute);
+                              }
                             },
-                            child: null,
+                            child: Text(""),
                           ),
                         ],
                       ),
@@ -219,7 +225,7 @@ class _EditClassDialogState extends State<EditClassDialog> {
                   upDate: (value) {
                     setState(
                       () {
-                        aula.isAssincrona = value;
+                        aula.isAssincrona = value!;
                       },
                     );
                   },
@@ -230,7 +236,7 @@ class _EditClassDialogState extends State<EditClassDialog> {
                 SizedBox(
                   height: 10,
                 ),
-                aula?.isAssincrona ?? false
+                aula.isAssincrona ?? false
                     ? CustomTextField(
                         _controller,
                         label: "Dias para termino" + index.toString(),
@@ -242,12 +248,12 @@ class _EditClassDialogState extends State<EditClassDialog> {
                           message: "Quantidade de dias que o "
                               "aluno terá para avaliar a aula.",
                           child: Icon(
-                            Feather.info,
+                            FeatherIcons.info,
                             color: Colors.black,
                           ),
                         ),
                         upDate: (value) => aula.dayToEnd = int.parse(value),
-                        validator: (value) => value.isEmpty
+                        validator: (value) => value!.isEmpty
                             ? "Entre com "
                                 "horario"
                             : null,
@@ -276,7 +282,7 @@ class _EditClassDialogState extends State<EditClassDialog> {
                   },
                   color: Colors.white,
                   icon: Icon(
-                    FontAwesome.trash_o,
+                    FontAwesomeIcons.solidTrashAlt,
                     color: Colors.black,
                   ),
                 ),
@@ -296,21 +302,19 @@ class _EditClassDialogState extends State<EditClassDialog> {
           Radius.circular(8),
         ),
       ),
-      child: FlatButton(
+      child: TextButton(
         onPressed: () {
           widget.bloc.addSchedule();
           setState(() {});
         },
-        color: Colors.transparent,
+        style: TextButton.styleFrom(primary: Colors.transparent),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Icon(
-              Octicons.plus_small,
+              FeatherIcons.plus,
               color: Colors.white,
-              size: 40,
-            ),
-            SizedBox(
-              width: 20,
+              size: 25,
             ),
             Text(
               'Adicionar Novo Horario',
@@ -350,7 +354,7 @@ class _EditClassDialogState extends State<EditClassDialog> {
                   builder: (context, snapshot) {
                     List<Horario> listClass = <Horario>[];
                     if (snapshot.hasData && snapshot.data != null) {
-                      listClass = snapshot.data;
+                      listClass = snapshot.data!;
                     }
                     return Form(
                       key: _formKey,
@@ -382,7 +386,7 @@ class _EditClassDialogState extends State<EditClassDialog> {
   }
 }
 
-String dayBdToNormalDay(day) {
+String? dayBdToNormalDay(day) {
   switch (day) {
     case "SEG":
       return "Segunda";

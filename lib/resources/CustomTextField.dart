@@ -9,7 +9,7 @@ class ManagerController {
     if (!controllers.containsKey(label)) {
       controllers.addAll({label: TextEditingController(text: initValue)});
     }
-    return controllers[label];
+    return controllers[label]!;
   }
 
   void dispose() {
@@ -21,15 +21,11 @@ class ManagerController {
 
 class CustomTextField extends StatefulWidget {
   final ManagerController managerController;
-  @required
   final String label;
-  @required
   final String hintText;
-  @required
   final TextInputType textInputType;
-  @required
-  final Function(String) upDate;
-  final double width;
+  final Function(String)? upDate;
+  final double? width;
   final bool readOnly;
   final Color fillColors;
   final Color colorFont;
@@ -39,18 +35,18 @@ class CustomTextField extends StatefulWidget {
 
   final onTap;
   final TextAlign textAlign;
-  final FormFieldValidator<String> validator;
-  final String initialValue;
-  final Function(String) onFieldSubmitted;
+  final FormFieldValidator<String?>? validator;
+  final String? initialValue;
+  final Function(String)? onFieldSubmitted;
   final Color hintColor;
   final bool hasWidgetLabel;
-  final Widget prefixIcon;
-  final Widget suffixIcon;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
 
   CustomTextField(
     this.managerController, {
-    this.label,
-    this.hintText,
+    required this.label,
+    this.hintText = "",
     this.textInputType = TextInputType.text,
     this.upDate,
     this.width,
@@ -71,13 +67,12 @@ class CustomTextField extends StatefulWidget {
     this.suffixIcon,
   });
 
-
   static InputDecoration formDecoration(
     String text, {
     fillColors = const Color(0x78ffffff),
     bool pass = false,
-    Widget prefixIcon,
-    Widget suffixIcon,
+    Widget? prefixIcon,
+    Widget? suffixIcon,
     hintColor = const Color(0x99ffffff),
   }) {
     return InputDecoration(
@@ -155,10 +150,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
         Container(
           width: widget.width,
           child: TextFormField(
-            controller: widget.managerController.managerControllers(widget.label,
-                initValue: widget.initialValue),
-            onFieldSubmitted:
-                widget.onFieldSubmitted == null ? (value) {} : widget.onFieldSubmitted,
+            controller: widget.managerController.managerControllers(
+                widget.label,
+                initValue: widget.initialValue??""),
+            onFieldSubmitted: widget.onFieldSubmitted == null
+                ? (value) {}
+                : widget.onFieldSubmitted,
             keyboardType: widget.textInputType,
             readOnly: widget.readOnly,
             onChanged: widget.upDate,

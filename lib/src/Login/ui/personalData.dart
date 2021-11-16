@@ -1,5 +1,4 @@
 import 'package:censeo/resources/CustomTextField.dart';
-import 'package:censeo/resources/ScrollColumnExpandable.dart';
 import 'package:censeo/resources/loader.dart';
 import 'package:censeo/src/Login/bloc/bloc.dart';
 import 'package:censeo/src/Login/ui/password.dart';
@@ -9,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class PersonalDataPage extends StatefulWidget {
   final User user;
+
   PersonalDataPage(this.user);
 
   @override
@@ -17,7 +17,7 @@ class PersonalDataPage extends StatefulWidget {
 
 class _PersonalDataPageState extends State<PersonalDataPage> {
   ManagerController _controller = ManagerController();
-  BlocLogin _blocLogin;
+  late BlocLogin _blocLogin;
   final _formKey = GlobalKey<FormState>();
   bool isLoad = false;
 
@@ -40,7 +40,8 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
               key: _formKey,
               child: SingleChildScrollView(
                 child: Container(
-                  height: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.vertical,
+                  height: MediaQuery.of(context).size.height -
+                      MediaQuery.of(context).padding.vertical,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                         begin: Alignment.topCenter,
@@ -74,11 +75,11 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                       CustomTextField(
                         _controller,
                         label: "Nome",
-                        initialValue: widget.user.nome,
+                        initialValue: widget.user.nome ?? "",
                         hasWidgetLabel: true,
                         upDate: (value) => widget.user.nome = value,
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value!.isEmpty) {
                             return "Entre com um nome";
                           }
                           return null;
@@ -87,7 +88,7 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                       CustomTextField(
                         _controller,
                         label: "Username(Opcional)",
-                        initialValue: widget.user.username,
+                        initialValue: widget.user.username ?? "",
                         hasWidgetLabel: true,
                         upDate: (value) => widget.user.username = value,
                       ),
@@ -95,10 +96,10 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                         _controller,
                         label: "Email",
                         hasWidgetLabel: true,
-                        initialValue: widget.user.email,
+                        initialValue: widget.user.email ?? "",
                         upDate: (value) => widget.user.email = value,
                         validator: (value) {
-                          if (value.isEmpty) {
+                          if (value!.isEmpty) {
                             return "Entre com um email";
                           }
                           return null;
@@ -113,12 +114,12 @@ class _PersonalDataPageState extends State<PersonalDataPage> {
                               borderRadius: new BorderRadius.circular(6.0),
                             ),
                             onPressed: () async {
-                              if (_formKey.currentState.validate()) {
+                              if (_formKey.currentState!.validate()) {
                                 setState(() {
                                   isLoad = true;
                                 });
-                                dynamic response =
-                                    await _blocLogin.submitPersonalData(widget.user);
+                                dynamic response = await _blocLogin
+                                    .submitPersonalData(widget.user);
                                 setState(() {
                                   isLoad = false;
                                 });

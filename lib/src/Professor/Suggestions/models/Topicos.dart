@@ -1,8 +1,10 @@
 import 'dart:convert';
 
-List<Topicos> topicosFromJson(List str) => List<Topicos>.from(str.map((x) => Topicos.fromJson(x)));
+List<Topicos> topicosFromJson(List str) =>
+    List<Topicos>.from(str.map((x) => Topicos.fromJson(x)));
 
-String topicosToJson(List<Topicos> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String topicosToJson(List<Topicos> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Topicos {
   Topicos({
@@ -10,8 +12,8 @@ class Topicos {
     this.topico,
   });
 
-  int id;
-  String topico;
+  int? id;
+  String? topico;
 
   factory Topicos.fromJson(Map<String, dynamic> json) => Topicos(
         id: json["id"],

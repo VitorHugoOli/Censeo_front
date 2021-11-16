@@ -2,13 +2,12 @@ import 'dart:ui';
 
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:censeo/main.dart';
-import 'package:censeo/resources/professorIcons.dart';
 import 'package:censeo/src/Aluno/BottomNavigationProfessor/TabNavigatorAluno.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 enum TabItem { avaliar, rank, sugestoes }
@@ -19,7 +18,7 @@ class BottomNavigationAluno extends StatefulWidget {
 }
 
 class _BottomNavigationAlunoState extends State<BottomNavigationAluno> {
-  int currentIndex;
+  late int currentIndex;
   TabItem _currentTab = TabItem.avaliar;
   Map<TabItem, GlobalKey<NavigatorState>> _navigatorKeys = {
     TabItem.avaliar: GlobalKey<NavigatorState>(),
@@ -58,8 +57,8 @@ class _BottomNavigationAlunoState extends State<BottomNavigationAluno> {
   }
 
   static final List<BubbleBottomBarItem> barItens = <BubbleBottomBarItem>[
-    madeBubbleBottomBarItem(Feather.star, "Avaliar"),
-    madeBubbleBottomBarItem(Feather.star, "Avaliar"),
+    madeBubbleBottomBarItem(FeatherIcons.star, "Avaliar"),
+    madeBubbleBottomBarItem(FeatherIcons.star, "Avaliar"),
     madeBubbleBottomBarItem(FeatherIcons.barChart, "Rank"),
     madeBubbleBottomBarItem(FeatherIcons.trendingUp, "Sugestões"),
   ];
@@ -71,17 +70,17 @@ class _BottomNavigationAlunoState extends State<BottomNavigationAluno> {
     3: TabItem.sugestoes,
   };
 
-  void changePage(int i) {
+  void changePage(int? i) {
     setState(() {
-      _selectTab(mapPag[i]);
-      currentIndex = i;
+      _selectTab(mapPag[i]!);
+      currentIndex = i ?? 0;
     });
   }
 
   void _selectTab(TabItem tabItem) {
     if (tabItem == _currentTab) {
       // pop to first route
-      _navigatorKeys[tabItem].currentState.popUntil((route) => route.isFirst);
+      _navigatorKeys[tabItem]!.currentState!.popUntil((route) => route.isFirst);
     } else {
       setState(() => _currentTab = tabItem);
     }
@@ -97,7 +96,7 @@ class _BottomNavigationAlunoState extends State<BottomNavigationAluno> {
     return Offstage(
       offstage: _currentTab != tabItem,
       child: TabNavigator(
-        navigatorKey: _navigatorKeys[tabItem],
+        navigatorKey: _navigatorKeys[tabItem]!,
         navigator: itemToNavigator[tabItem],
       ),
     );
@@ -108,7 +107,7 @@ class _BottomNavigationAlunoState extends State<BottomNavigationAluno> {
     return WillPopScope(
       onWillPop: () async {
         final isFirstRouteInCurrentTab =
-            !await _navigatorKeys[_currentTab].currentState.maybePop();
+            !await _navigatorKeys[_currentTab]!.currentState!.maybePop();
 
         if (isFirstRouteInCurrentTab) {
           // if not on the 'main' tab
@@ -131,7 +130,7 @@ class _BottomNavigationAlunoState extends State<BottomNavigationAluno> {
           ]),
           floatingActionButton: Visibility(
             visible:
-                MediaQuery.of(navigatorKey.currentContext).viewInsets.bottom ==
+                MediaQuery.of(navigatorKey.currentContext!).viewInsets.bottom ==
                     0,
             child: FloatingActionButton(
               onPressed: () {
@@ -141,7 +140,7 @@ class _BottomNavigationAlunoState extends State<BottomNavigationAluno> {
                 });
               },
               child: Icon(
-                Feather.star,
+                FeatherIcons.star,
                 color: Colors.white,
                 size: 25,
               ),

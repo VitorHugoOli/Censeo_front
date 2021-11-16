@@ -79,9 +79,12 @@ class Bloc extends Object implements BaseBloc {
 
   removeTopicosValue(index, id, type) async {
     List<Topicos> listTemp = _topicosController.value;
-    var response = await provider.deleteTopicos(id, type);
-    print(response);
-    if (response['status']) {
+    if (id >=0) {
+      var response = await provider.deleteTopicos(id, type);
+      if (response['status']) {
+        listTemp.removeAt(index);
+      }
+    } else {
       listTemp.removeAt(index);
     }
     topicosChanged(listTemp);
@@ -107,9 +110,9 @@ class Bloc extends Object implements BaseBloc {
 
   @override
   void dispose() {
-    _categoriesController?.close();
-    _topicosController?.close();
-    _suggestionController?.close();
+    _categoriesController.close();
+    _topicosController.close();
+    _suggestionController.close();
   }
 }
 

@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -31,7 +31,7 @@ class FinishingClass extends StatefulWidget {
     {
       'label': "Link",
       'icon': Icon(
-        Feather.link,
+        FeatherIcons.link,
         size: 29,
         color: Colors.black,
       ),
@@ -70,17 +70,15 @@ class _FinishingClassState extends State<FinishingClass> {
   chooseField(label) {
     switch (label) {
       case 'Sala':
-        return widget._aula?.sala ?? "";
+        return widget._aula.sala ?? "";
       case 'Link':
-        return widget._aula?.linkDocumento ?? "";
+        return widget._aula.linkDocumento ?? "";
       case 'assincrona':
-        return (widget._aula?.isAssincrona ?? false
-            ? "Assincrona"
-            : "Sincrona");
+        return (widget._aula.isAssincrona ?? false ? "Assincrona" : "Sincrona");
       case 'Tipo':
-        return widget._aula?.tipoAula ?? "";
+        return widget._aula.tipoAula ?? "";
       case 'Extra':
-        return widget._aula?.extra[widget._aula?.tipoAula] ?? "";
+        return widget._aula.extra![widget._aula.tipoAula] ?? "";
       default:
         return '';
     }
@@ -94,7 +92,7 @@ class _FinishingClassState extends State<FinishingClass> {
         Column(
           children: <Widget>[
             Text(
-              widget._turma.disciplina.sigla,
+              widget._turma.disciplina?.sigla ?? "",
               style: GoogleFonts.poppins(
                 color: Color(0xffffffff),
                 fontSize: 18,
@@ -104,7 +102,7 @@ class _FinishingClassState extends State<FinishingClass> {
               ),
             ),
             Text(
-              widget._turma.codigo,
+              widget._turma.codigo ?? "",
               style: GoogleFonts.poppins(
                 color: Color(0xffffffff),
                 fontSize: 11,
@@ -119,7 +117,7 @@ class _FinishingClassState extends State<FinishingClass> {
           width: size.width * 0.5,
           child: Text(
             checkDisciplinaName(
-                widget._turma.codigo, widget._turma.disciplina.nome),
+                widget._turma.codigo!, widget._turma.disciplina!.nome!),
             textAlign: TextAlign.center,
             style: GoogleFonts.poppins(
               color: Color(0xffffffff),
@@ -183,12 +181,12 @@ class _FinishingClassState extends State<FinishingClass> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget._aula.tema != null && widget._aula.tema.isNotEmpty
-                      ? widget._aula.tema
+                  widget._aula.tema != null && widget._aula.tema!.isNotEmpty
+                      ? widget._aula.tema!
                       : "Adicione um tema",
                   style: GoogleFonts.poppins(
                     color: widget._aula.tema != null &&
-                            widget._aula.tema.isNotEmpty
+                            widget._aula.tema!.isNotEmpty
                         ? Color(0xff000000)
                         : Color(0x99000000),
                     fontSize: 21,
@@ -199,12 +197,12 @@ class _FinishingClassState extends State<FinishingClass> {
                 ),
                 Text(
                   widget._aula.descricao != null &&
-                          widget._aula.descricao.isNotEmpty
-                      ? widget._aula.descricao
+                          widget._aula.descricao!.isNotEmpty
+                      ? widget._aula.descricao!
                       : "Sem descrição",
                   style: GoogleFonts.poppins(
                     color: widget._aula.descricao != null &&
-                            widget._aula.descricao.isNotEmpty
+                            widget._aula.descricao!.isNotEmpty
                         ? Color(0xff000000)
                         : Color(0x99000000),
                     fontSize: 14,
@@ -226,8 +224,8 @@ class _FinishingClassState extends State<FinishingClass> {
                   MaterialPageRoute(
                     builder: (context) => ManagerClass(
                         widget._aula,
-                        widget._aula.turma.codigo,
-                        widget._aula.turma.id,
+                        widget._aula.turma!.codigo!,
+                        widget._aula.turma!.id!,
                         widget._classBloc.bloc),
                   ),
                 ).then((value) {
@@ -254,7 +252,7 @@ class _FinishingClassState extends State<FinishingClass> {
                   width: 13,
                 ),
                 Text(
-                  DateFormat("dd/MM/yyyy").format(widget._aula.horario),
+                  DateFormat("dd/MM/yyyy").format(widget._aula.horario!),
                   style: GoogleFonts.poppins(
                     color: Color(0xff000000),
                     fontSize: 16,
@@ -279,7 +277,7 @@ class _FinishingClassState extends State<FinishingClass> {
                   width: 13,
                 ),
                 Text(
-                  DateFormat("kk:mm").format(widget._aula.horario),
+                  DateFormat("kk:mm").format(widget._aula.horario!),
                   style: GoogleFonts.poppins(
                     color: Color(0xff000000),
                     fontSize: 16,
@@ -297,6 +295,31 @@ class _FinishingClassState extends State<FinishingClass> {
   }
 
   Widget buildDetailsClass(Size size, context) {
+    List<Widget> list =
+        FinishingClass.fields.where((e) => chooseField(e['label']) != "").map((e) {
+      String field = chooseField(e['label']);
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          e['icon'],
+          SizedBox(
+            width: 13,
+          ),
+          Text(
+            capitalize(field),
+            style: GoogleFonts.poppins(
+              color: Color(0xff000000),
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              fontStyle: FontStyle.normal,
+              letterSpacing: -0.36,
+            ),
+          )
+        ],
+      );
+    }).toList();
+
     return Container(
       margin: EdgeInsets.only(top: 15),
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
@@ -312,31 +335,7 @@ class _FinishingClassState extends State<FinishingClass> {
           Wrap(
             runSpacing: 15,
             // mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: FinishingClass.fields.map((e) {
-              String field = chooseField(e['label']);
-              if (field == "") return null;
-              return Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  e['icon'],
-                  SizedBox(
-                    width: 13,
-                  ),
-                  Text(
-                    capitalize(field),
-                    style: GoogleFonts.poppins(
-                      color: Color(0xff000000),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal,
-                      letterSpacing: -0.36,
-                    ),
-                  )
-                ],
-              );
-            }).toList()
-              ..removeWhere((element) => element == null),
+            children: list,
           ),
           SizedBox(height: 10),
         ],

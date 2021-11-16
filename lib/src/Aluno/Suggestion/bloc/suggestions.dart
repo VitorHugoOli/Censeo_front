@@ -82,9 +82,9 @@ class Bloc extends Object implements BaseBloc {
 
   @override
   void dispose() {
-    _categoriesController?.close();
-    topicosController?.close();
-    _suggestionController?.close();
+    _categoriesController.close();
+    topicosController.close();
+    _suggestionController.close();
   }
 }
 

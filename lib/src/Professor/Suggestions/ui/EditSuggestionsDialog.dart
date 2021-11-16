@@ -2,7 +2,8 @@ import 'package:censeo/src/Professor/Suggestions/bloc/suggestions.dart';
 import 'package:censeo/src/Professor/Suggestions/models/Topicos.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EditSuggestion {
@@ -66,7 +67,7 @@ class EditSuggestion {
               Navigator.pop(context);
             },
             icon: Icon(
-              Feather.x,
+              FeatherIcons.x,
               color: Colors.black,
               size: 22,
             ),
@@ -107,7 +108,9 @@ class EditSuggestion {
                   ),
                 ),
               ),
-              Container(height: size.height * 0.045,)
+              Container(
+                height: size.height * 0.045,
+              )
             ],
           ),
         ),
@@ -170,11 +173,11 @@ class EditSuggestion {
                   ),
                   child: IconButton(
                     onPressed: () {
-                      bloc.removeTopicosValue(index, topico.id, type);
+                        bloc.removeTopicosValue(index, topico.id, type);
                     },
                     color: Colors.white,
                     icon: Icon(
-                      FontAwesome.trash_o,
+                      FontAwesomeIcons.solidTrashAlt,
                       color: Colors.black,
                     ),
                   ),
@@ -193,10 +196,9 @@ class EditSuggestion {
         child: Container(
           height: size.height * 0.5,
           child: Column(
-
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              StreamBuilder(
+              StreamBuilder<List<Topicos>>(
                 stream: bloc.topicosList,
                 builder: (context, snapshot) {
                   return ConstrainedBox(
@@ -213,16 +215,15 @@ class EditSuggestion {
                           height: 10,
                         );
                       },
-                      itemCount: snapshot?.data?.length ?? 0,
+                      itemCount: snapshot.data?.length ?? 0,
                       itemBuilder: (context, index) {
-                        Topicos obj = snapshot?.data[index];
+                        Topicos obj = snapshot.data![index];
                         return buildTopico(obj, index, snapshot);
                       },
                     ),
                   );
                 },
               ),
-
               Material(
                 color: Colors.white,
                 child: Center(
@@ -238,19 +239,23 @@ class EditSuggestion {
                         ),
                         child: Row(
                           children: [
-                            FlatButton(
+                            TextButton(
                               onPressed: () {
                                 bloc.addTopicosValue();
                               },
-                              color: Colors.transparent,
+                              style: TextButton.styleFrom(
+                                primary: Colors.transparent,
+                              ),
                               child: Row(
                                 children: [
                                   Icon(
-                                    Octicons.plus_small,
+                                    FeatherIcons.plus,
                                     color: Colors.white,
-                                    size: 40,
+                                    size: 30,
                                   ),
-                                  Container(width: size.width * 0.03,),
+                                  Container(
+                                    width: size.width * 0.03,
+                                  ),
                                   Text(
                                     'Adicionar Tópico',
                                     style: GoogleFonts.poppins(

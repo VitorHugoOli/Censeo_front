@@ -12,7 +12,7 @@ class CategoriesPage extends StatelessWidget {
   final Bloc suggestionBloc = Bloc();
   final ValueChanged<Widget> onPush;
 
-  CategoriesPage({this.onPush});
+  CategoriesPage({required this.onPush});
 
   Widget buildNameTitle(Size size) {
     return Container(
@@ -89,7 +89,7 @@ class CategoriesPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  categories.sigla,
+                  categories.sigla??"",
                   style: GoogleFonts.poppins(
                     color: Color(0xffffffff),
                     fontSize: 20,
@@ -100,7 +100,7 @@ class CategoriesPage extends StatelessWidget {
                 ),
                 categories.codigo != null
                     ? new Text(
-                        categories.codigo,
+                        categories.codigo??"",
                         style: GoogleFonts.poppins(
                           color: Color(0xffffffff),
                           fontSize: 12,
@@ -116,7 +116,7 @@ class CategoriesPage extends StatelessWidget {
               width: size.width * 0.55,
               child: FittedBox(
                 fit: BoxFit.fitWidth,
-                child: Text(categories.nome,
+                child: Text(categories.nome??"",
                     style: GoogleFonts.poppins(
                       color: Color(0xffffffff),
                       fontSize: 18,
@@ -143,7 +143,7 @@ class CategoriesPage extends StatelessWidget {
               loader: snapshot.hasData,
               child: snapshot.hasData
                   ? Column(
-                      children: snapshot.data
+                      children: snapshot.data!
                           .map((key, value) {
                             final body = Column(
                               children: [
@@ -181,13 +181,13 @@ class CategoriesPage extends StatelessWidget {
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
-          return false;
+          return;
         },
         child: Container(
           width: size.width,
           height: size.height - MediaQuery.of(context).padding.top,
           decoration: BoxDecoration(
-              color: Color(0xff0E153A),
+            color: Color(0xff0E153A),
           ),
           child: SingleChildScrollView(
             child: Loader(

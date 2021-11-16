@@ -39,8 +39,8 @@ class Bloc extends Object implements BaseBloc {
 
   @override
   void dispose() {
-    _emailController?.close();
-    _passwordController?.close();
+    _emailController.close();
+    _passwordController.close();
   }
 }
 
@@ -70,7 +70,7 @@ class BlocLogin extends Object implements BaseBloc {
   }
 
   Future<dynamic> submitPass(String pass) async {
-    int id = _userController.value.id;
+    int id = _userController.value.id!;
     Map credentials =
         await provider.updateUser(id, {'pass': pass, 'first_time': false});
 
@@ -87,7 +87,7 @@ class BlocLogin extends Object implements BaseBloc {
 
   @override
   void dispose() {
-    _userController?.close();
+    _userController.close();
   }
 }
 

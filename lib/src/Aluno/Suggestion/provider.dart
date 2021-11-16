@@ -22,15 +22,15 @@ class ClassesProvider {
       switch (type) {
         case 'materia':
           response =
-          await api.authRequest(type: "GET", endpoint: "/topicosTurma/$id");
+              await api.authRequest(type: "GET", endpoint: "/topicosTurma/$id");
           break;
         case 'curso':
           response =
-          await api.authRequest(type: "GET", endpoint: "/topicosCurso/$id");
+              await api.authRequest(type: "GET", endpoint: "/topicosCurso/$id");
           break;
         case 'facu':
           response =
-          await api.authRequest(type: "GET", endpoint: "/topicosFacu/$id");
+              await api.authRequest(type: "GET", endpoint: "/topicosFacu/$id");
           break;
       }
       return response['topicos'];
@@ -54,7 +54,7 @@ class ClassesProvider {
           break;
         case 'facu':
           response =
-          await api.authRequest(type: "GET", endpoint: "/sugestaoFacu/$id");
+              await api.authRequest(type: "GET", endpoint: "/sugestaoFacu/$id");
           break;
       }
       print(response);

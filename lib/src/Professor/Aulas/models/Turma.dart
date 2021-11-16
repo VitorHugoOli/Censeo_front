@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-TurmaProfessor turmaProfessorFromJson(Map str) => TurmaProfessor.fromJson(str);
+TurmaProfessor turmaProfessorFromJson(Map<String, dynamic> str) =>
+    TurmaProfessor.fromJson(str);
 
 String turmaProfessorToJson(TurmaProfessor data) => json.encode(data.toJson());
 
@@ -13,16 +14,14 @@ class TurmaProfessor {
     this.turmas,
   });
 
-  List<Turma> turmas;
+  List<Turma>? turmas;
 
-  factory TurmaProfessor.fromJson(Map<String, dynamic> json) =>
-      TurmaProfessor(
+  factory TurmaProfessor.fromJson(Map<String, dynamic> json) => TurmaProfessor(
         turmas: List<Turma>.from(json["turmas"].map((x) => Turma.fromJson(x))),
       );
 
-  Map<String, dynamic> toJson() =>
-      {
-        "turmas": List<dynamic>.from(turmas.map((x) => x.toJson())),
+  Map<String, dynamic> toJson() => {
+        "turmas": List<dynamic>.from(turmas?.map((x) => x.toJson()) ?? []),
       };
 }
 
@@ -36,15 +35,14 @@ class Turma {
     this.horarios,
   });
 
-  int id;
-  String codigo;
-  String ano;
-  String semestre;
-  Disciplina disciplina;
-  List<Horario> horarios;
+  int? id;
+  String? codigo;
+  String? ano;
+  String? semestre;
+  Disciplina? disciplina;
+  List<Horario>? horarios;
 
-  factory Turma.fromJson(Map<String, dynamic> json) =>
-      Turma(
+  factory Turma.fromJson(Map<String, dynamic> json) => Turma(
         id: json["id"],
         codigo: json["codigo"],
         ano: json["ano"],
@@ -52,18 +50,17 @@ class Turma {
         disciplina: Disciplina.fromJson(json["disciplina"]),
         horarios: json.containsKey("horarios")
             ? List<Horario>.from(
-            json["horarios"].map((x) => Horario.fromJson(x)))
+                json["horarios"].map((x) => Horario.fromJson(x)))
             : <Horario>[],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "codigo": codigo,
         "ano": ano,
         "semestre": semestre,
-        "disciplina": disciplina.toJson(),
-        "horarios": List<dynamic>.from(horarios.map((x) => x.toJson())),
+        "disciplina": disciplina?.toJson() ?? "",
+        "horarios": List<dynamic>.from(horarios?.map((x) => x.toJson())??[]),
       };
 }
 
@@ -76,14 +73,13 @@ class Disciplina {
     this.curso,
   });
 
-  int id;
-  String codigo;
-  String nome;
-  String sigla;
-  int curso;
+  int? id;
+  String? codigo;
+  String? nome;
+  String? sigla;
+  int? curso;
 
-  factory Disciplina.fromJson(Map<String, dynamic> json) =>
-      Disciplina(
+  factory Disciplina.fromJson(Map<String, dynamic> json) => Disciplina(
         id: json["id"],
         codigo: json["codigo"],
         nome: json["nome"],
@@ -91,8 +87,7 @@ class Disciplina {
         curso: json["curso"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "codigo": codigo,
         "nome": nome,
@@ -111,15 +106,14 @@ class Horario {
     this.dayToEnd,
   });
 
-  int id;
-  String dia;
-  DateTime horario;
-  String sala;
-  bool isAssincrona;
-  int dayToEnd;
+  int? id;
+  String? dia;
+  DateTime? horario;
+  String? sala;
+  bool? isAssincrona;
+  int? dayToEnd;
 
-  factory Horario.fromJson(Map<String, dynamic> json) =>
-      Horario(
+  factory Horario.fromJson(Map<String, dynamic> json) => Horario(
         id: json["id"],
         dia: json["dia"],
         horario: DateTime.parse(json["horario"]),
@@ -128,8 +122,7 @@ class Horario {
         dayToEnd: json["days_to_end"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "dia": dia,
         "horario": horario?.toIso8601String() ?? null,
@@ -147,21 +140,19 @@ class TurmaOpenClass {
     this.semestre,
   });
 
-  int id;
-  String codigo;
-  String ano;
-  String semestre;
+  int? id;
+  String? codigo;
+  String? ano;
+  String? semestre;
 
-  factory TurmaOpenClass.fromJson(Map<String, dynamic> json) =>
-      TurmaOpenClass(
+  factory TurmaOpenClass.fromJson(Map<String, dynamic> json) => TurmaOpenClass(
         id: json["id"],
         codigo: json["codigo"],
         ano: json["ano"],
         semestre: json["semestre"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "codigo": codigo,
         "ano": ano,

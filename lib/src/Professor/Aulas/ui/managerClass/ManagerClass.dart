@@ -5,10 +5,10 @@ import 'package:diacritic/diacritic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+//Todo avaliar implicacoes do null safety
 class ManagerClass extends StatefulWidget {
   final Aula _aula;
   final String siglaTurma;
@@ -22,7 +22,7 @@ class ManagerClass extends StatefulWidget {
 }
 
 class _ManagerClassState extends State<ManagerClass> {
-  ClassBloc _classBloc;
+  late ClassBloc _classBloc;
   bool temaError = false;
   final _formKey = GlobalKey<FormState>();
   TextEditingController _temaController = TextEditingController(text: "");
@@ -32,26 +32,26 @@ class _ManagerClassState extends State<ManagerClass> {
   TextEditingController _extraController = TextEditingController(text: "");
   bool isAssincrona = false;
   ManagerController _controller = ManagerController();
-  Aula aulaEdit;
+  late Aula aulaEdit;
 
   @override
   void initState() {
     super.initState();
     aulaEdit = Aula.fromJson(widget._aula.toJson());
-    _temaController.text = widget._aula.tema;
-    _descriptionController.text = widget._aula.descricao;
-    _linkController.text = widget._aula.linkDocumento;
+    _temaController.text = widget._aula.tema ?? "";
+    _descriptionController.text = widget._aula.descricao ?? "";
+    _linkController.text = widget._aula.linkDocumento ?? "";
     _extraController.text =
-        widget._aula.extra[getExtra[widget._aula.tipoAula]] ?? "";
+        widget._aula.extra![getExtra[widget._aula.tipoAula]] ?? "";
 
-    isAssincrona = widget._aula.isAssincrona;
+    isAssincrona = widget._aula.isAssincrona!;
     _classBloc = ClassBloc(widget.bloc,
-        tema: widget._aula.tema,
-        description: widget._aula.tema,
-        link: widget._aula.linkDocumento,
-        type: widget._aula.tipoAula,
+        tema: widget._aula.tema ?? "",
+        description: widget._aula.descricao ?? "",
+        link: widget._aula.linkDocumento ?? "",
+        type: widget._aula.tipoAula ?? "",
         isAssincrona: widget._aula.isAssincrona,
-        extra: widget._aula.extra[getExtra[widget._aula.tipoAula]] ?? "",
+        extra: widget._aula.extra![getExtra[widget._aula.tipoAula]] ?? "",
         endtime: widget._aula.endTime);
   }
 
@@ -83,7 +83,7 @@ class _ManagerClassState extends State<ManagerClass> {
         Container(
           margin: EdgeInsets.symmetric(horizontal: 30),
           child: Text(
-            DateFormat("dd/MM").format(widget._aula.horario),
+            DateFormat("dd/MM").format(widget._aula.horario!),
             style: GoogleFonts.poppins(
               color: Color(0xffffffff),
               fontSize: 19,
@@ -94,7 +94,7 @@ class _ManagerClassState extends State<ManagerClass> {
           ),
         ),
         Text(
-          widget._aula.sala.toUpperCase(),
+          widget._aula.sala!.toUpperCase(),
           style: GoogleFonts.poppins(
             color: Color(0xffffffff),
             fontSize: 16,
@@ -199,7 +199,7 @@ class _ManagerClassState extends State<ManagerClass> {
               decoration: CustomTextField.formDecoration(
                 "Link sobre a aula (Opcional)",
                 prefixIcon: Icon(
-                  Feather.link,
+                  FeatherIcons.link,
                   size: 29,
                   color: Colors.white,
                 ),
@@ -233,7 +233,7 @@ class _ManagerClassState extends State<ManagerClass> {
         'hint': 'Nome do local(Opcional)',
         'type': TextInputType.text,
         'icon': Icon(
-          Feather.map_pin,
+          FeatherIcons.mapPin,
           color: Colors.white,
           size: 29,
         )
@@ -241,7 +241,7 @@ class _ManagerClassState extends State<ManagerClass> {
       'teorica': {
         'hint': '',
         'type': TextInputType.text,
-        'icon': Icon(Feather.github)
+        'icon': Icon(FeatherIcons.github)
       }
     };
 
@@ -249,7 +249,6 @@ class _ManagerClassState extends State<ManagerClass> {
         stream: _classBloc.getType,
         builder: (context, snapshotType) {
           var type = removeDiacritics(snapshotType.data ?? "").toLowerCase();
-          print(type);
           return AnimatedOpacity(
             duration: Duration(milliseconds: 500),
             opacity: snapshotType.hasData && type != "Teorica" ? 1 : 0,
@@ -292,11 +291,11 @@ class _ManagerClassState extends State<ManagerClass> {
       child: StreamBuilder<bool>(
           stream: _classBloc.getIsAssincrona,
           builder: (context, snapshot) {
-            return DropdownButtonFormField(
-              value: (snapshot.hasData) ? snapshot.data : true,
+            return DropdownButtonFormField<bool>(
+              value: (snapshot.hasData) ? snapshot.data! : true,
               dropdownColor: Color(0xee1e1e1e),
               onChanged: (value) {
-                aulaEdit.isAssincrona = value;
+                aulaEdit.isAssincrona = value!;
                 _classBloc.isAssincronaChanged(value);
                 setState(() {
                   isAssincrona = value;
@@ -350,14 +349,15 @@ class _ManagerClassState extends State<ManagerClass> {
         builder: (context, snapshot) {
           return Container(
             width: size.width * 0.9,
-            child: DropdownButtonFormField(
-              value:
-                  ((snapshot.data?.isEmpty ?? false) || snapshot.data == 'null')
-                      ? null
-                      : snapshot.data,
+            child: DropdownButtonFormField<String>(
+              value: (snapshot.data == null ||
+                      (snapshot.data?.isEmpty ?? false) ||
+                      snapshot.data == 'null')
+                  ? null
+                    : snapshot.data,
               dropdownColor: Color(0xee1e1e1e),
               onChanged: (value) {
-                aulaEdit.tipoAula = value;
+                aulaEdit.tipoAula = value!;
                 return _classBloc.typeChanged(value);
               },
               icon: Icon(
@@ -399,7 +399,7 @@ class _ManagerClassState extends State<ManagerClass> {
   }
 
   Future submitClassEdit() async {
-    if (_formKey.currentState.validate()) {
+    if (_formKey.currentState!.validate()) {
       await _classBloc
           .submitEditClass(idAula: widget._aula.id, idTurma: widget.idTurma)
           .then((value) {
@@ -483,8 +483,8 @@ class _ManagerClassState extends State<ManagerClass> {
         (Duration(days: 720)),
       ),
     ).then((value) {
-      _classBloc.endTimeChanged(value);
-      _controller.controllers['Data de termino'].text =
+      _classBloc.endTimeChanged(value!);
+      _controller.controllers['Data de termino']!.text =
           DateFormat('dd/MM/yyyy').format(value);
       return;
     });
@@ -520,16 +520,16 @@ class _ManagerClassState extends State<ManagerClass> {
             },
             initialValue: (widget._aula.endTime == null)
                 ? null
-                : DateFormat('dd/MM/yyyy').format(widget._aula.endTime),
+                : DateFormat('dd/MM/yyyy').format(widget._aula.endTime!),
             width: size.width * 0.9,
             validator: (value) {
-              if (value.length == 0) {
+              if (value!.length == 0) {
                 return "Entre com alguma data";
               }
               return null;
             },
             prefixIcon: Icon(
-              Feather.calendar,
+              FeatherIcons.calendar,
               color: Colors.white,
               size: 26,
             ),

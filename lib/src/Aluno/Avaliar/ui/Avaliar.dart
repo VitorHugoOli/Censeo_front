@@ -7,18 +7,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../main.dart';
 import 'Perguntas.dart';
 import 'Settings.dart';
 
 class Avaliar extends StatefulWidget {
-  final ValueChanged<Widget> onPush;
+  final ValueChanged<Widget>? onPush;
 
-  Avaliar({this.onPush});
+  Avaliar({required this.onPush});
 
   @override
   _AvaliarState createState() => _AvaliarState();
@@ -28,6 +27,7 @@ class _AvaliarState extends State<Avaliar> {
   final BlocAluno bloc = BlocAluno();
   static List<String> days = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
   final ScrollController _scrollController = ScrollController();
+  bool loader = false;
 
   @override
   void initState() {
@@ -42,7 +42,7 @@ class _AvaliarState extends State<Avaliar> {
           child: Column(
             children: <Widget>[
               Text(
-                snapshot.hasData ? snapshot.data.nome : "",
+                snapshot.hasData ? snapshot.data!.nome : "",
                 style: GoogleFonts.poppins(
                   color: Color(0xffffffff),
                   fontSize: 25,
@@ -71,14 +71,15 @@ class _AvaliarState extends State<Avaliar> {
             children: [
               IconButton(
                 icon: Icon(
-                  Feather.settings,
+                  FeatherIcons.settings,
                   color: Colors.white,
                 ),
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Settings(user: snapshot.data,bloc: bloc),
+                      builder: (context) =>
+                          Settings(user: snapshot.data!, bloc: bloc),
                     ),
                   );
                 },
@@ -86,11 +87,11 @@ class _AvaliarState extends State<Avaliar> {
               IconButton(
                 onPressed: () {
                   bloc.logOut();
-                  navigatorKey.currentState.pushNamedAndRemoveUntil(
+                  navigatorKey.currentState!.pushNamedAndRemoveUntil(
                       '/', (Route<dynamic> route) => false);
                 },
                 icon: Icon(
-                  Feather.log_out,
+                  FeatherIcons.logOut,
                   color: Colors.white,
                 ),
               ),
@@ -102,7 +103,7 @@ class _AvaliarState extends State<Avaliar> {
   }
 
   Widget buildCardAvatar(AsyncSnapshot<User> snapshot) {
-    String profile = snapshot.data.perfilPhoto;
+    String? profile = snapshot.data != null ? snapshot.data!.perfilPhoto : "";
     return snapshot.connectionState == ConnectionState.done
         ? Container(
             padding: EdgeInsets.all(8),
@@ -114,23 +115,23 @@ class _AvaliarState extends State<Avaliar> {
                 ? Image.network(
                     profile,
                     height: 150,
-                    errorBuilder: (BuildContext context, Object exception,
-                        StackTrace stackTrace) {
+                    errorBuilder: (BuildContext? context, Object? exception,
+                        StackTrace? stackTrace) {
                       return Container(
                         height: 150,
                         child: Center(
-                          child: Icon(Feather.cloud_off, size: 20),
+                          child: Icon(FeatherIcons.cloudOff, size: 20),
                         ),
                       );
                     },
-                    loadingBuilder: (BuildContext context, Widget child,
-                        ImageChunkEvent loadingProgress) {
+                    loadingBuilder: (BuildContext? context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
                       if (loadingProgress == null) return child;
                       return Center(
                         child: CircularProgressIndicator(
                           value: loadingProgress.expectedTotalBytes != null
                               ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes
+                                  loadingProgress.expectedTotalBytes!
                               : null,
                         ),
                       );
@@ -158,11 +159,11 @@ class _AvaliarState extends State<Avaliar> {
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.only(top: 10, bottom: 10),
-                    itemCount: (snapshot.hasData && snapshot.data != null)
+                    itemCount: (snapshot.hasData && snapshot.data! != null)
                         ? snapshot.data?.length ?? 0
                         : 0,
                     itemBuilder: (context, index) {
-                      Aula turma = snapshot.data[index];
+                      Aula turma = snapshot.data![index];
                       return buildCardTurmas(turma, size);
                     },
                   ),
@@ -184,7 +185,7 @@ class _AvaliarState extends State<Avaliar> {
           borderRadius: BorderRadius.circular(6),
         ),
         child: Text(
-          aula.turma.disciplina.sigla.toUpperCase(),
+          aula.turma!.disciplina!.sigla!.toUpperCase(),
           textAlign: TextAlign.center,
           style: GoogleFonts.poppins(
             color: Color(0xff3D5AF1),
@@ -206,7 +207,7 @@ class _AvaliarState extends State<Avaliar> {
           children: [
             Text(
               checkDisciplinaName(
-                  aula.turma.codigo, aula.turma.disciplina.nome),
+                  aula.turma!.codigo!, aula.turma!.disciplina!.nome!),
               style: TextStyle(
                 fontFamily: 'Poppins',
                 color: Color(0xff0E153A),
@@ -217,7 +218,7 @@ class _AvaliarState extends State<Avaliar> {
               ),
             ),
             Text(
-              aula?.tema ?? "",
+              aula.tema ?? "",
               style: GoogleFonts.poppins(
                 color: Color(0xff0E153A),
                 fontSize: 18,
@@ -239,6 +240,9 @@ class _AvaliarState extends State<Avaliar> {
         child: RaisedButton(
           color: Color(0xff3D5AF1),
           onPressed: () async {
+            setState(() {
+              loader = true;
+            });
             bool response = await bloc.createAvaliacao(aula.id);
             if (response) {
               Navigator.push(
@@ -246,7 +250,18 @@ class _AvaliarState extends State<Avaliar> {
                 MaterialPageRoute(
                   builder: (context) => Perguntas(bloc, aula),
                 ),
-              );
+              ).then((value) {
+                if (value) {
+                  bloc.fetchOpenClass();
+                }
+                setState(() {
+                  loader = false;
+                });
+              });
+            } else {
+              setState(() {
+                loader = false;
+              });
             }
           },
           shape: RoundedRectangleBorder(
@@ -293,13 +308,13 @@ class _AvaliarState extends State<Avaliar> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       body: FutureBuilder<dynamic>(
           future: bloc.fetchOpenClass(),
           builder: (context, snapshot) {
             return Loader(
-              loader: (snapshot.connectionState == ConnectionState.done),
+              loader:
+                  (snapshot.connectionState == ConnectionState.done) && !loader,
               child: RefreshIndicator(
                 onRefresh: () async {
                   return await bloc.fetchOpenClass();
@@ -318,7 +333,6 @@ class _AvaliarState extends State<Avaliar> {
                             stream: bloc.user,
                             builder:
                                 (context, AsyncSnapshot<User> snapshotUser) {
-                              print(snapshotUser.data.perfilPhoto);
                               return Column(
                                 children: [
                                   buildNameTitle(snapshotUser),

@@ -7,7 +7,7 @@ import '../main.dart';
 
 Future<dynamic> alertNoConnection() {
   return showDialog(
-    context: navigatorKey.currentState.overlay.context,
+    context: navigatorKey.currentState!.overlay!.context,
     builder: (BuildContext context) {
       Size size = MediaQuery.of(context).size;
       // retorna um objeto do tipo Dialog
@@ -51,7 +51,7 @@ Future<dynamic> alertNoConnection() {
 
 Future<dynamic> alertNoServer() {
   return showDialog(
-    context: navigatorKey.currentState.overlay.context,
+    context: navigatorKey.currentState!.overlay!.context,
     builder: (BuildContext context) {
       Size size = MediaQuery.of(context).size;
       // retorna um objeto do tipo Dialog
@@ -112,7 +112,7 @@ Future<dynamic> alertNoServer() {
 
 Future<dynamic> alertNoAuth() {
   return showDialog(
-    context: navigatorKey.currentState.overlay.context,
+    context: navigatorKey.currentState!.overlay!.context,
     builder: (BuildContext context) {
       Size size = MediaQuery.of(context).size;
       // retorna um objeto do tipo Dialog
@@ -172,7 +172,7 @@ Future<dynamic> alertNoAuth() {
 
 genericAlert() {
   showDialog(
-    context: navigatorKey.currentState.overlay.context,
+    context: navigatorKey.currentState!.overlay!.context,
     builder: (BuildContext context) {
       Size size = MediaQuery.of(context).size;
       // retorna um objeto do tipo Dialog

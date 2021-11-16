@@ -5,7 +5,7 @@ import 'package:censeo/src/Professor/Aulas/models/Turma.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -51,7 +51,7 @@ class CreateClassDialog extends StatefulWidget {
                   Navigator.of(context).pop();
                 },
                 icon: Icon(
-                  Feather.x,
+                  FeatherIcons.x,
                   color: Colors.black,
                   size: 22,
                 ),
@@ -79,7 +79,7 @@ class CreateClassDialog extends StatefulWidget {
                   builder: (context, snapshot) {
                     return RaisedButton(
                       color: Color(0xff0E153A),
-                      onPressed: (snapshot.hasData && snapshot.data)
+                      onPressed: (snapshot.hasData && snapshot.data!)
                           ? () async {
                               bloc.submitCreateClass(id, date);
                               Navigator.of(context).pop();
@@ -138,107 +138,109 @@ class _CreateClassDialogState extends State<CreateClassDialog> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
-      height: size.height * 0.25,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                capitalize(DateFormat('EEEE', 'pt_br').format(widget.date)),
-                style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xff0E153A),
-                    fontSize: 31,
-                    height: 1),
-              ),
-              Text(
-                DateFormat('dd/MM').format(widget.date),
-                style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xff0E153A),
-                    fontSize: 31,
-                    height: 1.3),
-              ),
-            ],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                  width: size.width * 0.7,
-                  child: Stack(
-                    fit: StackFit.passthrough,
-                    children: [
-                      TextFormField(
-                        readOnly: true,
-                        onChanged: widget.bloc.horarioChanged,
-                        controller: controllerTime,
-                        keyboardType: TextInputType.datetime,
-                        inputFormatters: [
-                          MaskTextInputFormatter(mask: '#@:&@', filter: {
-                            "#": RegExp(r'[0-2]'),
-                            '@': RegExp(r'[0-9]'),
-                            '&': RegExp(r'[0-5]')
-                          })
-                        ],
-                        textAlign: TextAlign.left,
-                        style: GoogleFonts.poppins(
-                          color: Color(0xff000000),
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                          fontStyle: FontStyle.normal,
-                          letterSpacing: -0.735,
-                        ),
-                        decoration: CustomTextField.formDecoration("Horário",
-                            fillColors: Color(0x78C2C2C2),
-                            hintColor: Color(0xff696969)),
-                        validator: (value) => _validatorTime(value),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              capitalize(DateFormat('EEEE', 'pt_br').format(widget.date)),
+              style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xff0E153A),
+                  fontSize: 31,
+                  height: 1),
+            ),
+            Text(
+              DateFormat('dd/MM').format(widget.date),
+              style: GoogleFonts.poppins(
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xff0E153A),
+                  fontSize: 31,
+                  height: 1.3),
+            ),
+          ],
+        ),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+                width: size.width * 0.7,
+                child: Stack(
+                  fit: StackFit.passthrough,
+                  children: [
+                    TextFormField(
+                      readOnly: true,
+                      onChanged: widget.bloc.horarioChanged,
+                      controller: controllerTime,
+                      keyboardType: TextInputType.datetime,
+                      inputFormatters: [
+                        MaskTextInputFormatter(mask: '#@:&@', filter: {
+                          "#": RegExp(r'[0-2]'),
+                          '@': RegExp(r'[0-9]'),
+                          '&': RegExp(r'[0-5]')
+                        })
+                      ],
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.poppins(
+                        color: Color(0xff000000),
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.normal,
+                        letterSpacing: -0.735,
                       ),
-                      FlatButton(
-                        onPressed: () async {
-                          TimeOfDay selectedTime = await showTimePicker(
-                            initialTime: TimeOfDay.now(),
-                            context: context,
-                          );
+                      decoration: CustomTextField.formDecoration("Horário",
+                          fillColors: Color(0x78C2C2C2),
+                          hintColor: Color(0xff696969)),
+                      validator: (value) => _validatorTime(value),
+                    ),
+                    TextButton(
+                      onPressed: () async {
+                        TimeOfDay? selectedTime = await showTimePicker(
+                          initialTime: TimeOfDay.now(),
+                          context: context,
+                        );
+                        if (selectedTime != null) {
                           controllerTime.text = selectedTime.format(context);
                           widget.bloc
                               .horarioChanged(selectedTime.format(context));
-                        },
-                        child: null,
-                      ),
-                    ],
-                  )),
-              Container(
-                padding: EdgeInsets.only(top: 15),
-                width: size.width * 0.7,
-                child: TextFormField(
-                  onChanged: widget.bloc.roomChanged,
-                  controller: controllerRoom,
-                  keyboardType: TextInputType.text,
-                  textAlign: TextAlign.left,
-                  style: GoogleFonts.poppins(
-                    color: Color(0xff000000),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                    letterSpacing: -0.735,
-                  ),
-                  decoration: CustomTextField.formDecoration(
-                    "Sala",
-                    fillColors: Color(0x78c2c2c2),
-                    hintColor: Color(0xff696969),
-                  ),
+                        }
+                      },
+                      child: Text(""),
+                    ),
+                  ],
+                )),
+            Container(
+              padding: EdgeInsets.only(top: 15),
+              width: size.width * 0.7,
+              child: TextFormField(
+                onChanged: widget.bloc.roomChanged,
+                controller: controllerRoom,
+                keyboardType: TextInputType.text,
+                textAlign: TextAlign.left,
+                style: GoogleFonts.poppins(
+                  color: Color(0xff000000),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w400,
+                  fontStyle: FontStyle.normal,
+                  letterSpacing: -0.735,
                 ),
-              )
-            ],
-          )
-        ],
-      ),
+                decoration: CustomTextField.formDecoration(
+                  "Sala",
+                  fillColors: Color(0x78c2c2c2),
+                  hintColor: Color(0xff696969),
+                ),
+              ),
+            )
+          ],
+        )
+      ],
     );
   }
 }

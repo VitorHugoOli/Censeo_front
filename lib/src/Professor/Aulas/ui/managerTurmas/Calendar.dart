@@ -14,13 +14,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 
-import 'dropDown.dart';
-
 class Calendar extends StatefulWidget {
-  Calendar({Key key, this.aulas, this.bloc, this.turma}) : super(key: key);
   final Map<DateTime, Aula> aulas;
   final Turma turma;
   final Bloc bloc;
+
+  Calendar(
+      {Key? key, required this.aulas, required this.bloc, required this.turma})
+      : super(key: key);
 
   @override
   _CalendarState createState() => new _CalendarState();
@@ -32,7 +33,7 @@ class _CalendarState extends State<Calendar> {
   DateTime _targetDateTime = DateTime.now();
   String dropdownValue = "Jan";
 
-  CalendarCarousel _calendarCarousel;
+  late CalendarCarousel _calendarCarousel;
 
   static const List<String> monthList = [
     'Jan',
@@ -63,7 +64,7 @@ class _CalendarState extends State<Calendar> {
       dropdownValue =
           month.substring(0, 1).toUpperCase() + month.substring(1, 3);
       _targetDateTime = date;
-      _currentDate = date;
+      // _currentDate = date;
     });
   }
 
@@ -78,7 +79,7 @@ class _CalendarState extends State<Calendar> {
           title: CreateClassDialog.title(size, context),
           content: CreateClassDialog(date, widget.bloc),
           actions: CreateClassDialog.actions(
-              context, size, date, widget.bloc, widget.turma.id),
+              context, size, date, widget.bloc, widget.turma.id!),
         );
       },
     );
@@ -90,8 +91,8 @@ class _CalendarState extends State<Calendar> {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ManagerClass(widget.aulas[date],
-                widget.turma.codigo, widget.turma.id, widget.bloc)),
+            builder: (context) => ManagerClass(widget.aulas[date]!,
+                widget.turma.codigo!, widget.turma.id!, widget.bloc)),
       );
     } else {
       dialogCreateClass(date);
@@ -101,9 +102,9 @@ class _CalendarState extends State<Calendar> {
 
   dayBuilder(Size size) {
     Widget widgetDay(
-        {@required Color colorRadius,
-        @required Color colorText,
-        @required DateTime day,
+        {required Color colorRadius,
+        required Color colorText,
+        required DateTime day,
         BoxShape shape = BoxShape.rectangle}) {
       var decoration = BoxDecoration();
       if (shape == BoxShape.circle) {
@@ -146,12 +147,12 @@ class _CalendarState extends State<Calendar> {
         bool isNextMonthDay,
         bool isThisMonthDay,
         DateTime day) {
-      if (widget?.aulas?.containsKey(day) ?? false) {
-        if (day.day==28) {
-          Logger().i(widget.aulas[day].toJson());
+      if (widget.aulas.containsKey(day)) {
+        if (day.day == 28) {
+          Logger().i(widget.aulas[day]!.toJson());
         }
         return widgetDay(
-            colorRadius: color[widget.aulas[day].tipoAula],
+            colorRadius: color[widget.aulas[day]!.tipoAula],
             colorText: Colors.white,
             day: day,
             shape: BoxShape.circle);
@@ -205,7 +206,8 @@ class _CalendarState extends State<Calendar> {
             fontStyle: FontStyle.normal,
           ),
         ),
-        DropdownButtonCustom<String>(
+        //Todo:Avaliar dropdowncustom
+        DropdownButton<String>(
           value: dropdownValue,
           icon: Icon(ProfessorIcons.dropright, color: Color(0xff28313b)),
           iconSize: 14,
@@ -217,15 +219,15 @@ class _CalendarState extends State<Calendar> {
             fontWeight: FontWeight.w700,
             fontStyle: FontStyle.normal,
           ),
-          onChanged: (String newValue) {
+          onChanged: (String? newValue) {
             setState(() {
-              dropdownValue = newValue;
+              dropdownValue = newValue!;
               calendarChange(
                   DateTime(today.year, monthList.indexOf(newValue) + 1, 1));
             });
           },
-          items: monthList.map<DropdownMenuItemCustom<String>>((String value) {
-            return DropdownMenuItemCustom<String>(
+          items: monthList.map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
               value: value,
               child: Text(value + " " + _targetDateTime.year.toString()),
             );

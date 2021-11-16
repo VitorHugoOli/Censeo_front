@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:censeo/src/User/models/user.dart';
 
 List<Alunos> alunosFromJson(List str) =>
-    List<Alunos>.from(str?.map((x) => Alunos.fromJson(x)) ?? []);
+    List<Alunos>.from(str.map((x) => Alunos.fromJson(x)));
 
 String alunosToJson(List<Alunos> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
@@ -11,11 +11,11 @@ String alunosToJson(List<Alunos> data) =>
 class Alunos {
   Alunos({this.id, this.xp, this.curso, this.user, this.perfilPhoto});
 
-  int id;
-  double xp;
-  int curso;
-  User user;
-  String perfilPhoto;
+  int? id;
+  double? xp;
+  int? curso;
+  User? user;
+  String? perfilPhoto;
 
   factory Alunos.fromJson(Map<String, dynamic> json) => Alunos(
         id: json["id"],
@@ -31,6 +31,6 @@ class Alunos {
         "id": id,
         "xp": xp,
         "curso": curso,
-        "user": user.toJson(),
+        "user": user?.toJson() ?? "",
       };
 }

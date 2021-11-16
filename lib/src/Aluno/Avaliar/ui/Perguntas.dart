@@ -4,7 +4,7 @@ import 'package:censeo/src/Aluno/Avaliar/models/Avaliacao.dart';
 import 'package:censeo/src/Professor/Aulas/models/Aula.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Perguntas extends StatefulWidget {
@@ -61,7 +61,7 @@ class _PerguntasState extends State<Perguntas> {
           child: Column(
             children: <Widget>[
               Text(
-                widget._aula.turma.disciplina.sigla,
+                widget._aula.turma!.disciplina!.sigla!,
                 style: GoogleFonts.poppins(
                   color: Color(0xffffffff),
                   fontSize: 25,
@@ -88,7 +88,7 @@ class _PerguntasState extends State<Perguntas> {
 
   Widget buildCardQuestion(Avaliacao avaliacao, Size size) {
     Function title = () {
-      return Text(avaliacao.perguntas[currentIndex].caracteristica,
+      return Text(avaliacao.perguntas![currentIndex].caracteristica ?? "",
           style: GoogleFonts.poppins(
             color: Color(0xff22215b),
             fontSize: 24,
@@ -99,7 +99,7 @@ class _PerguntasState extends State<Perguntas> {
 
     Function body = (Size size) {
       return Text(
-        avaliacao.perguntas[currentIndex].questao,
+        avaliacao.perguntas![currentIndex].questao ?? "",
         style: GoogleFonts.poppins(
           color: Color(0xff6d6d6d),
           fontSize: 16,
@@ -135,7 +135,7 @@ class _PerguntasState extends State<Perguntas> {
       'color_bar': Color(0xff90EC6F),
       'selected': false,
       'icon': Icon(
-        FontAwesome5.laugh,
+        FontAwesomeIcons.laugh,
         color: Color(0x99000000),
         size: 28,
       )
@@ -145,7 +145,7 @@ class _PerguntasState extends State<Perguntas> {
       'color_bar': Color(0xffECE76F),
       'selected': false,
       'icon': Icon(
-        FontAwesome5.grin,
+        FontAwesomeIcons.grin,
         color: Color(0x99000000),
         size: 28,
       )
@@ -155,7 +155,7 @@ class _PerguntasState extends State<Perguntas> {
       'color_bar': Color(0xffFFD029),
       'selected': false,
       'icon': Icon(
-        FontAwesome5.meh,
+        FontAwesomeIcons.meh,
         color: Color(0x99000000),
         size: 28,
       )
@@ -165,7 +165,7 @@ class _PerguntasState extends State<Perguntas> {
       'color_bar': Color(0xffFF9029),
       'selected': false,
       'icon': Icon(
-        FontAwesome5.frown,
+        FontAwesomeIcons.frown,
         color: Color(0x99000000),
         size: 28,
       )
@@ -176,7 +176,7 @@ class _PerguntasState extends State<Perguntas> {
       'color_icon': "0000",
       'selected': false,
       'icon': Icon(
-        FontAwesome5.angry,
+        FontAwesomeIcons.angry,
         color: Color(0x99000000),
         size: 28,
       )
@@ -184,11 +184,11 @@ class _PerguntasState extends State<Perguntas> {
   ];
 
   Widget frameButton(
-      {@required Size size,
-      @required Widget child,
-      @required width,
-      Color activeColor,
-      @required Function onClick}) {
+      {required Size size,
+      required Widget child,
+      required width,
+      Color? activeColor,
+      Function()? onClick}) {
     print(activeColor);
     return GestureDetector(
       onTap: onClick,
@@ -209,22 +209,22 @@ class _PerguntasState extends State<Perguntas> {
   }
 
   submitResposta(Avaliacao aval, resp, tipo) {
-    if (currentIndex < aval.perguntas.length - 1) {
+    if (currentIndex < aval.perguntas!.length - 1) {
       widget._blocAluno.submitAvaliacao(
-          aval.id, aval.perguntas[currentIndex].id, resp, tipo);
+          aval.id, aval.perguntas![currentIndex].id, resp, tipo);
       setState(() {
         currentIndex++;
       });
     } else {
       widget._blocAluno.submitAvaliacao(
-          aval.id, aval.perguntas[currentIndex].id, resp, tipo,
+          aval.id, aval.perguntas![currentIndex].id, resp, tipo,
           end: true);
-      Navigator.pop(context);
+      Navigator.pop(context,true);
     }
   }
 
   Widget buildAnswer(Avaliacao avaliacao, Size size) {
-    switch (avaliacao.perguntas[currentIndex].tipoQuestao) {
+    switch (avaliacao.perguntas![currentIndex].tipoQuestao) {
       case 'aberta':
         return Column(
           children: [
@@ -354,8 +354,10 @@ class _PerguntasState extends State<Perguntas> {
         body: StreamBuilder<Avaliacao>(
             stream: widget._blocAluno.avalList,
             builder: (context, snapshot) {
-              Avaliacao avaliacao = snapshot.data;
-              if (snapshot.hasData && avaliacao.perguntas.length > 0) {
+              Avaliacao? avaliacao = snapshot.data;
+              if (snapshot.hasData &&
+                  avaliacao != null &&
+                  avaliacao.perguntas!.length > 0) {
                 return Container(
                   constraints: BoxConstraints(minHeight: size.height),
                   width: size.width,

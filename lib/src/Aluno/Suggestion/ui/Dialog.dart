@@ -6,20 +6,20 @@ import 'package:censeo/src/Professor/Suggestions/models/Topicos.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 class CreateSuggestion {
   ManagerController _controller = ManagerController();
-  String topico;
+  late String topico;
   final Bloc bloc;
   final Categories categories;
-  Suggestion _suggestion;
+  late Suggestion _suggestion;
   final _formKey = GlobalKey<FormState>();
 
   CreateSuggestion(this.bloc, this.categories) {
     _suggestion = Suggestion(titulo: "", sugestao: "");
-    bloc.fetchTopicos(categories.id, categories.tipo);
+    bloc.fetchTopicos(categories.id, categories.tipo!);
   }
 
   static Widget _title(context) {
@@ -47,7 +47,7 @@ class CreateSuggestion {
               color: Colors.transparent,
               child: Center(
                 child: IconButton(
-                  icon: Icon(Feather.x),
+                  icon: Icon(FeatherIcons.x),
                   color: Color(0xff0E153A),
                   onPressed: () {
                     Navigator.pop(context);
@@ -73,14 +73,14 @@ class CreateSuggestion {
                 height: size.height * 0.05,
                 child: RaisedButton(
                   color: _suggestion.topico != null &&
-                          _suggestion.titulo.isNotEmpty &&
-                          _suggestion.sugestao.isNotEmpty
+                          _suggestion.titulo!.isNotEmpty &&
+                          _suggestion.sugestao!.isNotEmpty
                       ? Color(0xff0E153A)
                       : Color(0x770E153A),
                   onPressed: () {
-                    if (_formKey.currentState.validate()) {
+                    if (_formKey.currentState!.validate()) {
                       bloc.createSuggestion(
-                          categories.id, _suggestion, categories.tipo);
+                          categories.id, _suggestion, categories.tipo!);
                     }
                     Navigator.pop(context);
                   },
@@ -137,7 +137,7 @@ class CreateSuggestion {
               child: StreamBuilder<List<Topicos>>(
                 stream: bloc.topicosList,
                 builder: (context, snapshot) {
-                  return TopicosDropDown(snapshot.data, _suggestion);
+                  return TopicosDropDown(snapshot.data!, _suggestion);
                 },
               ),
             ),
@@ -150,7 +150,7 @@ class CreateSuggestion {
                 colorFont: Color(0xff000000),
                 hintText: "Título",
                 validator: (value) =>
-                    value.isEmpty ? "Entre com algum título" : null,
+                    value!.isEmpty ? "Entre com algum título" : null,
                 hintColor: Color(0xff555555),
                 upDate: (value) {
                   _suggestion.titulo = value;
@@ -161,7 +161,7 @@ class CreateSuggestion {
               _controller,
               label: "descricao",
               validator: (value) =>
-                  value.isEmpty ? "Entre com alguma descrição" : null,
+                  value!.isEmpty ? "Entre com alguma descrição" : null,
               fillColors: Color(0xffE1E1E1),
               colorFont: Color(0xff000000),
               hintText: "Descrição",
@@ -189,7 +189,7 @@ class TopicosDropDown extends StatefulWidget {
 }
 
 class _TopicosDropDownState extends State<TopicosDropDown> {
-  Topicos topico;
+  late Topicos topico;
 
   @override
   Widget build(BuildContext context) {
@@ -206,7 +206,7 @@ class _TopicosDropDownState extends State<TopicosDropDown> {
             value: topico,
             onChanged: (value) {
               setState(() {
-                topico = value;
+                topico = value!;
                 widget.sug.topico = value.id;
               });
             },
@@ -221,13 +221,13 @@ class _TopicosDropDownState extends State<TopicosDropDown> {
             ),
             style: GoogleFonts.poppins(fontSize: 12, color: Color(0xff6D6D6D)),
             items:
-                widget.topicos?.map<DropdownMenuItem<Topicos>>((Topicos value) {
+                widget.topicos.map<DropdownMenuItem<Topicos>>((Topicos value) {
               return DropdownMenuItem<Topicos>(
                 value: value,
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
-                    value.topico,
+                    value.topico ?? "",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
                       color: Color(0xff555555),
@@ -239,7 +239,7 @@ class _TopicosDropDownState extends State<TopicosDropDown> {
                   ),
                 ),
               );
-            })?.toList()),
+            }).toList()),
       ),
     );
   }

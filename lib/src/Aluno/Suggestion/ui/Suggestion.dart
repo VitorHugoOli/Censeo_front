@@ -3,7 +3,7 @@ import 'package:censeo/src/Professor/Suggestions/models/Categories.dart';
 import 'package:censeo/src/Professor/Suggestions/models/Suggestion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -23,7 +23,7 @@ class _SuggestionALunoState extends State<SuggestionAluno> {
   @override
   void initState() {
     super.initState();
-    widget.bloc.fetchSuggestion(widget.categories.id, widget.categories.tipo);
+    widget.bloc.fetchSuggestion(widget.categories.id, widget.categories.tipo!);
   }
 
   Widget buildNameTitle() {
@@ -41,15 +41,15 @@ class _SuggestionALunoState extends State<SuggestionAluno> {
 
   Widget buildListSuggestions() {
     return Expanded(
-      child: StreamBuilder(
+      child: StreamBuilder<List<Suggestion>>(
         stream: widget.bloc.suggestionList,
+        initialData: [],
         builder: (context, snapshot) {
-          List<Suggestion> listSug = snapshot.data;
+          List<Suggestion> listSug = snapshot.data!;
           return Container(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
-              children: listSug?.map((e) => buildCardSuggestion(e))?.toList() ??
-                  <Widget>[Container()],
+              children: listSug.map((e) => buildCardSuggestion(e)).toList(),
             ),
           );
         },
@@ -81,21 +81,22 @@ class _SuggestionALunoState extends State<SuggestionAluno> {
                   fontStyle: FontStyle.normal,
                 ),
               ),
-              Text(
-                "Dia " + DateFormat('dd/MM').format(sug.data),
-                style: GoogleFonts.poppins(
-                  color: Color(0xff404040),
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  fontStyle: FontStyle.normal,
+              if (sug.data != null)
+                Text(
+                  "Dia " + DateFormat('dd/MM').format(sug.data!),
+                  style: GoogleFonts.poppins(
+                    color: Color(0xff404040),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    fontStyle: FontStyle.normal,
+                  ),
                 ),
-              ),
             ],
           ),
           Container(
             margin: EdgeInsets.symmetric(vertical: 10),
             child: Text(
-              sug.sugestao,
+              sug.sugestao!,
               style: GoogleFonts.poppins(
                 color: Color(0xff4F4E4E),
                 fontSize: 14,
@@ -153,7 +154,7 @@ class _SuggestionALunoState extends State<SuggestionAluno> {
                 shape: CircleBorder(),
               ),
               child: IconButton(
-                icon: Icon(Feather.plus),
+                icon: Icon(FeatherIcons.plus),
                 color: Colors.white,
                 onPressed: () {
                   CreateSuggestion(widget.bloc, widget.categories)

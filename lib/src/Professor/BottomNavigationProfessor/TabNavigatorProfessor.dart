@@ -1,5 +1,5 @@
 import 'package:censeo/src/Professor/Aulas/ui/Professor.dart';
-import 'package:censeo/src/Professor/Data/Data.dart';
+import 'package:censeo/src/Professor/Data/ui/Data.dart';
 import 'package:censeo/src/Professor/Suggestions/ui/Categories.dart';
 import 'package:flutter/material.dart';
 
@@ -10,14 +10,12 @@ class TabNavigatorRoutes {
 }
 
 class TabNavigator extends StatelessWidget {
-  TabNavigator({this.navigatorKey,this.navigator});
+  TabNavigator({required this.navigatorKey,required this.navigator});
 
   final GlobalKey<NavigatorState> navigatorKey;
   final String navigator;
 
   void _push(BuildContext context, Widget page) {
-
-
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -28,9 +26,12 @@ class TabNavigator extends StatelessWidget {
 
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context) {
     return {
-      TabNavigatorRoutes.aulas: (context) => Professor(onPush: (page) => _push(context,page)),
-      TabNavigatorRoutes.dados: (context) => Data(onPush: (page) => _push(context,page)),
-      TabNavigatorRoutes.sugestoes: (context) => CategoriesPage(onPush: (page) => _push(context,page))
+      TabNavigatorRoutes.aulas: (context) =>
+          Professor(onPush: (page) => _push(context, page)),
+      TabNavigatorRoutes.dados: (context) =>
+          Data(onPush: (page) => _push(context, page)),
+      TabNavigatorRoutes.sugestoes: (context) =>
+          CategoriesPage(onPush: (page) => _push(context, page))
     };
   }
 
@@ -41,7 +42,7 @@ class TabNavigator extends StatelessWidget {
       key: navigatorKey,
       onGenerateRoute: (routeSettings) {
         return MaterialPageRoute(
-          builder: (context) => routeBuilders[navigator](context),
+          builder: (context) => routeBuilders[navigator]!(context),
         );
       },
     );

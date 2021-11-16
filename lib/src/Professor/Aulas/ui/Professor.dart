@@ -1,4 +1,4 @@
-import 'package:censeo/resources/CustomScrollBar.dart';
+import 'package:censeo/resources/cardturma/cardTurma.dart';
 import 'package:censeo/resources/loader.dart';
 import 'package:censeo/src/Professor/Aulas/bloc/professor.dart';
 import 'package:censeo/src/Professor/Aulas/models/Aula.dart';
@@ -7,7 +7,7 @@ import 'package:censeo/src/User/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -18,7 +18,7 @@ import 'managerTurmas/ManagerTurma.dart';
 class Professor extends StatefulWidget {
   final ValueChanged<Widget> onPush;
 
-  Professor({this.onPush});
+  Professor({required this.onPush});
 
   @override
   _ProfessorState createState() => _ProfessorState();
@@ -46,7 +46,7 @@ class _ProfessorState extends State<Professor> {
                 child: Column(
                   children: <Widget>[
                     Text(
-                      snapshot.hasData ? snapshot.data.nome : "",
+                      snapshot.hasData ? snapshot.data!.nome! : "",
                       style: GoogleFonts.poppins(
                         color: Color(0xffffffff),
                         fontSize: 25,
@@ -72,7 +72,7 @@ class _ProfessorState extends State<Professor> {
                 child: Column(
                   children: <Widget>[
                     Text(
-                      snapshot.hasData ? snapshot.data.nome : "",
+                      snapshot.hasData ? snapshot.data!.nome! : "",
                       style: GoogleFonts.poppins(
                         color: Color(0xffffffff),
                         fontSize: 25,
@@ -99,11 +99,11 @@ class _ProfessorState extends State<Professor> {
                 child: IconButton(
                   onPressed: () {
                     bloc.logOut();
-                    navigatorKey.currentState.pushNamedAndRemoveUntil(
+                    navigatorKey.currentState!.pushNamedAndRemoveUntil(
                         '/', (Route<dynamic> route) => false);
                   },
                   icon: Icon(
-                    Feather.log_out,
+                    FeatherIcons.logOut,
                     color: Colors.white,
                   ),
                 ),
@@ -111,6 +111,106 @@ class _ProfessorState extends State<Professor> {
             ],
           );
         });
+  }
+
+  Widget bodyCard(turma, size) {
+    return Column(
+      children: [
+        Container(
+          height: size.height * 0.12,
+          margin: EdgeInsets.only(top: 2),
+          padding: EdgeInsets.only(left: 5, right: 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: days.map((days) {
+              late Horario date;
+              new DateFormat.yMMMd().format(new DateTime.now());
+              bool hasDate = false;
+              turma.horarios!.forEach((element) {
+                if (element.dia!.toLowerCase() == days.toLowerCase()) {
+                  date = element;
+                  hasDate = true;
+                }
+              });
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    width: 50,
+                    height: 50,
+                    decoration: new BoxDecoration(
+                        color: hasDate ? Color(0xff3D5AF1) : Color(0xff727272),
+                        borderRadius: BorderRadius.circular(9)),
+                    child: Center(
+                      child: Text(
+                        days,
+                        style: GoogleFonts.poppins(
+                          color: Color(0xffffffff),
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.normal,
+                          letterSpacing: -0.63,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  hasDate
+                      ? Text(
+                          date.horario != null
+                              ? DateFormat.Hm().format(date.horario!)
+                              : "",
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Color(0xff383838),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            fontStyle: FontStyle.normal,
+                            letterSpacing: -0.455,
+                          ),
+                        )
+                      : Container(
+                          height: 14,
+                        )
+                ],
+              );
+            }).toList(),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 15),
+          height: size.height * 0.055,
+          width: size.width * 0.6,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Color(0xff28313b),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(6),
+              ),
+            ),
+            onPressed: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ManagerTurma(turma, bloc)),
+              ).then((value) {
+                setState(() {});
+              })
+            },
+            child: Text(
+              "Gerenciar",
+              style: GoogleFonts.poppins(
+                color: Color(0xffffffff),
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                fontStyle: FontStyle.normal,
+                letterSpacing: -0.63,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   Widget buildListTurmas(Size size) {
@@ -128,11 +228,14 @@ class _ProfessorState extends State<Professor> {
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.only(top: 10, bottom: 10),
                     itemCount: (snapshot.hasData && snapshot.data != null)
-                        ? snapshot.data.turmas.length ?? 0
+                        ? snapshot.data!.turmas!.length
                         : 0,
                     itemBuilder: (context, index) {
-                      Turma turma = snapshot.data.turmas[index];
-                      return buildCardTurmas(turma, size);
+                      Turma turma = snapshot.data!.turmas![index];
+                      return CardTurma(
+                        turma: turma,
+                        body: bodyCard(turma, size),
+                      );
                     },
                   ),
                 ),
@@ -142,186 +245,18 @@ class _ProfessorState extends State<Professor> {
         });
   }
 
-  Widget buildCardTurmas(Turma turma, Size size) {
-    Function title = () {
-      return Container(
-        height: size.height * 0.1,
-        padding: EdgeInsets.only(left: 20, top: 10, bottom: 0),
-        decoration: new BoxDecoration(
-            color: Color(0xff3D5AF1), borderRadius: BorderRadius.circular(6)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  turma.codigo,
-                  textAlign: TextAlign.left,
-                  style: GoogleFonts.poppins(
-                      color: Color(0xffffffff),
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      fontStyle: FontStyle.normal,
-                      letterSpacing: 0.2,
-                      height: 1),
-                ),
-                SizedBox(height: size.height * 0.01),
-                Text(turma.disciplina.sigla,
-                    textAlign: TextAlign.left,
-                    style: GoogleFonts.poppins(
-                        color: Color(0xffffffff),
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                        fontStyle: FontStyle.normal,
-                        letterSpacing: -0.385,
-                        height: 1))
-              ],
-            ),
-            Container(
-              width: size.width * 0.6,
-              padding: EdgeInsets.only(
-                left: 20,
-              ),
-              child: Text(
-                turma.disciplina.nome,
-                textAlign: TextAlign.start,
-                style: GoogleFonts.poppins(
-                    color: Color(0xffffffff),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    fontStyle: FontStyle.normal,
-                    letterSpacing: -0.56,
-                    height: 1),
-              ),
-            )
-          ],
-        ),
-      );
-    };
-
-    Function body = () {
-      return Container(
-        height: size.height * 0.12,
-        margin: EdgeInsets.only(top: 2),
-        padding: EdgeInsets.only(left: 5, right: 5),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: days.map((days) {
-            Horario date;
-            new DateFormat.yMMMd().format(new DateTime.now());
-            bool hasDate = false;
-            turma.horarios.forEach((element) {
-              if (element.dia.toLowerCase() == days.toLowerCase()) {
-                date = element;
-                hasDate = true;
-              }
-            });
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  width: 50,
-                  height: 50,
-                  decoration: new BoxDecoration(
-                      color: hasDate ? Color(0xff3D5AF1) : Color(0xff727272),
-                      borderRadius: BorderRadius.circular(9)),
-                  child: Center(
-                    child: Text(
-                      days,
-                      style: GoogleFonts.poppins(
-                        color: Color(0xffffffff),
-                        fontSize: 18,
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                        letterSpacing: -0.63,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 5),
-                hasDate
-                    ? Text(
-                        DateFormat.Hm().format(date.horario),
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          color: Color(0xff383838),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          fontStyle: FontStyle.normal,
-                          letterSpacing: -0.455,
-                        ),
-                      )
-                    : Container(
-                        height: 14,
-                      )
-              ],
-            );
-          }).toList(),
-        ),
-      );
-    };
-
-    Function button = () {
-      return Container(
-        margin: EdgeInsets.only(top: 15),
-        height: size.height * 0.055,
-        width: size.width * 0.6,
-        child: RaisedButton(
-          color: Color(0xff28313b),
-          onPressed: () => {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ManagerTurma(turma, bloc)),
-            ).then((value) {
-              setState(() {});
-            })
-          },
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(6),
-          ),
-          child: Text(
-            "Gerenciar",
-            style: GoogleFonts.poppins(
-              color: Color(0xffffffff),
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              fontStyle: FontStyle.normal,
-              letterSpacing: -0.63,
-            ),
-          ),
-        ),
-      );
-    };
-
-    return Container(
-      margin: EdgeInsets.only(top: 10, bottom: 10),
-      height: size.height * 0.33,
-      decoration: BoxDecoration(
-        color: Color(0xffffffff),
-        borderRadius: BorderRadius.circular(9),
-      ),
-      child: Column(
-        children: <Widget>[title(), body(), button()],
-      ),
-    );
-  }
-
   Widget buildOpenClass(Size size) {
     Function body = () {
       return StreamBuilder<List<Aula>>(
           stream: bloc.openClassList,
           builder: (context, AsyncSnapshot<List<Aula>> snapshot) {
-            List<Aula> data = snapshot.data;
+            List<Aula> data = snapshot.data ?? [];
             return Container(
               width: size.width * 0.8,
               height: size.height * 0.27,
-              child: CustomScrollbar(
+              child: Scrollbar(
                 controller: _scrollController,
-                isAlwaysShown: true,
+                radius: Radius.circular(8),
                 child: ListView.builder(
                   controller: _scrollController,
                   itemCount: snapshot.data?.length ?? 0,
@@ -371,11 +306,11 @@ class _ProfessorState extends State<Professor> {
 
   Widget buildOpenClassItem(Size size, Aula item) {
     genericText({
-      String text,
-      double size,
+      required String text,
+      required double size,
       letterSpacing = -0.35,
-      FontWeight weight,
-      TextAlign align,
+      required FontWeight weight,
+      required TextAlign align,
       color = 0xffffffff,
     }) {
       return Text(
@@ -397,7 +332,7 @@ class _ProfessorState extends State<Professor> {
           context,
           MaterialPageRoute(
             builder: (context) =>
-                FinishingClass(item, item.turma, ClassBloc(bloc)),
+                FinishingClass(item, item.turma!, ClassBloc(bloc)),
           ),
         ).then((value) async {
           await bloc.fetchDataProf();
@@ -416,7 +351,7 @@ class _ProfessorState extends State<Professor> {
               child: Container(
                 width: size.width * 0.23,
                 child: genericText(
-                    text: item.turma.codigo,
+                    text: item.turma!.codigo!,
                     size: 18,
                     letterSpacing: -0.63,
                     weight: FontWeight.w600,
@@ -424,12 +359,12 @@ class _ProfessorState extends State<Professor> {
               ),
             ),
             genericText(
-                text: item.turma.codigo,
+                text: item.turma!.codigo!,
                 size: 15,
                 weight: FontWeight.w500,
                 align: TextAlign.left),
             genericText(
-                text: DateFormat.Hm().format(item.horario),
+                text: DateFormat("dd/MM HH:mm").format(item.horario!),
                 size: 15,
                 weight: FontWeight.w500,
                 align: TextAlign.left),
@@ -445,9 +380,7 @@ class _ProfessorState extends State<Professor> {
 
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () async {
-          return await bloc.fetchOpenClass();
-        },
+        onRefresh: () async => await bloc.fetchOpenClass(),
         child: FutureBuilder<dynamic>(
             future: bloc.fetchDataProf(),
             builder: (context, snapshot) {

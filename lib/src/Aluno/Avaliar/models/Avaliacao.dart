@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-Avaliacao avaliacaoFromJson(Map str) => Avaliacao.fromJson(str);
+Avaliacao avaliacaoFromJson(Map str) =>
+    Avaliacao.fromJson(str.cast<String, dynamic>());
 
 String avaliacaoToJson(Avaliacao data) => json.encode(data.toJson());
 
@@ -17,18 +18,19 @@ class Avaliacao {
     this.perguntas,
   });
 
-  final int id;
-  final int aula;
-  final int aluno;
-  final String tipoAula;
-  final List<Pergunta> perguntas;
+  final int? id;
+  final int? aula;
+  final int? aluno;
+  final String? tipoAula;
+  final List<Pergunta>? perguntas;
 
   factory Avaliacao.fromJson(Map<String, dynamic> json) => Avaliacao(
         id: json["id"],
         aula: json["aula"],
         aluno: json["aluno"],
         tipoAula: json["tipo_aula"],
-        perguntas: List<Pergunta>.from(json["perguntas"].map((x) => Pergunta.fromJson(x))),
+        perguntas: List<Pergunta>.from(
+            json["perguntas"].map((x) => Pergunta.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -36,18 +38,25 @@ class Avaliacao {
         "aula": aula,
         "aluno": aluno,
         "tipo_aula": tipoAula,
-        "perguntas": List<dynamic>.from(perguntas.map((x) => x.toJson())),
+        "perguntas": perguntas != null
+            ? List<dynamic>.from(perguntas!.map((x) => x.toJson()))
+            : [],
       };
 }
 
 class Pergunta {
-  Pergunta({this.id, this.questao, this.tipoQuestao, this.tipoAula, this.caracteristica});
+  Pergunta(
+      {this.id,
+      this.questao,
+      this.tipoQuestao,
+      this.tipoAula,
+      this.caracteristica});
 
-  final int id;
-  final String questao;
-  final String tipoQuestao;
-  final String tipoAula;
-  final String caracteristica;
+  final int? id;
+  final String? questao;
+  final String? tipoQuestao;
+  final String? tipoAula;
+  final String? caracteristica;
 
   factory Pergunta.fromJson(Map<String, dynamic> json) => Pergunta(
         id: json["id"],

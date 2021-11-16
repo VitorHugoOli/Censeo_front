@@ -13,7 +13,7 @@ class CategoriesPageAluno extends StatelessWidget {
   final Bloc suggestionBloc = Bloc();
   final ValueChanged<Widget> onPush;
 
-  CategoriesPageAluno({this.onPush});
+  CategoriesPageAluno({required this.onPush});
 
   Widget buildNameTitle(Size size) {
     return Container(
@@ -93,7 +93,7 @@ class CategoriesPageAluno extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  categories.sigla,
+                  categories.sigla ?? "",
                   style: GoogleFonts.poppins(
                     color: Color(0xffffffff),
                     fontSize: 20,
@@ -104,7 +104,7 @@ class CategoriesPageAluno extends StatelessWidget {
                 ),
                 categories.codigo != null
                     ? new Text(
-                        categories.codigo,
+                        categories.codigo ?? "",
                         style: GoogleFonts.poppins(
                           color: Color(0xffffffff),
                           fontSize: 12,
@@ -120,7 +120,7 @@ class CategoriesPageAluno extends StatelessWidget {
               width: size.width * 0.55,
               child: FittedBox(
                 fit: BoxFit.fitWidth,
-                child: Text(categories.nome,
+                child: Text(categories.nome!,
                     style: GoogleFonts.poppins(
                       color: Color(0xffffffff),
                       fontSize: 18,
@@ -144,10 +144,10 @@ class CategoriesPageAluno extends StatelessWidget {
             loader: snapshot.hasData,
             child: snapshot.hasData
                 ? Center(
-                  child: Container(
+                    child: Container(
                       width: size.width * 0.9,
                       child: Column(
-                          children: snapshot.data
+                          children: snapshot.data!
                               .map((key, value) {
                                 final body = Column(
                                   children: [
@@ -156,11 +156,7 @@ class CategoriesPageAluno extends StatelessWidget {
                                       shrinkWrap: true,
                                       physics:
                                           const NeverScrollableScrollPhysics(),
-                                      separatorBuilder: (context, index) {
-                                        return SizedBox(
-                                          height: 10,
-                                        );
-                                      },
+                                      separatorBuilder: (_, __) => SizedBox(height: 10),
                                       itemCount: value.length,
                                       itemBuilder: (context, index) {
                                         Categories obj = value[index];
@@ -176,7 +172,7 @@ class CategoriesPageAluno extends StatelessWidget {
                               .values
                               .toList()),
                     ),
-                )
+                  )
                 : Container(),
           );
         });
@@ -188,7 +184,7 @@ class CategoriesPageAluno extends StatelessWidget {
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
-          return false;
+          return;
         },
         child: Container(
           constraints: BoxConstraints.expand(),

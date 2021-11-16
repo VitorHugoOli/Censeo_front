@@ -181,8 +181,8 @@ class _LoginState extends State<Login> {
       emailError = false;
     });
 
-    if (_formKey.currentState.validate()) {
-      Map response = await loginBloc.submit(snapshot.data);
+    if (_formKey.currentState!.validate()) {
+      Map response = await loginBloc.submit(snapshot.data!);
 
       if (response['status']) {
         if (response['user'].firstTime == true) {

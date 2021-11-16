@@ -21,7 +21,7 @@ class Bloc extends Object implements BaseBloc {
   final _horarioController = BehaviorSubject<String>();
   final _roomController = BehaviorSubject<String>();
   final _listScheduleController = BehaviorSubject<List<Horario>>();
-  GlobalKey<FormState> formKey;
+  late GlobalKey<FormState> formKey;
 
   Function(TurmaProfessor) get turmaChanged => _turmaController.sink.add;
 
@@ -33,7 +33,7 @@ class Bloc extends Object implements BaseBloc {
 
   Stream<User> get user async* {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final user = User.fromJson(jsonDecode(prefs.get("user")));
+    final user = User.fromJson(jsonDecode(prefs.get("user") as String));
     yield user;
   }
 
@@ -56,8 +56,8 @@ class Bloc extends Object implements BaseBloc {
   Stream<String> get getRoom => _roomController.stream;
 
   Stream<bool> get submitCheck =>
-      Rx.combineLatest2(getHorario, getRoom, (e, p) {
-        return (!e.isEmpty && !p.isEmpty);
+      Rx.combineLatest2<String, String, bool>(getHorario, getRoom, (e, p) {
+        return (e.isNotEmpty && p.isNotEmpty);
       });
 
   fetchTurmas() async {
@@ -72,8 +72,8 @@ class Bloc extends Object implements BaseBloc {
     try {
       final List openClass = await provider.fetchOpenClass();
       aulas = aulaFromJson(openClass);
-    } catch (ex,stack) {
-      Logger().e("Houve um error",ex,stack);
+    } catch (ex, stack) {
+      Logger().e("Houve um error", ex, stack);
     }
     openClassChanged(aulas);
   }
@@ -88,8 +88,8 @@ class Bloc extends Object implements BaseBloc {
     try {
       final List aulasReceive = await provider.fetchAulasForTurmas(id);
       aulas = aulaToDateTime(aulaFromJson(aulasReceive));
-    } catch (ex,stack) {
-      Logger().e("Exception Convert Object",ex,stack);
+    } catch (ex, stack) {
+      Logger().e("Exception Convert Object", ex, stack);
     }
     _classCalendarController.sink.add(aulas);
   }
@@ -100,7 +100,7 @@ class Bloc extends Object implements BaseBloc {
       final List openClass = await provider.fetchAlunosPerTurma(id);
       alunos = alunosFromJson(openClass);
     } catch (ex, stacktrace) {
-      Logger().e("Exception Convert Object",ex,stacktrace);
+      Logger().e("Exception Convert Object", ex, stacktrace);
     }
     _alunosController.sink.add(alunos);
   }
@@ -112,18 +112,14 @@ class Bloc extends Object implements BaseBloc {
 
   addSchedule() {
     List<Horario> listClass = _listScheduleController.value;
-    if (listClass == null) {
-      listClass = <Horario>[Horario()];
-    }
+    listClass = <Horario>[Horario()];
     listClass.add(Horario());
     _listScheduleController.sink.add(listClass);
   }
 
   removeSchedule(index) {
     List<Horario> listClass = _listScheduleController.value;
-    if (listClass != null) {
-      listClass.removeAt(index);
-    }
+    listClass.removeAt(index);
     _listScheduleController.sink.add(listClass);
   }
 
@@ -139,8 +135,8 @@ class Bloc extends Object implements BaseBloc {
     await provider.putClassSchedule(body);
 
     TurmaProfessor turmas = await fetchTurmas();
-    _listScheduleController
-        .add(turmas.turmas.firstWhere((element) => element.id == id).horarios);
+    _listScheduleController.add(
+        turmas.turmas!.firstWhere((element) => element.id == id).horarios!);
     fetchClassCalendar(id);
   }
 
@@ -168,13 +164,13 @@ class Bloc extends Object implements BaseBloc {
 
   @override
   void dispose() {
-    _turmaController?.close();
+    _turmaController.close();
     _openClassController.close();
-    _alunosController?.close();
-    _classCalendarController?.close();
-    _listScheduleController?.close();
-    _horarioController?.close();
-    _roomController?.close();
+    _alunosController.close();
+    _classCalendarController.close();
+    _listScheduleController.close();
+    _horarioController.close();
+    _roomController.close();
   }
 }
 
@@ -186,13 +182,13 @@ class ClassBloc extends Object implements BaseBloc {
   final _typeController = BehaviorSubject<String>();
   final _isAssincronaController = BehaviorSubject<bool>();
   final _extraController = BehaviorSubject<String>();
-  final _endTimeController = BehaviorSubject<DateTime>();
+  final _endTimeController = BehaviorSubject<DateTime?>();
 
   ClassBloc(this.bloc,
       {tema = '',
       description = '',
       link = '',
-      type,
+      type = '',
       extra = '',
       isAssincrona = false,
       endtime}) {
@@ -217,9 +213,9 @@ class ClassBloc extends Object implements BaseBloc {
 
   Function(bool) get isAssincronaChanged => _isAssincronaController.sink.add;
 
-  Stream<DateTime> get getEndTime => _endTimeController.stream;
+  Stream<DateTime?> get getEndTime => _endTimeController.stream;
 
-  Function(DateTime) get endTimeChanged => _endTimeController.sink.add;
+  Function(DateTime?) get endTimeChanged => _endTimeController.sink.add;
 
   Stream<String> get getLink => _linkController.stream;
 
@@ -234,13 +230,13 @@ class ClassBloc extends Object implements BaseBloc {
   Function(String) get descriptionChanged => _descriptionController.sink.add;
 
   Stream<bool> get submitCheck =>
-      Rx.combineLatest5(getTema, getDescription, getLink, getType, getExtra,
-          (e, p, c, t, o) {
-        return (!e.isEmpty &&
-            !p.isEmpty &&
-            !c.isEmpty &&
-            !t.isEmpty &&
-            !o.isEmpty);
+      Rx.combineLatest5<String, String, String, String, String, bool>(
+          getTema, getDescription, getLink, getType, getExtra, (e, p, c, t, o) {
+        return (e.isNotEmpty &&
+            p.isNotEmpty &&
+            c.isNotEmpty &&
+            t.isNotEmpty &&
+            o.isNotEmpty);
       });
 
   submitDeleteClass({idAula, idTurma}) {
@@ -250,13 +246,13 @@ class ClassBloc extends Object implements BaseBloc {
 
   Future submitEditClass({idAula, idTurma}) async {
     Map body = {
-      'tema': _temaController.value ?? "",
-      'descricao': _descriptionController.value ?? "",
-      'link': _linkController.value ?? "",
+      'tema': _temaController.value,
+      'descricao': _descriptionController.value,
+      'link': _linkController.value,
       'tipo': _typeController.value == "" ? null : _typeController.value,
-      'is_assincrona': _isAssincronaController.value ?? "",
+      'is_assincrona': _isAssincronaController.value,
       'extra': _extraController.value,
-      'end_time': _endTimeController?.value?.toIso8601String() ?? null,
+      'end_time': _endTimeController.value?.toIso8601String() ?? "",
     };
 
     await bloc.provider.putEditClass(idAula, body);
@@ -272,11 +268,11 @@ class ClassBloc extends Object implements BaseBloc {
 
   @override
   void dispose() {
-    _temaController?.close();
-    _descriptionController?.close();
-    _linkController?.close();
-    _typeController?.close();
-    _extraController?.close();
+    _temaController.close();
+    _descriptionController.close();
+    _linkController.close();
+    _typeController.close();
+    _extraController.close();
     // TODO: implement dispose
   }
 }

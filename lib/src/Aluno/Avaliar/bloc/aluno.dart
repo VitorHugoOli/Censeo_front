@@ -18,7 +18,7 @@ class BlocAluno extends Object implements BaseBloc {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final user = User.fromJson(
       jsonDecode(
-        prefs.get("user"),
+        prefs.getString("user")!,
       ),
     );
     yield user;
@@ -78,9 +78,6 @@ class BlocAluno extends Object implements BaseBloc {
 
       final bool answer = await provider.submitResposta(body);
 
-      if (end) {
-        fetchOpenClass();
-      }
       return answer;
     } catch (ex) {
       print(ex);
@@ -99,7 +96,7 @@ class BlocAluno extends Object implements BaseBloc {
   void dispose() {
     _openClassController.close();
     _rankController.close();
-    _avaliacaoController?.close();
+    _avaliacaoController.close();
   }
 }
 

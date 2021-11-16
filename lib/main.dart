@@ -6,7 +6,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final type = await _initialized();
@@ -40,21 +39,18 @@ Future<dynamic> _initialized() async {
   }
 }
 
-BuildContext globalContext;
-
 class MyApp extends StatelessWidget {
-  final String type;
+  final String? type;
   static final initRoutes = {
     "Professor": "/professor",
     null: "/",
     "Aluno": "/aluno"
   };
 
-  MyApp({@required this.type});
+  MyApp({this.type});
 
   @override
   Widget build(BuildContext context) {
-    globalContext = context;
     return MaterialApp(
       title: 'Censeo',
       localizationsDelegates: [
@@ -69,10 +65,14 @@ class MyApp extends StatelessWidget {
       ],
       initialRoute: initRoutes[type],
       theme: ThemeData(
-          primarySwatch: MaterialColor(0xff0E153A, colorCodesPrimary),
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          cursorColor: Color.fromRGBO(14, 21, 58, 1),
-          fontFamily: GoogleFonts.poppins().toString()),
+        primarySwatch: MaterialColor(0xff0E153A, colorCodesPrimary),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        cursorColor: Color.fromRGBO(14, 21, 58, 1),
+        fontFamily: GoogleFonts.poppins().toString(),
+        textTheme: GoogleFonts.poppinsTextTheme(
+          Theme.of(context).textTheme,
+        ),
+      ),
       navigatorKey: navigatorKey,
       routes: <String, WidgetBuilder>{
         "/": (BuildContext context) => new Login(),

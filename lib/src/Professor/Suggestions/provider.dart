@@ -7,8 +7,7 @@ class ClassesProvider {
   fetchSuggestionsCategories() async {
     try {
       var response = await api.authRequest(
-          type: "GET",
-          endpoint: "/prof/suggestionCategories");
+          type: "GET", endpoint: "/prof/suggestionCategories");
       return response['categorias'];
     } catch (e) {
       print(">>> Algum erro $e, file: ");
