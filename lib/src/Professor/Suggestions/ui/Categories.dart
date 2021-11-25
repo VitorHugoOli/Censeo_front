@@ -75,7 +75,7 @@ class CategoriesPage extends StatelessWidget {
         ));
       },
       child: Container(
-        height: size.height * 0.1,
+        padding: EdgeInsets.symmetric(vertical: 20,horizontal: 10),
         decoration: new BoxDecoration(
           color: Color(0xff22215b),
           borderRadius: BorderRadius.circular(6),
@@ -137,8 +137,7 @@ class CategoriesPage extends StatelessWidget {
         stream: suggestionBloc.categoriesList,
         builder: (context, snapshot) {
           return Container(
-            height: size.height * 0.7,
-            width: size.width * 0.9,
+            padding: EdgeInsets.symmetric(horizontal: 10),
             child: Loader(
               loader: snapshot.hasData,
               child: snapshot.hasData
@@ -150,6 +149,8 @@ class CategoriesPage extends StatelessWidget {
                                 buildSubTitle(size, key),
                                 ListView.separated(
                                   shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  padding: EdgeInsets.all(0),
                                   separatorBuilder: (context, index) {
                                     return SizedBox(
                                       height: 10,
@@ -179,16 +180,14 @@ class CategoriesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      backgroundColor: Color(0xff0E153A),
       body: RefreshIndicator(
         onRefresh: () async {
           return;
         },
         child: Container(
           width: size.width,
-          height: size.height - MediaQuery.of(context).padding.top,
-          decoration: BoxDecoration(
-            color: Color(0xff0E153A),
-          ),
+          // height: size.height - MediaQuery.of(context).padding.top,
           child: SingleChildScrollView(
             child: Loader(
               loader: true,
@@ -198,8 +197,8 @@ class CategoriesPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Center(child: buildNameTitle(size)),
-                    Center(child: buildCategories(size)),
+                    buildNameTitle(size),
+                    buildCategories(size),
                   ],
                 ),
               ),

@@ -68,8 +68,11 @@ class TurmaStats {
 
   Turma toTurma() {
     return Turma(
+      id: this.id,
       codigo: this.codigo,
-      disciplina: Disciplina(nome: this.nome, codigo: this.codigo),
+      ano: this.ano,
+      semestre: this.semestre,
+      disciplina: Disciplina(nome: this.nome, codigo: this.codigo,sigla: this.sigla),
     );
   }
 }

@@ -83,7 +83,6 @@ class _ManagerTurmaState extends State<ManagerTurma> {
   Widget buildAlunos(size) {
     Function title = () {
       return Container(
-        height: size.height * 0.06,
         child: Center(
           child: Text(
             "Alunos",
@@ -102,7 +101,6 @@ class _ManagerTurmaState extends State<ManagerTurma> {
 
     Function body = () {
       return Container(
-        height: size.height * 0.2,
         width: size.width * 0.8,
         child: Center(
           child: StreamBuilder<List<Alunos>>(

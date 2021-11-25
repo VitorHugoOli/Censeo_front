@@ -12,9 +12,10 @@ import '../main.dart';
 class CenseoApiProvider {
   static Client client = Client();
   static const _production = "https://censeo.herokuapp.com";
-  static const _localEmulator = "http://10.0.2.2:8000";
+  static const _localEmulatorAndroid = "http://10.0.2.2:8000";
+  static const _localEmulatorIOS = "http://127.0.0.1:8000";
   static const _local = "http://192.168.1.13:8000";
-  static const _baseUrl = _localEmulator;
+  static const _baseUrl = _localEmulatorIOS;
   Map<String, String> _headers = {"Content-type": "application/json"};
 
   _sharePreference() async {
@@ -36,7 +37,7 @@ class CenseoApiProvider {
       return true;
     } else {
       alertNoConnection();
-      return false;
+      return true;
     }
   }
 

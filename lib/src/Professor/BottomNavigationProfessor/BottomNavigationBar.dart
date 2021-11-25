@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:censeo/main.dart';
+import 'package:censeo/resources/constant.dart';
 import 'package:censeo/resources/professorIcons.dart';
 import 'package:censeo/src/Professor/BottomNavigationProfessor/TabNavigatorProfessor.dart';
 import 'package:flutter/cupertino.dart';
@@ -122,43 +123,52 @@ class _BottomNavigationProfessorState extends State<BottomNavigationProfessor> {
         // let system handle back button if we're on the first route
         return isFirstRouteInCurrentTab;
       },
-      child: SafeArea(
-        child: Scaffold(
-          body: Stack(children: <Widget>[
-            _buildOffstageNavigator(TabItem.aulas),
-            _buildOffstageNavigator(TabItem.dados),
-            _buildOffstageNavigator(TabItem.sugestoes),
-          ]),
-          floatingActionButton: Visibility(
-            visible:
-                MediaQuery.of(navigatorKey.currentContext!).viewInsets.bottom ==
-                    0,
-            child: FloatingActionButton(
-              onPressed: () {
-                setState(() {
-                  _selectTab(TabItem.aulas);
-                  currentIndex = 1;
-                });
-              },
-              child: Icon(
-                ProfessorIcons.chalkboard,
-                color: Colors.white,
-                size: 25,
+      child: Container(
+        color: Colors.white,
+        child: SafeArea(
+          top: false,
+
+          child: Container(
+            color: Censeo.dark_blue,
+            padding: EdgeInsets.only(top: 15),
+            child: Scaffold(
+              body: Stack(children: <Widget>[
+                _buildOffstageNavigator(TabItem.aulas),
+                _buildOffstageNavigator(TabItem.dados),
+                _buildOffstageNavigator(TabItem.sugestoes),
+              ]),
+              floatingActionButton: Visibility(
+                visible:
+                    MediaQuery.of(navigatorKey.currentContext!).viewInsets.bottom ==
+                        0,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    setState(() {
+                      _selectTab(TabItem.aulas);
+                      currentIndex = 1;
+                    });
+                  },
+                  child: Icon(
+                    ProfessorIcons.chalkboard,
+                    color: Colors.white,
+                    size: 25,
+                  ),
+                  backgroundColor: Color(0xFF3D5AF1),
+                ),
               ),
-              backgroundColor: Color(0xFF3D5AF1),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.centerDocked,
+              bottomNavigationBar: BubbleBottomBar(
+                  opacity: 1,
+                  fabLocation: BubbleBottomBarFabLocation.center,
+                  currentIndex: currentIndex,
+                  onTap: changePage,
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
+                  //border radius doesn't work when the notch is enabled.
+                  elevation: 0,
+                  items: barItens),
             ),
           ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          bottomNavigationBar: BubbleBottomBar(
-              opacity: 1,
-              fabLocation: BubbleBottomBarFabLocation.center,
-              currentIndex: currentIndex,
-              onTap: changePage,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
-              //border radius doesn't work when the notch is enabled.
-              elevation: 8,
-              items: barItens),
         ),
       ),
     );

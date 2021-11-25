@@ -16,16 +16,17 @@ class ViewAlunos {
       width: double.maxFinite,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Flexible(
             child: Text(
-              "Visualizar Alunos",
+              "Alunos Inscritos",
               textAlign: TextAlign.left,
               style: TextStyle(
                 fontFamily: 'Poppins',
                 color: Color(0xff0E153A),
                 fontSize: 21,
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w600,
                 fontStyle: FontStyle.normal,
                 letterSpacing: -0.63,
               ),
@@ -54,23 +55,24 @@ class ViewAlunos {
     return await showDialog(
       context: context,
       builder: (BuildContext context) {
-        Size size = MediaQuery.of(context).size;
         return AlertDialog(
+          insetPadding: EdgeInsets.symmetric(horizontal: 20),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(9))),
           title: _title(context),
-          content: _body(size),
+          content: _body,
           actions: null,
         );
       },
     );
   }
 
-  _body(Size size) {
+  Widget get _body {
     return SingleChildScrollView(
       child: Center(
         child: Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
+
           spacing: 20,
           children: alunos
               .map((e) => Container(

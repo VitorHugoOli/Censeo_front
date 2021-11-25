@@ -149,7 +149,7 @@ class _CalendarState extends State<Calendar> {
         DateTime day) {
       if (widget.aulas.containsKey(day)) {
         if (day.day == 28) {
-          Logger().i(widget.aulas[day]!.toJson());
+          // Logger().i(widget.aulas[day]!.toJson());
         }
         return widgetDay(
             colorRadius: color[widget.aulas[day]!.tipoAula],

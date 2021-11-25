@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:censeo/main.dart';
+import 'package:censeo/resources/constant.dart';
 import 'package:censeo/src/Aluno/BottomNavigationProfessor/TabNavigatorAluno.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

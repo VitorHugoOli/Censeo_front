@@ -1,4 +1,5 @@
 import 'package:censeo/resources/censeo_provider.dart';
+import 'package:logger/logger.dart';
 
 class ClassesProvider {
   final api = CenseoApiProvider();
@@ -9,8 +10,10 @@ class ClassesProvider {
           await api.authRequest(type: "GET", endpoint: "/aluno/getStrikes");
       return List<String>.from(response['strikes']);
     } catch (e) {
-      print(">>> Algum erro $e, file: ");
+      Logger().e(">>> Algum erro no fetchStrikes",e);
       return List.filled(7, '');
     }
   }
+
+
 }

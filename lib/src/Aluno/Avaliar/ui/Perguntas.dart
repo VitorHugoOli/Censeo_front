@@ -189,7 +189,6 @@ class _PerguntasState extends State<Perguntas> {
       required width,
       Color? activeColor,
       Function()? onClick}) {
-    print(activeColor);
     return GestureDetector(
       onTap: onClick,
       child: AnimatedContainer(

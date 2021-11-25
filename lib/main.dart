@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: MaterialColor(0xff0E153A, colorCodesPrimary),
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        cursorColor: Color.fromRGBO(14, 21, 58, 1),
+        // cursorColor: Color.fromRGBO(14, 21, 58, 1),
         fontFamily: GoogleFonts.poppins().toString(),
         textTheme: GoogleFonts.poppinsTextTheme(
           Theme.of(context).textTheme,

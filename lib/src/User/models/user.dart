@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 User userFromJson(Map<String, dynamic> str) => User.fromJson(str);
 
 String userToJson(User data) => json.encode(data.toJson());
@@ -33,21 +35,26 @@ class User {
   String? token;
   int? typeId;
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  static User? _user;
+
+
+  factory User.fromJson(Map<String, dynamic> json) =>
+      User(
         id: json["id"],
         nome: json["nome"],
         matricula: json["matricula"],
         username: json["username"],
         email: json["email"],
         perfilPhoto:
-            json.containsKey("perfilPhoto") ? json["perfilPhoto"] : null,
+        json.containsKey("perfilPhoto") ? json["perfilPhoto"] : null,
         firstTime: json["first_time"],
         type: json["type"],
         token: json["token"] ?? "",
         typeId: json["typeId"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         "id": id,
         "nome": nome,
         "matricula": matricula,
@@ -59,10 +66,19 @@ class User {
         "typeId": typeId,
       };
 
-  Map<String, dynamic> toJsonPersonalData() => {
+  Map<String, dynamic> toJsonPersonalData() =>
+      {
         "id": id,
         "nome": nome,
         "username": username,
         "email": email,
       };
+
+  static Future<User?> getUser() async {
+    if (_user == null) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      _user = User.fromJson(jsonDecode(prefs.getString("user")??"{}"));
+    }
+    return _user;
+  }
 }

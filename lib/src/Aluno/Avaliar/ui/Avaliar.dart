@@ -111,38 +111,44 @@ class _AvaliarState extends State<Avaliar> {
               color: Color(0xffffffff),
               shape: BoxShape.circle,
             ),
-            child: profile != null
-                ? Image.network(
-                    profile,
-                    height: 150,
-                    errorBuilder: (BuildContext? context, Object? exception,
-                        StackTrace? stackTrace) {
-                      return Container(
-                        height: 150,
-                        child: Center(
-                          child: Icon(FeatherIcons.cloudOff, size: 20),
-                        ),
-                      );
-                    },
-                    loadingBuilder: (BuildContext? context, Widget child,
-                        ImageChunkEvent? loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return Center(
-                        child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!
-                              : null,
-                        ),
-                      );
-                    },
-                  )
-                : Image.asset(
-                    'assets/Avatar.png',
-                    height: 150,
-                  ),
+            child: profileAvatar(profile),
           )
         : Container();
+  }
+
+  Image profileAvatar(String? profile) {
+    if (profile != null) {
+      return Image.network(
+                  profile,
+                  height: 150,
+                  errorBuilder: (BuildContext? context, Object? exception,
+                      StackTrace? stackTrace) {
+                    return Container(
+                      height: 150,
+                      child: Center(
+                        child: Icon(FeatherIcons.cloudOff, size: 20),
+                      ),
+                    );
+                  },
+                  loadingBuilder: (BuildContext? context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
+                );
+    } else {
+      return Image.asset(
+                  'assets/Avatar.png',
+                  height: 150,
+                );
+    }
   }
 
   Widget buildListTurmas(Size size) {
@@ -251,7 +257,7 @@ class _AvaliarState extends State<Avaliar> {
                   builder: (context) => Perguntas(bloc, aula),
                 ),
               ).then((value) {
-                if (value) {
+                if (value ?? true) {
                   bloc.fetchOpenClass();
                 }
                 setState(() {

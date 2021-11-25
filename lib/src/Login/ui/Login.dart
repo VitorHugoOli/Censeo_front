@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:logger/logger.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -19,6 +20,7 @@ class _LoginState extends State<Login> {
   bool emailError = false;
   bool passError = false;
   String messages = "";
+  bool loader = true;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -177,6 +179,7 @@ class _LoginState extends State<Login> {
 
   void submitLogin(snapshot) async {
     setState(() {
+      loader=false;
       passError = false;
       emailError = false;
     });
@@ -206,8 +209,6 @@ class _LoginState extends State<Login> {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => BottomNavigationAluno()));
         }
-
-        return;
       } else {
         setState(() {
           messages = response['message'];
@@ -215,9 +216,12 @@ class _LoginState extends State<Login> {
           emailError = ((response['message'] == "" ? false : true) &&
               !(response['message'] == "Senha incorreta."));
         });
-        return;
       }
     }
+
+    setState(() {
+      loader=true;
+    });
   }
 
   Widget buildLoginInButton(size) {
@@ -229,7 +233,10 @@ class _LoginState extends State<Login> {
           builder: (context, snapshot) {
             return RaisedButton(
               color: Colors.white,
-              onPressed: () => submitLogin(snapshot),
+              onPressed: () {
+
+                submitLogin(snapshot);
+              },
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(9),
               ),
@@ -349,7 +356,7 @@ class _LoginState extends State<Login> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Loader(
-          loader: true,
+          loader: loader,
           child: Stack(
             children: <Widget>[
               SingleChildScrollView(

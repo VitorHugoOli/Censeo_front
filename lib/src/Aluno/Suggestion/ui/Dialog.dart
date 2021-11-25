@@ -136,8 +136,9 @@ class CreateSuggestion {
               width: double.maxFinite,
               child: StreamBuilder<List<Topicos>>(
                 stream: bloc.topicosList,
+                initialData: [],
                 builder: (context, snapshot) {
-                  return TopicosDropDown(snapshot.data!, _suggestion);
+                  return TopicosDropDown(snapshot.data??[], _suggestion);
                 },
               ),
             ),
