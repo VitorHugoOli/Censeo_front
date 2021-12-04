@@ -6,7 +6,6 @@ import 'package:censeo/src/Professor/Data/modal/turmastats.dart';
 import 'package:censeo/src/Professor/Data/ui/turmadata/turmadata.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:collection/collection.dart';
 
@@ -74,22 +73,25 @@ class _DataState extends State<Data> {
         title: Text("Dados Professor"),
         elevation: 0,
       ),
-      body: Container(
-        margin: EdgeInsets.symmetric(vertical: 20, horizontal: 25),
-        child: StreamBuilder<List<TurmaStats>>(
-            stream: bloc.turmasController.stream,
-            initialData: [],
-            builder: (context, snapshot) {
-              List<TurmaStats> list = snapshot.data ?? [];
+      body: RefreshIndicator(
+        onRefresh: () => bloc.fetchTurmaStats(),
+        child: Container(
+          margin: EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+          child: StreamBuilder<List<TurmaStats>>(
+              stream: bloc.turmasController.stream,
+              initialData: [],
+              builder: (context, snapshot) {
+                List<TurmaStats> list = snapshot.data ?? [];
 
-              return ListView.separated(
-                  itemBuilder: (context, index) => CardTurma(
-                        turma: list[index].toTurma(),
-                        body: bodyCardTurma(list[index]),
-                      ),
-                  separatorBuilder: (_, __) => SizedBox(height: 10),
-                  itemCount: list.length);
-            }),
+                return ListView.separated(
+                    itemBuilder: (context, index) => CardTurma(
+                          turma: list[index].toTurma(),
+                          body: bodyCardTurma(list[index]),
+                        ),
+                    separatorBuilder: (_, __) => SizedBox(height: 10),
+                    itemCount: list.length);
+              }),
+        ),
       ),
     );
   }

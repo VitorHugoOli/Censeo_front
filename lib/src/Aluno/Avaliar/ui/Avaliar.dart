@@ -29,12 +29,6 @@ class _AvaliarState extends State<Avaliar> {
   final ScrollController _scrollController = ScrollController();
   bool loader = false;
 
-  @override
-  void initState() {
-    super.initState();
-    // Add code after super
-  }
-
   Widget buildNameTitle(snapshot) {
     return Stack(
       children: [
@@ -81,7 +75,9 @@ class _AvaliarState extends State<Avaliar> {
                       builder: (context) =>
                           Settings(user: snapshot.data!, bloc: bloc),
                     ),
-                  );
+                  ).then((value) {
+                    setState(() {});
+                  });
                 },
               ),
               IconButton(
@@ -119,35 +115,35 @@ class _AvaliarState extends State<Avaliar> {
   Image profileAvatar(String? profile) {
     if (profile != null) {
       return Image.network(
-                  profile,
-                  height: 150,
-                  errorBuilder: (BuildContext? context, Object? exception,
-                      StackTrace? stackTrace) {
-                    return Container(
-                      height: 150,
-                      child: Center(
-                        child: Icon(FeatherIcons.cloudOff, size: 20),
-                      ),
-                    );
-                  },
-                  loadingBuilder: (BuildContext? context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return Center(
-                      child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null
-                            ? loadingProgress.cumulativeBytesLoaded /
-                                loadingProgress.expectedTotalBytes!
-                            : null,
-                      ),
-                    );
-                  },
-                );
+        profile,
+        height: 150,
+        errorBuilder:
+            (BuildContext? context, Object? exception, StackTrace? stackTrace) {
+          return Container(
+            height: 150,
+            child: Center(
+              child: Icon(FeatherIcons.cloudOff, size: 20),
+            ),
+          );
+        },
+        loadingBuilder: (BuildContext? context, Widget child,
+            ImageChunkEvent? loadingProgress) {
+          if (loadingProgress == null) return child;
+          return Center(
+            child: CircularProgressIndicator(
+              value: loadingProgress.expectedTotalBytes != null
+                  ? loadingProgress.cumulativeBytesLoaded /
+                      loadingProgress.expectedTotalBytes!
+                  : null,
+            ),
+          );
+        },
+      );
     } else {
       return Image.asset(
-                  'assets/Avatar.png',
-                  height: 150,
-                );
+        'assets/Avatar.png',
+        height: 150,
+      );
     }
   }
 

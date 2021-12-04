@@ -15,7 +15,7 @@ class CenseoApiProvider {
   static const _localEmulatorAndroid = "http://10.0.2.2:8000";
   static const _localEmulatorIOS = "http://127.0.0.1:8000";
   static const _local = "http://192.168.1.13:8000";
-  static const _baseUrl = _localEmulatorIOS;
+  static const _baseUrl = _production;
   Map<String, String> _headers = {"Content-type": "application/json"};
 
   _sharePreference() async {
@@ -37,7 +37,7 @@ class CenseoApiProvider {
       return true;
     } else {
       alertNoConnection();
-      return true;
+      return false;
     }
   }
 
@@ -47,10 +47,14 @@ class CenseoApiProvider {
         throw ("No Connect");
       }
       final request = {
-        'GET': () async => await client.get(Uri.parse(finalUrl), headers: _headers),
-        'POST': () async => await client.post(Uri.parse(finalUrl), headers: _headers, body: json.encode(body)),
-        'PUT': () async => await client.put(Uri.parse(finalUrl), headers: _headers, body: json.encode(body)),
-        'DELETE': () async => await client.delete(Uri.parse(finalUrl), headers: _headers),
+        'GET': () async =>
+            await client.get(Uri.parse(finalUrl), headers: _headers),
+        'POST': () async => await client.post(Uri.parse(finalUrl),
+            headers: _headers, body: json.encode(body)),
+        'PUT': () async => await client.put(Uri.parse(finalUrl),
+            headers: _headers, body: json.encode(body)),
+        'DELETE': () async =>
+            await client.delete(Uri.parse(finalUrl), headers: _headers),
       };
 
       final req = await request[type]!();
@@ -59,16 +63,20 @@ class CenseoApiProvider {
       if (req.statusCode == 200) {
         return reposeBody;
       } else if (req.statusCode == 404) {
-        print(">>> Endpoint don't exist, status code: ${req.statusCode},At: $type - $finalUrl");
+        print(
+            ">>> Endpoint don't exist, status code: ${req.statusCode},At: $type - $finalUrl");
       } else if (req.statusCode == 401) {
-        print(">>> Invalid Token, status code: ${req.statusCode}, body: $reposeBody,At: $type - $finalUrl");
-        navigatorKey.currentState!.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+        print(
+            ">>> Invalid Token, status code: ${req.statusCode}, body: $reposeBody,At: $type - $finalUrl");
+        navigatorKey.currentState!
+            .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.remove("token");
         prefs.remove("user");
         alertNoAuth();
       } else {
-        print(">>> Response error, status code: ${req.statusCode}, body: $reposeBody,At: $type - $finalUrl");
+        print(
+            ">>> Response error, status code: ${req.statusCode}, body: $reposeBody,At: $type - $finalUrl");
       }
       throw ("Server Error");
     } on SocketException catch (e) {
@@ -81,7 +89,8 @@ class CenseoApiProvider {
     }
   }
 
-  Future<dynamic> authRequest({required String type, required String endpoint, body}) async {
+  Future<dynamic> authRequest(
+      {required String type, required String endpoint, body}) async {
     var finalUrl = "$_baseUrl$endpoint";
     try {
       var token = await _sharePreference();
@@ -92,15 +101,17 @@ class CenseoApiProvider {
         body,
       );
     } on DontHaveToken catch (_) {
-      navigatorKey.currentState!.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+      navigatorKey.currentState!
+          .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
       alertNoAuth();
       throw ("Você não está logado.");
     } catch (e) {
-      throw ("Request Error before realize the request.\n"+">>> $e");
+      throw ("Request Error before realize the request.\n" + ">>> $e");
     }
   }
 
-  Future<dynamic> withoutAuthRequest({required String type, required String endpoint, Map? body}) async {
+  Future<dynamic> withoutAuthRequest(
+      {required String type, required String endpoint, Map? body}) async {
     var finalUrl = "$_baseUrl$endpoint";
     return _baseRequest(
       type,

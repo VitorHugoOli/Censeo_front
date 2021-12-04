@@ -127,7 +127,6 @@ class _BottomNavigationProfessorState extends State<BottomNavigationProfessor> {
         color: Colors.white,
         child: SafeArea(
           top: false,
-
           child: Container(
             color: Censeo.dark_blue,
             padding: EdgeInsets.only(top: 15),

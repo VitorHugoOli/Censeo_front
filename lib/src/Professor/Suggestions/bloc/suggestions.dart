@@ -63,12 +63,16 @@ class Bloc extends Object implements BaseBloc {
     try {
       List categoriesReceived;
       categoriesReceived = await provider.fetchSugestoes(id, type);
-      print(categoriesReceived);
       suggestions = sugestaoFromJson(categoriesReceived);
     } catch (ex) {
       debugPrint("Exception Convert Object $ex");
     }
     suggestionChanged(suggestions);
+  }
+
+  updateSuggestion(id, String type, String relevance) async {
+    await provider.updateSugestoes(id, type, relevance);
+    fetchSuggestion(id, type);
   }
 
   changeTopicosValue(value, index) {
@@ -79,7 +83,7 @@ class Bloc extends Object implements BaseBloc {
 
   removeTopicosValue(index, id, type) async {
     List<Topicos> listTemp = _topicosController.value;
-    if (id >=0) {
+    if (id >= 0) {
       var response = await provider.deleteTopicos(id, type);
       if (response['status']) {
         listTemp.removeAt(index);

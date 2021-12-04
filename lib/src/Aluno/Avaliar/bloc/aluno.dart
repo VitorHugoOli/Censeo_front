@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:censeo/src/Aluno/Avaliar/models/Avaliacao.dart';
+import 'package:censeo/src/Aluno/Avaliar/models/Avatar.dart';
 import 'package:censeo/src/Professor/Aulas/models/Aula.dart';
 import 'package:censeo/src/User/models/user.dart';
 import 'package:rxdart/rxdart.dart';
@@ -13,15 +14,31 @@ class BlocAluno extends Object implements BaseBloc {
   final _openClassController = BehaviorSubject<List<Aula>>();
   final _rankController = BehaviorSubject<String>();
   final _avaliacaoController = BehaviorSubject<Avaliacao>();
+  late User staticUser;
 
-  Stream<User> get user async* {
+  BlocAluno() {
+    upDateStaticUser();
+  }
+
+  upDateStaticUser() {
+    getuser().then((value) => staticUser = value);
+  }
+
+  Future<User> getuser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final user = User.fromJson(
+    return User.fromJson(
       jsonDecode(
         prefs.getString("user")!,
       ),
     );
-    yield user;
+  }
+
+  updateAluno() {
+    provider.updateUser(staticUser.id);
+  }
+
+  Stream<User> get user async* {
+    yield await getuser();
   }
 
   Function(List<Aula>) get classChanged => _openClassController.sink.add;
@@ -83,6 +100,33 @@ class BlocAluno extends Object implements BaseBloc {
       print(ex);
     }
     return false;
+  }
+
+  Future<List<Avatar>> fetchAvatares() async {
+    try {
+      List response = await provider.fetchAvatares();
+      return avatarFromJson(response)
+        ..insert(
+            0, Avatar(avatarU: AvatarU(id: null, url: null), isActive: null));
+    } catch (e) {
+      print(">>> Algum erro $e, file: ");
+      return [];
+    }
+  }
+
+  Future<List<Avatar>> selectAvatar(id, url) async {
+    try {
+      await provider.selectAvatar({"avatar_id": id});
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      Map user = json.decode(prefs.getString("user")!);
+      user["perfilPhoto"] = url;
+      prefs.setString("user", json.encode(user));
+      upDateStaticUser();
+      return [];
+    } catch (e) {
+      print(">>> Algum erro $e, file: ");
+      return [];
+    }
   }
 
   logOut() async {

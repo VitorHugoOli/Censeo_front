@@ -19,7 +19,7 @@ class CategoriesPageAluno extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(bottom: 40),
       child: Text(
-        "Sugesões",
+        "Sugestões",
         style: GoogleFonts.poppins(
           color: Color(0xffffffff),
           fontSize: 25,
@@ -158,6 +158,7 @@ class CategoriesPageAluno extends StatelessWidget {
                                           const NeverScrollableScrollPhysics(),
                                       separatorBuilder: (_, __) => SizedBox(height: 10),
                                       itemCount: value.length,
+                                      padding: EdgeInsets.only(top:0),
                                       itemBuilder: (context, index) {
                                         Categories obj = value[index];
                                         return buildCardCategories(

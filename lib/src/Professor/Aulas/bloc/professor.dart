@@ -112,7 +112,6 @@ class Bloc extends Object implements BaseBloc {
 
   addSchedule() {
     List<Horario> listClass = _listScheduleController.value;
-    listClass = <Horario>[Horario()];
     listClass.add(Horario());
     _listScheduleController.sink.add(listClass);
   }

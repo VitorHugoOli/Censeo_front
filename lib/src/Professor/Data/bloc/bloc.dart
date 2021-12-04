@@ -23,8 +23,9 @@ class BlocData extends Object implements BaseBloc {
 
   Future fetchTurmaStats() async {
     try {
+      Logger().i("Well well well");
       Map result =
-          await api.authRequest(type: 'GET', endpoint: '/turmasStats/');
+      await api.authRequest(type: 'GET', endpoint: '/turmasStats/');
       turmasController.add(turmaStatsFromJson(result['turmas']));
     } catch (e) {
       Logger().i("Request Error before realize the request.\n" + ">>> $e");

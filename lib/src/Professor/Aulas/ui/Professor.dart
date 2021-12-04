@@ -258,6 +258,7 @@ class _ProfessorState extends State<Professor> {
                 controller: _scrollController,
                 radius: Radius.circular(8),
                 child: ListView.builder(
+                  padding: EdgeInsets.only(top: 0),
                   controller: _scrollController,
                   itemCount: snapshot.data?.length ?? 0,
                   itemBuilder: (context, index) {
@@ -340,7 +341,7 @@ class _ProfessorState extends State<Professor> {
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 15),
-        height: size.height * 0.049,
+        padding: EdgeInsets.symmetric(vertical: 5),
         decoration: new BoxDecoration(
             color: Color(0xff3D5AF1), borderRadius: BorderRadius.circular(8)),
         child: Row(
@@ -384,25 +385,34 @@ class _ProfessorState extends State<Professor> {
         child: FutureBuilder<dynamic>(
             future: bloc.fetchDataProf(),
             builder: (context, snapshot) {
-              return Loader(
-                loader: (snapshot.connectionState == ConnectionState.done) ||
-                    loader,
-                child: Container(
-                  constraints: BoxConstraints.expand(),
-                  padding: EdgeInsets.only(left: 5, right: 5, top: 25),
-                  decoration: BoxDecoration(
-                    color: Color(0xff0E153A),
-                  ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        buildNameTitle(size),
-                        buildOpenClass(size),
-                        buildListTurmas(size),
-                      ],
-                    ),
+              return Container(
+                constraints: BoxConstraints.expand(),
+                padding: EdgeInsets.only(left: 5, right: 5, top: 25),
+                decoration: BoxDecoration(
+                  color: Color(0xff0E153A),
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      buildNameTitle(size),
+                      Loader(
+                        loader: (snapshot.connectionState ==
+                                ConnectionState.done) ||
+                            loader,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              buildOpenClass(size),
+                              buildListTurmas(size),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               );

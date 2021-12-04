@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:logger/logger.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -179,7 +178,7 @@ class _LoginState extends State<Login> {
 
   void submitLogin(snapshot) async {
     setState(() {
-      loader=false;
+      loader = false;
       passError = false;
       emailError = false;
     });
@@ -220,7 +219,7 @@ class _LoginState extends State<Login> {
     }
 
     setState(() {
-      loader=true;
+      loader = true;
     });
   }
 
@@ -234,7 +233,6 @@ class _LoginState extends State<Login> {
             return RaisedButton(
               color: Colors.white,
               onPressed: () {
-
                 submitLogin(snapshot);
               },
               shape: RoundedRectangleBorder(
@@ -352,68 +350,69 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Loader(
-          loader: loader,
-          child: Stack(
-            children: <Widget>[
-              SingleChildScrollView(
-                child: Container(
-                  height: size.height - MediaQuery.of(context).padding.top,
-                  decoration: BoxDecoration(
-                    color: Color(0xff0E153A),
-                  ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Color(0x4A3D5AF1), Color(0x003D5AF1)],
-                          tileMode: TileMode.clamp,
-                          stops: [0, 1]),
+    return Container(
+      color: Color(0xff0E153A),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color(0x4A3D5AF1), Color(0x003D5AF1)],
+              tileMode: TileMode.clamp,
+              stops: [0, 1]),
+        ),
+        child: SafeArea(
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: Loader(
+              loader: loader,
+              child: Stack(
+                children: <Widget>[
+                  SingleChildScrollView(
+                    child: Container(
+                      height: size.height - MediaQuery.of(context).padding.top,
+                      decoration: BoxDecoration(),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          buildTitle(size),
+                          buildAlertMessageMux(size, true),
+                          Form(
+                            key: _formKey,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    m_e_s("Matrícula"),
+                                    buildFieldLogin(size),
+                                  ],
+                                ),
+                                buildAlertMessageMux(size, false),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    m_e_s("Senha"),
+                                    buildFieldPassword(size),
+                                    buildRescue(size),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.065,
+                                ),
+                                buildLoginInButton(size),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        buildTitle(size),
-                        buildAlertMessageMux(size, true),
-                        Form(
-                          key: _formKey,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  m_e_s("Matrícula"),
-                                  buildFieldLogin(size),
-                                ],
-                              ),
-                              buildAlertMessageMux(size, false),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  m_e_s("Senha"),
-                                  buildFieldPassword(size),
-                                  buildRescue(size),
-                                ],
-                              ),
-                              SizedBox(
-                                height: size.height * 0.065,
-                              ),
-                              buildLoginInButton(size),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

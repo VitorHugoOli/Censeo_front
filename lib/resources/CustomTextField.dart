@@ -42,6 +42,7 @@ class CustomTextField extends StatefulWidget {
   final bool hasWidgetLabel;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final VoidCallback? onEditingComplete;
 
   CustomTextField(
     this.managerController, {
@@ -65,6 +66,7 @@ class CustomTextField extends StatefulWidget {
     this.hasWidgetLabel = false,
     this.prefixIcon,
     this.suffixIcon,
+    this.onEditingComplete,
   });
 
   static InputDecoration formDecoration(
@@ -152,7 +154,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           child: TextFormField(
             controller: widget.managerController.managerControllers(
                 widget.label,
-                initValue: widget.initialValue??""),
+                initValue: widget.initialValue ?? ""),
             onFieldSubmitted: widget.onFieldSubmitted == null
                 ? (value) {}
                 : widget.onFieldSubmitted,
@@ -161,6 +163,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             onChanged: widget.upDate,
             maxLines: widget.maxLines,
             textAlign: widget.textAlign,
+            onEditingComplete: widget.onEditingComplete,
             onTap: widget.onTap,
             validator: widget.validator,
             obscureText: widget.pass,

@@ -1,8 +1,8 @@
 import 'package:censeo/resources/constant.dart';
+import 'package:censeo/resources/loader.dart';
 import 'package:censeo/src/Professor/Aulas/models/Turma.dart';
 import 'package:censeo/src/Professor/Data/bloc/classdata.dart';
 import 'package:censeo/src/Professor/Data/modal/turmastatsfull.dart';
-import 'package:censeo/src/Professor/Data/ui/aulas/aulaslist.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -20,6 +20,7 @@ class ClassData extends StatefulWidget {
 
 class _ClassDataState extends State<ClassData> {
   late BlocClassData bloc;
+  bool loader = true;
 
   @override
   void initState() {
@@ -97,30 +98,34 @@ class _ClassDataState extends State<ClassData> {
             FutureBuilder<TurmaStatsFull?>(
               future: bloc.fetchTurmaStats(),
               initialData: TurmaStatsFull(),
-              builder: (context, snapshot) => Container(
-                margin: EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  children: [
-                    AulaStatsComponent(turma: snapshot.data ?? TurmaStatsFull()),
-                    CaracteristicaStats(
-                      turma: snapshot.data ?? TurmaStatsFull(),
+              builder: (context, snapshot) =>Loader(
+                loader: snapshot.connectionState == ConnectionState.done,
+                child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 15),
+                    child: Column(
+                      children: [
+                        AulaStatsComponent(
+                            turma: snapshot.data ?? TurmaStatsFull()),
+                        CaracteristicaStats(
+                          turma: snapshot.data ?? TurmaStatsFull(),
+                        ),
+                        SizedBox(height: 20),
+                        // Censeo.button(
+                        //     onPressed: () {
+                        //       Navigator.push(
+                        //           context,
+                        //           MaterialPageRoute(
+                        //               builder: (context) =>
+                        //                   AulasList(turma: widget.turma)));
+                        //     },
+                        //     text: "Dados por aula",
+                        //     color: Censeo.vibrant_blue,
+                        //     padding:
+                        //         EdgeInsets.symmetric(horizontal: 60, vertical: 8)),
+                        SizedBox(height: 40),
+                      ],
                     ),
-                    SizedBox(height: 20),
-                    // Censeo.button(
-                    //     onPressed: () {
-                    //       Navigator.push(
-                    //           context,
-                    //           MaterialPageRoute(
-                    //               builder: (context) =>
-                    //                   AulasList(turma: widget.turma)));
-                    //     },
-                    //     text: "Dados por aula",
-                    //     color: Censeo.vibrant_blue,
-                    //     padding:
-                    //         EdgeInsets.symmetric(horizontal: 60, vertical: 8)),
-                    SizedBox(height: 40),
-                  ],
-                ),
+                  ),
               ),
             )
           ],

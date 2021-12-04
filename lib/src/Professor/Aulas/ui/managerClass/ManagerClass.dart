@@ -354,7 +354,7 @@ class _ManagerClassState extends State<ManagerClass> {
                       (snapshot.data?.isEmpty ?? false) ||
                       snapshot.data == 'null')
                   ? null
-                    : snapshot.data,
+                  : snapshot.data,
               dropdownColor: Color(0xee1e1e1e),
               onChanged: (value) {
                 aulaEdit.tipoAula = value!;
@@ -546,29 +546,33 @@ class _ManagerClassState extends State<ManagerClass> {
         elevation: 0,
       ),
       backgroundColor: Color(0xff0E153A),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.only(bottom: 90),
-          height: MediaQuery.of(context).size.height * 0.9,
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            children: [
-              buildNameTitle(size),
-              Expanded(
+      body: Container(
+        padding: EdgeInsets.only(bottom: 90),
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            buildNameTitle(size),
+            Flexible(
+              fit: FlexFit.loose,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Form(
                   key: _formKey,
                   child: Center(
-                    child: Wrap(
-                      runSpacing: 15,
-                      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: list,
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      itemBuilder: (_, int index) => SizedBox(height: 15),
+                      separatorBuilder: (_, int index) => list[index],
+                      itemCount: list.length,
                     ),
                   ),
                 ),
               ),
-              buildButtonsEdit(size)
-            ],
-          ),
+            ),
+            buildButtonsEdit(size)
+          ],
         ),
       ),
     );

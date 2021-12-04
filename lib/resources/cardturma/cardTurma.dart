@@ -1,7 +1,6 @@
 import 'package:censeo/src/Professor/Aulas/models/Turma.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:logger/logger.dart';
 
 class CardTurma extends StatelessWidget {
   final Turma turma;
@@ -42,21 +41,22 @@ class CardTurma extends StatelessWidget {
                       height: 1))
             ],
           ),
-          Container(
-            width: 250,
-            padding: EdgeInsets.only(
-              left: 20,
-            ),
-            child: Text(
-              turma.disciplina?.nome ?? "",
-              textAlign: TextAlign.start,
-              style: GoogleFonts.poppins(
-                color: Color(0xffffffff),
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                fontStyle: FontStyle.normal,
-                letterSpacing: -0.56,
-                height: 1,
+          Flexible(
+            child: Container(
+              padding: EdgeInsets.only(
+                left: 20,
+              ),
+              child: Text(
+                turma.disciplina?.nome ?? "",
+                textAlign: TextAlign.start,
+                style: GoogleFonts.poppins(
+                  color: Color(0xffffffff),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  fontStyle: FontStyle.normal,
+                  letterSpacing: -0.56,
+                  height: 1,
+                ),
               ),
             ),
           )

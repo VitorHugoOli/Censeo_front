@@ -82,6 +82,7 @@ class _SuggestionPageState extends State<SuggestionPage> {
             ),
             child: StreamBuilder<List<Topicos>>(
                 stream: widget.suggestionBloc.topicosList,
+                initialData: [],
                 builder: (context, snapshot) {
                   List<Topicos> listTopicos = <Topicos>[];
                   if (snapshot.hasData) {
@@ -126,15 +127,21 @@ class _SuggestionPageState extends State<SuggestionPage> {
                                 value: value,
                                 child: Align(
                                   alignment: Alignment.center,
-                                  child: Text(
-                                    value.topico??"",
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.poppins(
-                                      color: Color(0xff0E153A),
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FontStyle.normal,
-                                      letterSpacing: -0.63,
+                                  child: Container(
+                                    width: 220,
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                        value.topico ?? "",
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.poppins(
+                                          color: Color(0xff0E153A),
+                                          fontSize: 19,
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle: FontStyle.normal,
+                                          letterSpacing: -0.63,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -233,29 +240,47 @@ class _SuggestionPageState extends State<SuggestionPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Icon(
-                FeatherIcons.frown,
-                color: sug.relevancia == 'baixa'
-                    ? Color(0xfffc0808)
-                    : Color(0xff0E153A),
-                size: 35,
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 6),
+              GestureDetector(
+                onTap: () {
+                  widget.suggestionBloc.updateSuggestion(
+                      widget._categories.id, widget._categories.tipo!, "baixa");
+                },
                 child: Icon(
-                  FeatherIcons.meh,
-                  color: sug.relevancia == 'media'
-                      ? Color(0xfffcb808)
+                  FeatherIcons.frown,
+                  color: sug.relevancia == 'baixa'
+                      ? Color(0xfffc0808)
                       : Color(0xff0E153A),
                   size: 35,
                 ),
               ),
-              Icon(
-                FeatherIcons.smile,
-                color: sug.relevancia == 'alta'
-                    ? Color(0xff36E37E)
-                    : Color(0xff0E153A),
-                size: 35,
+              GestureDetector(
+                onTap: () {
+                  widget.suggestionBloc.updateSuggestion(
+                      widget._categories.id, widget._categories.tipo!, "media");
+                },
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 6),
+                  child: Icon(
+                    FeatherIcons.meh,
+                    color: sug.relevancia == 'media'
+                        ? Color(0xfffcb808)
+                        : Color(0xff0E153A),
+                    size: 35,
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  widget.suggestionBloc.updateSuggestion(
+                      widget._categories.id, widget._categories.tipo!, "alta");
+                },
+                child: Icon(
+                  FeatherIcons.smile,
+                  color: sug.relevancia == 'alta'
+                      ? Color(0xff36E37E)
+                      : Color(0xff0E153A),
+                  size: 35,
+                ),
               ),
             ],
           )

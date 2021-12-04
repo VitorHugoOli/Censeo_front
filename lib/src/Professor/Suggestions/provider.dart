@@ -63,6 +63,36 @@ class ClassesProvider {
     }
   }
 
+  updateSugestoes(id, type, relevance) async {
+    try {
+      var response;
+      switch (type) {
+        case 'materia':
+          response = await api.authRequest(
+              type: "PUT",
+              endpoint: "/sugestaoTurma/$id/",
+              body: {"relevance": relevance});
+          break;
+        case 'curso':
+          response = await api.authRequest(
+              type: "PUT",
+              endpoint: "/sugestaoCurso/$id/",
+              body: {"relevance": relevance});
+          break;
+        case 'facu':
+          response = await api.authRequest(
+              type: "PUT",
+              endpoint: "/sugestaoFacu/$id/",
+              body: {"relevance": relevance});
+          break;
+      }
+      return response['suguestoes'];
+    } catch (e) {
+      print(">>> Algum erro $e, file: ");
+      genericAlert();
+    }
+  }
+
   putTopicos(id, body, type) async {
     try {
       var response;

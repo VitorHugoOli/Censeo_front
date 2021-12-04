@@ -18,7 +18,7 @@ class CategoriesPage extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(bottom: 40),
       child: Text(
-        "Sugesões",
+        "Sugestões",
         style: GoogleFonts.poppins(
           color: Color(0xffffffff),
           fontSize: 25,

@@ -7,7 +7,6 @@ import 'package:censeo/src/Aluno/Rank/ui/turma/turma.dart';
 import 'package:censeo/src/Professor/Data/modal/turmastats.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:collection/collection.dart';
 import 'package:lottie/lottie.dart';
@@ -82,10 +81,11 @@ class _RankAlunoState extends State<RankAluno> {
       backgroundColor: Color(0xff0E153A),
       appBar: AppBar(
         title: Center(
-            child: Text(
-          "Rank",
-          style: GoogleFonts.poppins(fontWeight: FontWeight.w700),
-        )),
+          child: Text(
+            "Rank",
+            style: GoogleFonts.poppins(fontWeight: FontWeight.w700),
+          ),
+        ),
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 15),

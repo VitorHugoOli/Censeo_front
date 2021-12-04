@@ -10,9 +10,9 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:logger/logger.dart';
 
 class Calendar extends StatefulWidget {
   final Map<DateTime, Aula> aulas;
@@ -86,7 +86,9 @@ class _CalendarState extends State<Calendar> {
   }
 
   dayPressed(date, _) {
+    //Todo:bloquear dias já passados
     _currentDate = date;
+    if (DateTime.now().difference(date).inDays > 0) return;
     if (widget.aulas.containsKey(date)) {
       Navigator.push(
         context,
@@ -206,32 +208,42 @@ class _CalendarState extends State<Calendar> {
             fontStyle: FontStyle.normal,
           ),
         ),
-        //Todo:Avaliar dropdowncustom
-        DropdownButton<String>(
-          value: dropdownValue,
-          icon: Icon(ProfessorIcons.dropright, color: Color(0xff28313b)),
-          iconSize: 14,
-          elevation: 16,
-          underline: Container(),
-          style: GoogleFonts.poppins(
-            color: Color(0xff28313b),
-            fontSize: 25,
-            fontWeight: FontWeight.w700,
-            fontStyle: FontStyle.normal,
-          ),
-          onChanged: (String? newValue) {
-            setState(() {
-              dropdownValue = newValue!;
-              calendarChange(
-                  DateTime(today.year, monthList.indexOf(newValue) + 1, 1));
-            });
-          },
-          items: monthList.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: Text(value + " " + _targetDateTime.year.toString()),
-            );
-          }).toList(),
+        Row(
+          children: [
+            GestureDetector(
+                onTap: () {
+                  calendarChange(today);
+                },
+                child: Icon(FontAwesomeIcons.calendarDay)),
+            SizedBox(width: 10),
+            //Todo:Avaliar dropdowncustom
+            DropdownButton<String>(
+              value: dropdownValue,
+              icon: Icon(ProfessorIcons.dropright, color: Color(0xff28313b)),
+              iconSize: 14,
+              elevation: 16,
+              underline: Container(),
+              style: GoogleFonts.poppins(
+                color: Color(0xff28313b),
+                fontSize: 25,
+                fontWeight: FontWeight.w700,
+                fontStyle: FontStyle.normal,
+              ),
+              onChanged: (String? newValue) {
+                setState(() {
+                  dropdownValue = newValue!;
+                  calendarChange(
+                      DateTime(today.year, monthList.indexOf(newValue) + 1, 1));
+                });
+              },
+              items: monthList.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value + " " + _targetDateTime.year.toString()),
+                );
+              }).toList(),
+            ),
+          ],
         )
       ],
     );

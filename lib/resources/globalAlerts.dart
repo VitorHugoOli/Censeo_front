@@ -12,7 +12,8 @@ Future<dynamic> alertNoConnection() {
       Size size = MediaQuery.of(context).size;
       // retorna um objeto do tipo Dialog
       return AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(32.0))),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(32.0))),
 //        title: new Text("Você não está conectado a internet"),
         content: new Container(
           child: Lottie.asset('assets/noConnection.json'),
@@ -56,7 +57,8 @@ Future<dynamic> alertNoServer() {
       Size size = MediaQuery.of(context).size;
       // retorna um objeto do tipo Dialog
       return AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(32.0))),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(32.0))),
 //        title: new Text("Você não está conectado a internet"),
         content: Container(
           height: size.height * 0.5,
@@ -117,7 +119,8 @@ Future<dynamic> alertNoAuth() {
       Size size = MediaQuery.of(context).size;
       // retorna um objeto do tipo Dialog
       return AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8.0))),
 //        title: new Text("Você não está conectado a internet"),
         content: Container(
           height: size.height * 0.5,
@@ -177,7 +180,8 @@ genericAlert() {
       Size size = MediaQuery.of(context).size;
       // retorna um objeto do tipo Dialog
       return AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8.0))),
 //        title: new Text("Você não está conectado a internet"),
         content: Container(
           height: size.height * 0.5,
@@ -229,3 +233,60 @@ genericAlert() {
     },
   );
 }
+
+alerta(String text) => showDialog(
+      context: navigatorKey.currentState!.overlay!.context,
+      builder: (BuildContext context) {
+        Size size = MediaQuery.of(context).size;
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8.0))),
+          content: Container(
+            height: size.height * 0.5,
+            child: Column(
+              children: <Widget>[
+                Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                    color: Color(0xff0E153A),
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    fontStyle: FontStyle.normal,
+                    letterSpacing: -0.56,
+                  ),
+                ),
+                Lottie.asset('assets/noAuth.json', height: size.height * 0.3),
+              ],
+            ),
+          ),
+          actionsPadding: EdgeInsets.only(right: size.width * 0.177),
+          actions: <Widget>[
+            // define os botões na base do dialogo
+            new Container(
+              width: size.width * 0.4,
+              height: size.height * 0.06,
+              child: RaisedButton(
+                color: Color(0xff3D5AF1),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Text(
+                  "Voltar",
+                  style: GoogleFonts.poppins(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal,
+                    letterSpacing: -0.56,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );

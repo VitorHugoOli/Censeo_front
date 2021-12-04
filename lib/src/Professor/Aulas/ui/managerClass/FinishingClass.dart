@@ -101,14 +101,17 @@ class _FinishingClassState extends State<FinishingClass> {
                 letterSpacing: -0.77,
               ),
             ),
-            Text(
-              widget._turma.codigo ?? "",
-              style: GoogleFonts.poppins(
-                color: Color(0xffffffff),
-                fontSize: 11,
-                fontWeight: FontWeight.w500,
-                fontStyle: FontStyle.normal,
-                letterSpacing: -0.49,
+            Hero(
+              tag: "horario_class",
+              child: Text(
+                widget._turma.codigo ?? "",
+                style: GoogleFonts.poppins(
+                  color: Color(0xffffffff),
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                  fontStyle: FontStyle.normal,
+                  letterSpacing: -0.49,
+                ),
               ),
             )
           ],
@@ -295,8 +298,9 @@ class _FinishingClassState extends State<FinishingClass> {
   }
 
   Widget buildDetailsClass(Size size, context) {
-    List<Widget> list =
-        FinishingClass.fields.where((e) => chooseField(e['label']) != "").map((e) {
+    List<Widget> list = FinishingClass.fields
+        .where((e) => chooseField(e['label']) != "")
+        .map((e) {
       String field = chooseField(e['label']);
       return Row(
         crossAxisAlignment: CrossAxisAlignment.center,
