@@ -76,7 +76,7 @@ class _FinishingClassState extends State<FinishingClass> {
       case 'assincrona':
         return (widget._aula.isAssincrona ?? false ? "Assincrona" : "Sincrona");
       case 'Tipo':
-        return widget._aula.tipoAula ?? "";
+        return widget._aula.tipoAula ?? "teorica";
       case 'Extra':
         return widget._aula.extra![widget._aula.tipoAula] ?? "";
       default:
@@ -298,6 +298,7 @@ class _FinishingClassState extends State<FinishingClass> {
   }
 
   Widget buildDetailsClass(Size size, context) {
+
     List<Widget> list = FinishingClass.fields
         .where((e) => chooseField(e['label']) != "")
         .map((e) {

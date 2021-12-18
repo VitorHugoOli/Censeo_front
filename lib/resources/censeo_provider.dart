@@ -31,21 +31,16 @@ class CenseoApiProvider {
   _checkWifi() async {
     // the method below returns a Future
     var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile) {
-      return true;
-    } else if (connectivityResult == ConnectivityResult.wifi) {
-      return true;
-    } else {
+    if (connectivityResult == ConnectivityResult.none) {
       alertNoConnection();
-      return false;
+      throw ("No Connect");
     }
   }
 
   Future<dynamic> _baseRequest(String type, String finalUrl, body) async {
     try {
-      if (!await _checkWifi()) {
-        throw ("No Connect");
-      }
+      await _checkWifi();
+
       final request = {
         'GET': () async =>
             await client.get(Uri.parse(finalUrl), headers: _headers),

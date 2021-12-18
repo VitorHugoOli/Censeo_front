@@ -72,7 +72,9 @@ class _CalendarState extends State<Calendar> {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
-        Size size = MediaQuery.of(context).size;
+        Size size = MediaQuery
+            .of(context)
+            .size;
         return AlertDialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(6.0))),
@@ -85,16 +87,19 @@ class _CalendarState extends State<Calendar> {
     );
   }
 
-  dayPressed(date, _) {
-    //Todo:bloquear dias já passados
+  dayPressed(date, _) async {
     _currentDate = date;
-    if (DateTime.now().difference(date).inDays > 0) return;
+    if (DateTime
+        .now()
+        .difference(date)
+        .inDays > 0) return;
     if (widget.aulas.containsKey(date)) {
-      Navigator.push(
+      await Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => ManagerClass(widget.aulas[date]!,
-                widget.turma.codigo!, widget.turma.id!, widget.bloc)),
+            builder: (context) =>
+                ManagerClass(widget.aulas[date]!,
+                    widget.turma.codigo!, widget.turma.id!, widget.bloc)),
       );
     } else {
       dialogCreateClass(date);
@@ -103,11 +108,10 @@ class _CalendarState extends State<Calendar> {
   }
 
   dayBuilder(Size size) {
-    Widget widgetDay(
-        {required Color colorRadius,
-        required Color colorText,
-        required DateTime day,
-        BoxShape shape = BoxShape.rectangle}) {
+    Widget widgetDay({required Color colorRadius,
+      required Color colorText,
+      required DateTime day,
+      BoxShape shape = BoxShape.rectangle}) {
       var decoration = BoxDecoration();
       if (shape == BoxShape.circle) {
         decoration = BoxDecoration(
@@ -251,7 +255,9 @@ class _CalendarState extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
 
     /// Example with custom icon
     _calendarCarousel = CalendarCarousel(

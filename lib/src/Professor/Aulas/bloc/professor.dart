@@ -151,6 +151,8 @@ class Bloc extends Object implements BaseBloc {
 
     await provider.putCreateClass(body);
 
+    horarioChanged("");
+    roomChanged("");
     fetchClassCalendar(id);
   }
 
@@ -238,9 +240,9 @@ class ClassBloc extends Object implements BaseBloc {
             o.isNotEmpty);
       });
 
-  submitDeleteClass({idAula, idTurma}) {
-    bloc.provider.putDeleteClass(idAula);
-    bloc.fetchClassCalendar(idTurma);
+  submitDeleteClass({idAula, idTurma}) async {
+    await bloc.provider.putDeleteClass(idAula);
+    await bloc.fetchClassCalendar(idTurma);
   }
 
   Future submitEditClass({idAula, idTurma}) async {

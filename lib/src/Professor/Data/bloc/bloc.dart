@@ -23,7 +23,6 @@ class BlocData extends Object implements BaseBloc {
 
   Future fetchTurmaStats() async {
     try {
-      Logger().i("Well well well");
       Map result =
       await api.authRequest(type: 'GET', endpoint: '/turmasStats/');
       turmasController.add(turmaStatsFromJson(result['turmas']));

@@ -26,8 +26,7 @@ class _ManagerClassState extends State<ManagerClass> {
   bool temaError = false;
   final _formKey = GlobalKey<FormState>();
   TextEditingController _temaController = TextEditingController(text: "");
-  TextEditingController _descriptionController =
-      TextEditingController(text: "");
+  TextEditingController _descriptionController = TextEditingController(text: "");
   TextEditingController _linkController = TextEditingController(text: "");
   TextEditingController _extraController = TextEditingController(text: "");
   bool isAssincrona = false;
@@ -49,7 +48,7 @@ class _ManagerClassState extends State<ManagerClass> {
         tema: widget._aula.tema ?? "",
         description: widget._aula.descricao ?? "",
         link: widget._aula.linkDocumento ?? "",
-        type: widget._aula.tipoAula ?? "",
+        type: widget._aula.tipoAula ?? "teorica",
         isAssincrona: widget._aula.isAssincrona,
         extra: widget._aula.extra![getExtra[widget._aula.tipoAula]] ?? "",
         endtime: widget._aula.endTime);
@@ -255,30 +254,30 @@ class _ManagerClassState extends State<ManagerClass> {
             child: Container(
               width: size.width * 0.9,
               child: snapshotType.hasData &&
-                      type.toLowerCase() != "teorica" &&
-                      typeField.containsKey(type)
+                  type.toLowerCase() != "teorica" &&
+                  typeField.containsKey(type)
                   ? StreamBuilder<String>(
-                      stream: _classBloc.getExtra,
-                      builder: (context, snapshot) {
-                        return TextFormField(
-                          onChanged: (value) {
-                            _classBloc.extraChanged(value);
-                          },
-                          controller: _extraController,
-                          keyboardType: typeField[type]['type'],
-                          textAlign: TextAlign.left,
-                          style: GoogleFonts.poppins(
-                            color: Color(0xffffffff),
-                            fontSize: 19,
-                            fontWeight: FontWeight.w500,
-                            fontStyle: FontStyle.normal,
-                            letterSpacing: -0.735,
-                          ),
-                          decoration: CustomTextField.formDecoration(
-                              typeField[type]['hint'],
-                              prefixIcon: typeField[type]['icon']),
-                        );
-                      })
+                  stream: _classBloc.getExtra,
+                  builder: (context, snapshot) {
+                    return TextFormField(
+                      onChanged: (value) {
+                        _classBloc.extraChanged(value);
+                      },
+                      controller: _extraController,
+                      keyboardType: typeField[type]['type'],
+                      textAlign: TextAlign.left,
+                      style: GoogleFonts.poppins(
+                        color: Color(0xffffffff),
+                        fontSize: 19,
+                        fontWeight: FontWeight.w500,
+                        fontStyle: FontStyle.normal,
+                        letterSpacing: -0.735,
+                      ),
+                      decoration: CustomTextField.formDecoration(
+                          typeField[type]['hint'],
+                          prefixIcon: typeField[type]['icon']),
+                    );
+                  })
                   : Container(),
             ),
           );
@@ -319,7 +318,7 @@ class _ManagerClassState extends State<ManagerClass> {
                 color: Color(0xff0E153A),
               ),
               items:
-                  <bool>[true, false].map<DropdownMenuItem<bool>>((bool value) {
+              <bool>[true, false].map<DropdownMenuItem<bool>>((bool value) {
                 return DropdownMenuItem<bool>(
                   value: value,
                   child: Align(
@@ -351,8 +350,8 @@ class _ManagerClassState extends State<ManagerClass> {
             width: size.width * 0.9,
             child: DropdownButtonFormField<String>(
               value: (snapshot.data == null ||
-                      (snapshot.data?.isEmpty ?? false) ||
-                      snapshot.data == 'null')
+                  (snapshot.data?.isEmpty ?? false) ||
+                  snapshot.data == 'null')
                   ? null
                   : snapshot.data,
               dropdownColor: Color(0xee1e1e1e),
@@ -424,11 +423,10 @@ class _ManagerClassState extends State<ManagerClass> {
             child: RaisedButton(
               color: Colors.white,
               onPressed: () async {
-                _classBloc.submitDeleteClass(
+                await _classBloc.submitDeleteClass(
                   idAula: widget._aula.id,
                   idTurma: widget.idTurma,
                 );
-                await submitClassEdit();
                 Navigator.of(context).pop();
               },
               shape: RoundedRectangleBorder(
@@ -492,12 +490,13 @@ class _ManagerClassState extends State<ManagerClass> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
 
     List<Widget> list = <Widget>[
       buildFieldTema(size),
       buildFieldDescription(size),
-      buildFieldLink(size),
       buildFieldIsAssincrona(size),
     ];
 
@@ -511,7 +510,7 @@ class _ManagerClassState extends State<ManagerClass> {
           child: CustomTextField(
             _controller,
             label: "Data de termino",
-            hintText: "30/11/2020",
+            hintText: "Prazo aula assíncrona",
             textInputType: TextInputType.datetime,
             onTap: () => activeCalendar(),
             readOnly: true,
@@ -523,9 +522,6 @@ class _ManagerClassState extends State<ManagerClass> {
                 : DateFormat('dd/MM/yyyy').format(widget._aula.endTime!),
             width: size.width * 0.9,
             validator: (value) {
-              if (value!.length == 0) {
-                return "Entre com alguma data";
-              }
               return null;
             },
             prefixIcon: Icon(
@@ -538,7 +534,7 @@ class _ManagerClassState extends State<ManagerClass> {
       ));
     }
 
-    list.addAll(<Widget>[buildFieldType(size), buildFieldExtra(size)]);
+    list.add(buildFieldType(size));
 
     return Scaffold(
       appBar: AppBar(
@@ -548,7 +544,10 @@ class _ManagerClassState extends State<ManagerClass> {
       backgroundColor: Color(0xff0E153A),
       body: Container(
         padding: EdgeInsets.only(bottom: 90),
-        width: MediaQuery.of(context).size.width,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
         child: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -565,7 +564,7 @@ class _ManagerClassState extends State<ManagerClass> {
                       shrinkWrap: true,
                       itemBuilder: (_, int index) => SizedBox(height: 15),
                       separatorBuilder: (_, int index) => list[index],
-                      itemCount: list.length,
+                      itemCount: list.length + 1,
                     ),
                   ),
                 ),
