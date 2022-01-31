@@ -1,7 +1,7 @@
 name: censeo
 description: Este aplicativo tem como objetivo ajudar os professores e alunos na melhora da qualidade das aulas.
 publish_to: 'none'
-version: 1.0.0+3
+version: 1.1.0
 
 
 environment:
@@ -27,6 +27,8 @@ dependencies:
   diacritic:
   logger:
   fl_chart:
+  firebase_core:
+  firebase_messaging:
 
 dev_dependencies:
   flutter_test:

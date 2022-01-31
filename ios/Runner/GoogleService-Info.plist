@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>378488913684-g56qj39abg7fqlgg2rrdsdnas01r07bg.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.378488913684-g56qj39abg7fqlgg2rrdsdnas01r07bg</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCp1NQbn8nJVNrb11kdSVWlV7EeoNsl0lU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>378488913684</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.poc.censeo</string>
+	<key>PROJECT_ID</key>
+	<string>censeo-1ea51</string>
+	<key>STORAGE_BUCKET</key>
+	<string>censeo-1ea51.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:378488913684:ios:3361cc239dc7f4410ccc01</string>
+</dict>
+</plist>

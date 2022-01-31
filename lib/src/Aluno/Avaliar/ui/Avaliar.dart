@@ -25,8 +25,6 @@ class Avaliar extends StatefulWidget {
 
 class _AvaliarState extends State<Avaliar> {
   final BlocAluno bloc = BlocAluno();
-  static List<String> days = ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
-  final ScrollController _scrollController = ScrollController();
   bool loader = false;
 
   Widget buildNameTitle(snapshot) {
@@ -315,8 +313,7 @@ class _AvaliarState extends State<Avaliar> {
           future: bloc.fetchOpenClass(),
           builder: (context, snapshot) {
             return Loader(
-              loader:
-                  (snapshot.connectionState == ConnectionState.done) && !loader,
+              loader: (snapshot.connectionState == ConnectionState.done) && !loader,
               child: RefreshIndicator(
                 onRefresh: () async {
                   return await bloc.fetchOpenClass();

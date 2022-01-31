@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:censeo/resources/services/push_notification.dart';
 import 'package:censeo/src/Aluno/Avaliar/models/Avaliacao.dart';
 import 'package:censeo/src/Aluno/Avaliar/models/Avatar.dart';
 import 'package:censeo/src/Professor/Aulas/models/Aula.dart';
@@ -17,10 +18,12 @@ class BlocAluno extends Object implements BaseBloc {
   late User staticUser;
 
   BlocAluno() {
-    upDateStaticUser();
+    upDateStaticUser().then((value){
+      PushNotificationService().initialise(staticUser);
+    });
   }
 
-  upDateStaticUser() {
+  Future upDateStaticUser() async {
     getuser().then((value) => staticUser = value);
   }
 
@@ -134,6 +137,7 @@ class BlocAluno extends Object implements BaseBloc {
     await prefs.remove('user');
     await prefs.remove("type");
     await prefs.remove('token');
+    await prefs.clear();
   }
 
   @override

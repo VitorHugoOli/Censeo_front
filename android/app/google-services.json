@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "378488913684",
+    "project_id": "censeo-1ea51",
+    "storage_bucket": "censeo-1ea51.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378488913684:android:25746e4146af0ffd0ccc01",
+        "android_client_info": {
+          "package_name": "com.poc.censeo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "378488913684-3fvinkokn4ib9870fvtm4bpe3dis9ct9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBczOtV4gLgwPWsc3gV2OSwIty_0eNELk0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "378488913684-3fvinkokn4ib9870fvtm4bpe3dis9ct9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

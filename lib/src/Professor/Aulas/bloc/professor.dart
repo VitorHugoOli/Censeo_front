@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:censeo/resources/services/push_notification.dart';
 import 'package:censeo/src/Professor/Aulas/models/Aula.dart';
 import 'package:censeo/src/Professor/Aulas/models/Turma.dart';
 import 'package:censeo/src/User/models/alunos.dart';
@@ -59,6 +60,27 @@ class Bloc extends Object implements BaseBloc {
       Rx.combineLatest2<String, String, bool>(getHorario, getRoom, (e, p) {
         return (e.isNotEmpty && p.isNotEmpty);
       });
+
+  late User staticUser;
+
+  Bloc() {
+    upDateStaticUser().then((value) {
+      PushNotificationService().initialise(staticUser);
+    });
+  }
+
+  Future upDateStaticUser() async {
+    getuser().then((value) => staticUser = value);
+  }
+
+  Future<User> getuser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return User.fromJson(
+      jsonDecode(
+        prefs.getString("user")!,
+      ),
+    );
+  }
 
   fetchTurmas() async {
     final response = await provider.fetchTurmas();
@@ -161,6 +183,7 @@ class Bloc extends Object implements BaseBloc {
     await prefs.remove('user');
     await prefs.remove("type");
     await prefs.remove('token');
+    await prefs.clear();
   }
 
   @override
